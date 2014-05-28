@@ -1,0 +1,17 @@
+{
+    "name": "bmg/superadmin",
+    "version": "0.0.0",
+    "description": "Superadmin application using Backbone.js, RequireJS, Grunt & Bower",
+    "homepage": "",
+    "bugs": "",
+    "keywords": [],
+    "contributors": [
+        "Daniel Stancu <daniel@bmgroup.be>"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Cloudwalkers/superadmin"
+    },
+    "dependencies": {},
+    "devDependencies": {}
+}

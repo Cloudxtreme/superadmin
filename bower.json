@@ -1,0 +1,15 @@
+{
+    "name": "superadmin",
+    "version": "0.0.1",
+    "dependencies": {
+        "modernizr": "*",
+        "jquery": "*",
+        "requirejs": "*",
+        "requirejs-text": "*",
+        "backbone": "*",
+        "backbone.localStorage": "*",
+        "underscore": "*",
+        "bootstrap ": "*"
+    },
+    "devDependencies": {}
+}
