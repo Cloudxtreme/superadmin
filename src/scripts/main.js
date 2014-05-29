@@ -16,13 +16,13 @@ require.config({
             deps: ['backbone'],
             exports: 'Store'
         },
-        'bootstrap' : {
+        'bootstrap': {
             deps: ['jquery']
         },
-		oauth2: {
+        oauth2: {
             deps: ['backbone'],
             exports: 'OAuth2'
-        },
+        }
     },
     paths: {
         jquery: '../vendor/jquery/dist/jquery.min',
@@ -39,7 +39,7 @@ require.config({
 require([
     'jquery',
     'bootstrap'
-], function($, _bootstrap){
+], function ($, _bootstrap) {
     // this is where all the site code should begin
     return {};
 });

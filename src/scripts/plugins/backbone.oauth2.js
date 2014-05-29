@@ -74,16 +74,20 @@
         // the auth was successful or not.
         onRedirect: function (hash) {
             var params = parseHash(hash);
-
+            console.log(params);
+            console.log(params[this.tokenName]);
             if (this.authSuccess(params)) {
+                console.log('onSuccess');
                 this.onSuccess(params);
             } else {
                 this.onError(params);
+                console.log('onError');
             }
         },
 
         // Detect if we have a successful auth and save it to Store.
         authSuccess: function (params) {
+            console.log(params);
             window.localStorage.setItem('token', JSON.stringify([
                 {id: this.clientId, token: params[this.tokenName]}
             ]));

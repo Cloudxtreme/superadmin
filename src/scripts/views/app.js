@@ -42,15 +42,19 @@ define([
                 .html(this.view.render().el)
                 .after(this.footer.render().el);
 
+            // Menu item selection
+            this.header.selectMenuItem(this.view.menu);
+
             // Tell your view
             this.view.$el.trigger('rendered');
         },
 
-        page: function (view) {
+        page: function (view, menuItem) {
 
             if (this.view) this.view.remove();
 
             this.view = view;
+            this.view.menu = menuItem || 'home';
 
             // Calls the view's render method
             this.render();

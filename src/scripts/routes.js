@@ -3,15 +3,19 @@ define([
     'backbone',
     'views/index',
     'views/login',
-    'views/about',
+    'views/accounts/list',
+    'views/accounts/add',
+    'views/docs',
     'views/error'
-], function ($, Backbone, indexView, loginView, aboutView, errorView) {
+], function ($, Backbone, indexView, loginView, accountsListView, accountsAddView, documentationView, errorView) {
 
     var Router = Backbone.Router.extend({
         routes: {
             '': 'home',
             'login': 'login',
-            'about': 'about',
+            'accounts': 'accounts',
+            'accounts/add': 'accountsAdd',
+            'docs': 'documentation',
             '*other': 'default'
         },
 
@@ -23,20 +27,31 @@ define([
         home: function () {
             this.app.page(new indexView());
         },
-		
-		// Login
+
+        // Login
         login: function () {
             this.app.page(new loginView());
         },
 
-        // About
-        about: function () {
-            this.app.page(new aboutView());
+        // Accounts list
+        accounts: function () {
+            this.app.page(new accountsListView(), 'accounts');
+        },
+
+        // Account add
+        accountsAdd: function () {
+            this.app.page(new accountsAddView(), 'accounts');
+        },
+
+        // Documentation
+        documentation: function () {
+            this.app.page(new documentationView(), 'docs');
         },
 
         // Page not found
         default: function (other) {
-			this.app.page(new errorView(other));
+            console.log('Route not found on', other);
+            //this.app.page(new errorView(other));
         }
     });
 

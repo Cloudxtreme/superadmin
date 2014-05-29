@@ -15,7 +15,7 @@ define([
         initialize: function () {
             console.log('Initialized Session Model');
 			
-			if( typeof localStorage != "undefined" && localStorage !== null ){
+			if( typeof window.localStorage != "undefined" && window.localStorage !== null ){
 				// choose localStorage
 				this.store = this.localStorage;
 			} else {
@@ -60,17 +60,17 @@ define([
 		
 		localStorage : {
 			get : function( name ) {
-				return localStorage.getItem( name );
+				return window.localStorage.getItem( name );
 			},
 			set : function( name, val ){
-				return localStorage.setItem( name, val );
+				return window.localStorage.setItem( name, val );
 			},
 			check : function( name ){
-				return ( localStorage.getItem( name ) == null );
+				return ( window.localStorage.getItem( name ) == null );
 			},
 			clear: function( name ){
 				// actually just removing the session...
-				return localStorage.removeItem( name );
+				return window.localStorage.removeItem( name );
 			}
 		},
 		cookie : {

@@ -2,22 +2,22 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'text!templates/about.html'
-], function ($, _, Backbone, aboutTemplate) {
+    'text!templates/docs.html'
+], function ($, _, Backbone, documentationTemplate) {
 
-    var aboutView = Backbone.View.extend({
+    var documentationView = Backbone.View.extend({
 
         // Compile our template
-        template: _.template(aboutTemplate),
+        template: _.template(documentationTemplate),
 
         // View constructor
         initialize: function () {
-            console.log('Initialized About View');
+            console.log('Initialized Documentation View');
         },
 
         // Render the content
         render: function () {
-            console.log('Render About View');
+            console.log('Render Documentation View');
             this.setElement(this.template());
 
             // Maintains chainability
@@ -26,5 +26,5 @@ define([
     });
 
     // Returns the class itself
-    return aboutView;
+    return documentationView;
 });
