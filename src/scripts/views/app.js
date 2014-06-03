@@ -6,21 +6,22 @@ define([
     'views/footer',
     'models/session',
     'common'
-], function ($, _, Backbone, headerView, footerView, Session, Common) {
+], function ($, _, Backbone, Header, Footer, Session, Common) {
 
     var App = Backbone.View.extend({
         view: null,
         header: null,
         footer: null,
+        session: null,
         el: '#superadmin',
 
         // Constructor
         initialize: function () {
-            console.log('Initialized Main View');
+            console.log('Initialize Main View');
 
             this.session = new Session();
-            this.header = new headerView();
-            this.footer = new footerView();
+            this.header = new Header();
+            this.footer = new Footer();
         },
 
         // Re-rendering the Superadmin app
@@ -31,15 +32,19 @@ define([
             if (!this.view) return null;
 
             // Session verification
-            if (!this.session.get('session')) {
-                Backbone.history.navigate('login', {trigger: true});
+            if (!this.session.active()) {
+                console.log('Navigate to <</login>> path');
+                this.$el.prev('header').remove();
+                Backbone.history.navigate('login', {trigger: true, replace: true});
             } else {
+                console.log('Navigate to the <<view>> path');
+
                 this.$el.before(this.header.render().el)
             }
 
             // Insert main content & footer
             this.$el
-                .html(this.view.render().el)
+                .html(this.view.render(this.session).el)
                 .after(this.footer.render().el);
 
             // Menu item selection

@@ -1,8 +1,9 @@
-define(['models/accounts/accounts'], function(TaskList) {
-    var AccountLists = Backbone.Collection.extend({
+define(['config', 'models/account'], function (config, AccountList) {
+    var AccountsCollection = Backbone.Collection.extend({
         model: AccountList
-        , url: '/1/admin/accounts'
+        , url: config.api.url + config.api.admin + '/accounts'
+        , url: '/api.php'
     });
 
-    return AccountLists;
+    return AccountsCollection;
 });

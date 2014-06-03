@@ -12,10 +12,7 @@ define([
 
         // View constructor
         initialize: function () {
-            console.log('Initialized Footer View');
-
-            // Calls the view's render method
-            this.render();
+            console.log('Initialize Footer View');
         },
 
         // Render the content

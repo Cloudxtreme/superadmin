@@ -12,7 +12,7 @@ define([
 
         // View constructor
         initialize: function () {
-            console.log('Initialized Error View');
+            console.log('Initialize Error View');
 
             // Calls the view's render method
             this.render();

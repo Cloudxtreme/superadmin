@@ -20,17 +20,20 @@ define([
         },
 
         initialize: function (options) {
+            console.log('Initialize Router');
             this.app = options.app;
         },
 
         // Index
         home: function () {
+            console.log('"/" route achieved');
             this.app.page(new indexView());
         },
 
         // Login
         login: function () {
-            this.app.page(new loginView());
+            console.log('"/login" route achieved');
+            this.app.page(new loginView(), 'login');
         },
 
         // Accounts list

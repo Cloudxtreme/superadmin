@@ -12,7 +12,7 @@ define([
 
         // View constructor
         initialize: function () {
-            console.log('Initialized Index View');
+            console.log('Initialize Index View');
         },
 
         // Render the content

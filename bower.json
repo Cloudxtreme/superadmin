@@ -1,15 +1,18 @@
 {
     "name": "superadmin",
     "version": "0.0.1",
+    "authors": [
+        "Daniel STANCU <daniel.stancu@arnia.ro>"
+    ],
     "dependencies": {
         "modernizr": "*",
         "jquery": "*",
         "requirejs": "*",
         "requirejs-text": "*",
-        "backbone": "*",
-        "backbone.localStorage": "*",
         "underscore": "*",
-        "bootstrap ": "*"
+        "backbone": "*",
+        "bootstrap": "*",
+        "parsleyjs": "*"
     },
     "devDependencies": {}
 }

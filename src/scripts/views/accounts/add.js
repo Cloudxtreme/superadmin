@@ -12,7 +12,7 @@ define([
 
         // View constructor
         initialize: function () {
-            console.log('Initialized accounts add View');
+            console.log('Initialize accounts add View');
         },
 
         // Render the content

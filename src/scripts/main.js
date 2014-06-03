@@ -1,5 +1,6 @@
 // Require.js allows us to configure shortcut alias
 require.config({
+    baseUrl: '/scripts/',
     // The shim config allows us to configure dependencies for scripts that do not call define() to register a module
     shim: {
         underscore: {
@@ -12,26 +13,23 @@ require.config({
             ],
             exports: 'Backbone'
         },
-        backboneLocalstorage: {
-            deps: ['backbone'],
-            exports: 'Store'
+        backboneSync: {
+            deps: ['backbone']
         },
         'bootstrap': {
             deps: ['jquery']
         },
         oauth2: {
-            deps: ['backbone'],
-            exports: 'OAuth2'
+            deps: ['backbone']
         }
     },
     paths: {
         jquery: '../vendor/jquery/dist/jquery.min',
+        text: '../vendor/requirejs-text/text',
         underscore: '../vendor/underscore/underscore',
         backbone: '../vendor/backbone/backbone',
-        backboneLocalstorage: "/vendor/backbone.localStorage/backbone.localStorage-min",
-        text: '../vendor/requirejs-text/text',
         bootstrap: '../vendor/bootstrap/dist/js/bootstrap.min',
-        oauth2: 'plugins/backbone.oauth2',
+        oauth2: 'plugins/backbone.auth',
         templates: '../templates'
     }
 });

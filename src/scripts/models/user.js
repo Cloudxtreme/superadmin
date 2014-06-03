@@ -1,7 +1,6 @@
 define([
     'underscore',
-    'backbone',
-    'backboneLocalstorage'
+    'backbone'
 ], function (_, Backbone) {
 
     var UserModel = Backbone.Model.extend({
@@ -13,26 +12,23 @@ define([
         },
 
         initialize: function () {
-            console.log('Initialized Me Model');
-			
-			// Load data
-			this.once('change', this.activate);
+            console.log('Initialize Me Model');
+
+            // Load data
+            this.once('change', this.activate);
         },
-		
-		parse: function(){
-			console.log('Parse User Model');
-			
-		},
-		
-		activate: function () {
-		},
+
+        parse: function () {
+            console.log('Parse User Model');
+
+        },
+
+        activate: function () {
+        },
 
         // Gets called automatically by Backbone when the set and/or save methods are called
-        validate: function(attrs) {
-
-        },
-
-        
+        validate: function (attrs) {
+        }
     });
 
     // Returns the class itself

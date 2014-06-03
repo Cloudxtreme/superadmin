@@ -12,7 +12,7 @@ define([
 
         // View constructor
         initialize: function () {
-            console.log('Initialized Header View');
+            console.log('Initialize Header View');
         },
 
         // Render the content
