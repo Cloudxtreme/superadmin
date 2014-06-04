@@ -4,4 +4,5 @@ Thumbs.db
 
 node_modules
 src/vendor
+src/scripts/config.js
 src/*.php
