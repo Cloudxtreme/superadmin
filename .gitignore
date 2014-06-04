@@ -1,8 +1,10 @@
 .idea
 .DS_Store
 Thumbs.db
+*.log
 
 node_modules
 src/scripts/config.js
 src/vendor
+src/scripts/config.js
 src/*.php
