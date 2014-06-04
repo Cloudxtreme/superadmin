@@ -16,7 +16,7 @@ define([
             if (!Backbone.Auth.active()) {
                 Backbone.Auth.login({
                     clientId: config.api.clientId,
-                    authUrl: config.api.url + config.api.auth,
+                    authUrl: config.api.url + config.api.authPath,
                     redirectUrl: config.api.redirectUrl,
                     state: config.api.state,
                     width: 450,

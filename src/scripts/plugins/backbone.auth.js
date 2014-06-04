@@ -42,19 +42,6 @@
             if (!Backbone.Auth.getAccessToken()) {
                 console.log('NO TOKEN!!!');
                 var popup = window.open(url, '_blank', 'resizable=no,location=no,toolbar=no,width=' + (this.width || 800) + ',height=' + (this.height || 600) + ',left=' + left + ',top=' + top);
-
-                /*$(popup).on('load', function (event) {
-                 console.log('popup loaded');
-                 var url = event.url || event.target.URL;
-                 console.log('popup loaded with url:', url);
-                 if (url.indexOf('access_token=') > 0) {
-                 params[that.tokenName] = that.extractToken(url);
-                 that.onSuccess(params);
-                 this.close();
-                 } else {
-                 that.onError(params);
-                 }
-                 });*/
             } else {
                 console.log('Token is already here!');
             }
@@ -97,7 +84,7 @@
 
             if (typeof(window.localStorage) != 'undefined') {
                 window.localStorage.setItem('session', JSON.stringify([
-                    {id: null, token: params['access_token']}
+                    {auth: true, token: params['access_token']}
                 ]));
 
                 Backbone.history.navigate('', {trigger: true});
@@ -122,6 +109,14 @@
     Backbone.sync = function (method, model, options) {
         options = options || {};
         options.headers = options.headers || {};
+
+        if (!options.crossDomain) {
+            options.crossDomain = true;
+        }
+
+        if (!options.xhrFields) {
+            options.xhrFields = {withCredentials: true};
+        }
 
         // Extending headers
         _.extend(options.headers, Backbone.Auth.headers());

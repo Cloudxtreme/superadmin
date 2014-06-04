@@ -7,13 +7,9 @@ define({
         sessionName: 'session'
     },
     api: {
-        alwaysUseHTTPS: true,
-        auth: 'oauth2/authorize',
-        //url: 'http://cloudwalkers-website.local/',
-        url: 'https://devapi.cloudwalkers.be/',
-        //url: 'http://cloudwalkers-engine.local/',
-        //admin : 'json/admin',
-        admin: '1/admin',
+        url: 'http://cloudwalkers-website.local/',
+        path : 'json/admin',
+        authPath: 'oauth2/authorize',
         redirectUrl: 'http://cloudwalkers-superadmin.local/oauth.html',
         clientId: '680f7d83014fa3aca5ca054e3ebda5f70538ed73d',
         state: 'xyz',
