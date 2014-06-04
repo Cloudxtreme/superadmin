@@ -1,10 +1,11 @@
 {
-    "name": "bmg/superadmin",
-    "version": "0.0.0",
+    "name": "cloudwalkers-superadmin",
+    "version": "0.1.2",
     "description": "Superadmin application using Backbone.js, RequireJS, Grunt & Bower",
     "homepage": "",
     "bugs": "",
     "keywords": [],
+    "private": true,
     "contributors": [
         "Daniel Stancu <daniel@bmgroup.be>"
     ],
@@ -13,5 +14,12 @@
         "url": "https://github.com/Cloudwalkers/superadmin"
     },
     "dependencies": {},
-    "devDependencies": {}
+    "devDependencies": {
+        "grunt": "*",
+        "grunt-contrib-cssmin":         "*",
+        "grunt-contrib-uglify":         "*",
+        "grunt-contrib-watch":          "*",
+        "grunt-htmlhint":               "*",
+        "matchdep":                     "*"
+    }
 }
