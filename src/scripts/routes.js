@@ -1,18 +1,20 @@
 define([
     'jquery',
     'backbone',
+    'auth',
     'views/index',
     'views/login',
     'views/accounts/list',
     'views/accounts/add',
     'views/docs',
     'views/error'
-], function ($, Backbone, indexView, loginView, accountsListView, accountsAddView, documentationView, errorView) {
+], function ($, Backbone, Auth, indexView, loginView, accountsListView, accountsAddView, documentationView, errorView) {
 
     var Router = Backbone.Router.extend({
         routes: {
             '': 'home',
             'login': 'login',
+            'logout': 'logout',
             'accounts': 'accounts',
             'accounts/add': 'accountsAdd',
             'docs': 'documentation',
@@ -34,6 +36,14 @@ define([
         login: function () {
             console.log('"/login" route achieved');
             this.app.page(new loginView(), 'login');
+        },
+
+        // Logout
+        logout: function () {
+            console.log('"/logout" route achieved');
+
+            Backbone.Auth.logout();
+            Backbone.history.navigate('/', {trigger: true});
         },
 
         // Accounts list

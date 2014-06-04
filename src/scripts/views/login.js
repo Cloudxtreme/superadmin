@@ -1,8 +1,9 @@
 define([
     'underscore',
     'backbone',
+    'config',
     'text!templates/login.html'
-], function (_, Backbone, loginTemplate) {
+], function (_, Backbone, config, loginTemplate) {
 
     var loginView = Backbone.View.extend({
         // Variables
@@ -11,28 +12,26 @@ define([
         // View constructor
         initialize: function () {
             console.log('Initialize Login View');
+
+            if (!Backbone.Auth.active()) {
+                Backbone.Auth.login({
+                    clientId: config.api.clientId,
+                    authUrl: config.api.url + config.api.auth,
+                    redirectUrl: config.api.redirectUrl,
+                    state: config.api.state,
+                    width: 450,
+                    height: 450
+                });
+            } else {
+                Backbone.history.navigate('/', {trigger: true});
+            }
         },
 
         // Render the content
-        render: function (session) {
+        render: function () {
             console.log('Render Login View');
 
-
-
-
-            if (!session.active()) {
-                session.auth();
-                this.setElement(this.template());
-            } else {
-                Backbone.history.navigate('/', {trigger: true, replace: true});
-            }
-
-            /*if (!session.active()) {
-                session.auth();
-                this.setElement(this.template());
-            } else {
-                Backbone.history.navigate('', {trigger: true});
-            }*/
+            this.setElement(this.template());
 
             // Maintains chainability
             return this;

@@ -19,8 +19,12 @@ require.config({
         'bootstrap': {
             deps: ['jquery']
         },
-        oauth2: {
-            deps: ['backbone']
+        auth: {
+            deps: [
+                'jquery',
+                'underscore',
+                'backbone'
+            ]
         }
     },
     paths: {
@@ -29,7 +33,7 @@ require.config({
         underscore: '../vendor/underscore/underscore',
         backbone: '../vendor/backbone/backbone',
         bootstrap: '../vendor/bootstrap/dist/js/bootstrap.min',
-        oauth2: 'plugins/backbone.auth',
+        auth: 'plugins/backbone.auth',
         templates: '../templates'
     }
 });
