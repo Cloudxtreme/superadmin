@@ -22,11 +22,12 @@ You project directory will look like this:
 - `src`            - folder with source files (write your code here)
 	- `vendor` 	     - folder where [Bower][Bower] client-side packages are installed
 	- `images`       - folder containing images
-	- `index.html`   - main markup file
-	- `oauth.html`   - OAuth2 markup sample file
-	- `js`      	 - folder with JavaScript code
-	- `css`       	 - folder containing stylesheets
+	- `scripts`    	 - folder with JavaScript code
+	- `styles`       - folder containing stylesheets
 	- `templates`    - folder containing template files
+	- `oauth.html`   - OAuth2 markup sample file
+	- `index.html`   - main markup file
+	- `robots.txt`   - robots file
 
 [Grunt]: http://gruntjs.com/
 [Bower]: http://bower.io/
