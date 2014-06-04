@@ -1,14 +1,14 @@
 define({
-    environment: 'development',
+    environment: 'production',
 
     // API settings
     api: {
-        url: 'http://cloudwalkers-website.local/',
-        path : 'json/admin',
+        url: 'http://cloudwalkers-engine.local/',
+        dataPath : 'json/admin',
         authPath: 'oauth2/authorize',
         redirectUrl: 'http://cloudwalkers-superadmin.local/oauth.html',
         clientId: '',
         state: 'xyz',
-        scope: ''
+        scope: null
     }
 });
