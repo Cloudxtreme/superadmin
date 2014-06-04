@@ -9,11 +9,11 @@ define({
     api: {
         alwaysUseHTTPS: true,
         auth: 'oauth2/authorize',
-        url: 'http://engine.bmg.birkof.dev/',
-        //url: 'http://platform.bmg.birkof.dev/',
-        //admin: '1/admin',
-        admin : 'json/admin',
-        redirectUrl: 'http://superadmin.bmg.birkof.dev/oauth.html',
+        //url: 'http://cloudwalkers-website.local/',
+        url: 'http://cloudwalkers-engine.local/',
+        //admin : 'json/admin',
+        admin: '1/admin',
+        redirectUrl: 'http://cloudwalkers-superadmin.local/oauth.html',
         clientId: 'oauth2537f198a5ce488.49560531',
         state: 'xyz',
         scope: ''
