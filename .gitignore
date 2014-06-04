@@ -3,5 +3,6 @@
 Thumbs.db
 
 node_modules
+src/scripts/config.js
 src/vendor
 src/*.php
