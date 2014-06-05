@@ -18,15 +18,16 @@ define([
 
         // View constructor
         initialize: function () {
-            this.model = new accountsCollection();
-            this.model.on('sync', this.list, this);
-            this.model.fetch(); // fetching the model data from /my/url
-
             console.log('Initialize accounts list View');
+
+            var accounts = new accountsCollection();
+            accounts.on('sync', this.list, this);
+            accounts.fetch(); // fetching the model data from /my/url
         },
 
         // Show data table
         list: function (data) {
+            console.log('Accounts list rendering');
             this.$('#items').html(_.template(accountsItemsTemplate, {items: data.toJSON()}));
         },
 
