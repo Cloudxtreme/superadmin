@@ -10,7 +10,31 @@ body {
     font-weight: 400;
 }
 
-.starter-template {
+body::before {
+    position: absolute;
+    z-index: 10000;
+    content: '';
+    width: 3000px;
+    height: 2px;
+    top: -2px;
+    left: 0;
+    animation: rotate 3s infinite linear;
+    -webkit-animation: rotate 3s infinite linear;
+    transition: top 1s linear;
+    -webkit-transition: top 1s linear;
+    background: -moz-linear-gradient(left, #30ff90 0%, #ed2ded 25%, #c99826 50%, #30ffe6 75%, #30ff90 100%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%, #30ff90), color-stop(25%, #ed2ded), color-stop(50%, #c99826), color-stop(75%, #30ffe6), color-stop(100%, #30ff90));
+    background: -webkit-linear-gradient(left, #30ff90 0%, #ed2ded 25%, #c99826 50%, #30ffe6 75%, #30ff90 100%);
+    background: -o-linear-gradient(left, #30ff90 0%, #ed2ded 25%, #c99826 50%, #30ffe6 75%, #30ff90 100%);
+    background: -ms-linear-gradient(left, #30ff90 0%, #ed2ded 25%, #c99826 50%, #30ffe6 75%, #30ff90 100%);
+    background: linear-gradient(to right, #30ff90 0%, #ed2ded 25%, #c99826 50%, #30ffe6 75%, #30ff90 100%);
+}
+
+body.loading::before {
+    top: 0;
+}
+
+.dashboard {
     padding: 40px 15px;
     text-align: center;
 }
@@ -29,4 +53,22 @@ body {
 .footer p {
     line-height: 60px;
     margin: 0;
+}
+
+@-webkit-keyframes rotate {
+    from {
+        background-position: -3000px;
+    }
+    to {
+        background-position: 0;
+    }
+}
+
+@keyframes rotate {
+    from {
+        background-position: -3000px;
+    }
+    to {
+        background-position: 0;
+    }
 }

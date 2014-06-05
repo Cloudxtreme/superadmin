@@ -12,7 +12,7 @@ define([
         view: null,
         header: null,
         footer: null,
-        el: '#superadmin',
+        el: '#app',
 
         // Constructor
         initialize: function () {

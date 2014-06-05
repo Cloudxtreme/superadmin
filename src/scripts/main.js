@@ -53,6 +53,13 @@ require([
 ], function (Backbone, App, Router) {
     'use strict';
 
+    // AJAX settings
+    $(document).ajaxStart(function () {
+        $('body').addClass('loading');
+    }).ajaxComplete(function () {
+        $('body').removeClass('loading');
+    });
+
     // Initialize routing & application
     var router = new Router({ app: new App()});
 
