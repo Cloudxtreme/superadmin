@@ -28,7 +28,7 @@ require.config({
         }
     },
     paths: {
-        jquery: '../vendor/jquery/dist/jquery.min',
+        jquery: '../vendor/jquery/jquery.min',
         text: '../vendor/requirejs-text/text',
         underscore: '../vendor/underscore/underscore',
         backbone: '../vendor/backbone/backbone',

@@ -57,22 +57,20 @@
                 'Accept': 'application/json'
             };
         },
+        // Return if the session is active
         active: function () {
-            // try loading the session
             var localSession = Backbone.Auth.getAccessToken();
             return !_.isNull(localSession) ? localSession : null;
         },
+        // Get the access_token from localStorage
         getAccessToken: function () {
             var data = JSON.parse(window.localStorage.getItem('session'));
             return (data ? (data.shift()).token : null);
         },
-        // Detect if we have a successful auth and save it to localStorage.
-        authSuccess: function (params) {
-            return params['access_token'];
-        },
+        // Fires on popup redirects
         onRedirect: function (hash) {
             var params = parseHash(hash);
-            if (Backbone.Auth.authSuccess(params)) {
+            if (params['access_token']) {
                 Backbone.Auth.success(params);
             } else {
                 Backbone.Auth.error(params);
@@ -88,11 +86,8 @@
                 ]));
 
                 Backbone.history.navigate('', {trigger: true});
-            } else {
-                throw "window.localStorage, not defined";
             }
         },
-
         // Fires onError
         error: function (params) {
             console.log('OAuth2 onError', params);
@@ -109,14 +104,6 @@
     Backbone.sync = function (method, model, options) {
         options = options || {};
         options.headers = options.headers || {};
-
-        if (!options.crossDomain) {
-            options.crossDomain = true;
-        }
-
-        if (!options.xhrFields) {
-            options.xhrFields = {withCredentials: true};
-        }
 
         // Extending headers
         _.extend(options.headers, Backbone.Auth.headers());

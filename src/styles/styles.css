@@ -1,6 +1,10 @@
+html, body {
+    min-height: 100%;
+    overflow-x: hidden;
+}
+
 html {
     position: relative;
-    min-height: 100%;
 }
 
 body {
@@ -15,8 +19,8 @@ body::before {
     z-index: 10000;
     content: '';
     width: 3000px;
-    height: 2px;
-    top: -2px;
+    height: 3px;
+    top: -3px;
     left: 0;
     animation: rotate 3s infinite linear;
     -webkit-animation: rotate 3s infinite linear;
