@@ -12,7 +12,10 @@
         "underscore": "*",
         "backbone": "*",
         "bootstrap": "*",
-        "parsleyjs": "*"
+        "parsleyjs": "*",
+        "backgrid": "*",
+        "backgrid-paginator": "*",
+        "backgrid-filter": "*"
     },
     "devDependencies": {}
 }
