@@ -18,7 +18,7 @@ You project directory will look like this:
 - `.bowerrc`       - config file that tells [Bower][Bower] where to install packages
 - `.gitignore`     - files that should not be commited to Git
 - `package.json`   - file that specifies which packages should [npm][npm] install
-- `dist`           - folder where generated files are placed (do not edit files here)
+- `dist`           - folder where compiled files are placed (do not edit files here)
 - `src`            - folder with source files (write your code here)
 	- `vendor` 	     - folder where [Bower][Bower] client-side packages are installed
 	- `images`       - folder containing images
