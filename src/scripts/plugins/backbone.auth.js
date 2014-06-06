@@ -39,7 +39,7 @@
             if (this.scope) url += '&scope=' + this.scope;
             if (this.state) url += '&state=' + this.state;
 
-            if (!Backbone.Auth.getAccessToken()) {
+            if (!Backbone.Auth.active()) {
                 console.log('NO TOKEN!!!');
                 var popup = window.open(url, '_blank', 'resizable=no,location=no,toolbar=no,width=' + (this.width || 800) + ',height=' + (this.height || 600) + ',left=' + left + ',top=' + top);
             } else {
@@ -59,14 +59,19 @@
         },
         // Return if the session is active
         active: function () {
-            var localSession = Backbone.Auth.getAccessToken();
-            return !_.isNull(localSession) ? localSession : null;
+            return !_.isNull(this.getAccessToken()) ? true : false;
         },
+
         // Get the access_token from localStorage
         getAccessToken: function () {
-            var data = JSON.parse(window.localStorage.getItem('session'));
-            return (data ? (data.shift()).token : null);
+            if (typeof(window.localStorage) != 'undefined') {
+                var data = JSON.parse(window.localStorage.getItem('session'));
+                return !_.isNull(data) ? (data.shift()).params.access_token : null;
+            }
+
+            return null;
         },
+
         // Fires on popup redirects
         onRedirect: function (hash) {
             var params = parseHash(hash);
@@ -82,7 +87,7 @@
 
             if (typeof(window.localStorage) != 'undefined') {
                 window.localStorage.setItem('session', JSON.stringify([
-                    {auth: true, token: params['access_token']}
+                    {auth: true, params: params}
                 ]));
 
                 Backbone.history.navigate('', {trigger: true});
