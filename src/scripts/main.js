@@ -40,8 +40,12 @@ require.config({
 
 require([
     'jquery',
-    'bootstrap'
-], function ($, _bootstrap) {
+    'backbone',
+    'bootstrap',
+    'views/app',
+    'routes'
+], function ($, Backbone, bootstrap, App, Router) {
+    'use strict';
 
     // AJAX settings
     $(document).ajaxStart(function () {
@@ -49,17 +53,6 @@ require([
     }).ajaxComplete(function () {
         $('body').removeClass('loading');
     });
-
-    // this is where all the site code should begin
-    return {};
-});
-
-require([
-    'backbone',
-    'views/app',
-    'routes'
-], function (Backbone, App, Router) {
-    'use strict';
 
     // Initialize routing & application
     var router = new Router({ app: new App()});
@@ -69,4 +62,7 @@ require([
         pushState: false,
         root: $('[data-main][data-root]').data('root') || '/'
     });
+
+    // this is where all the site code should begin
+    return {};
 });

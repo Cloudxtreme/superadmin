@@ -1,6 +1,6 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        return define(['underscore', 'backbone', 'config'], function (_, Backbone) {
+        return define(['underscore', 'backbone'], function (_, Backbone) {
             return factory(_ || root._, Backbone || root.Backbone);
         });
     } else {
