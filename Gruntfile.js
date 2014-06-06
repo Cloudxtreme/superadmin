@@ -1,6 +1,7 @@
 /*global module:false*/
 module.exports = function (grunt) {
-    require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+    // load all grunt tasks matching the `grunt-*` pattern
+    require('load-grunt-tasks')(grunt);
 
     // Small-scale utility for processing templates
     grunt.registerMultiTask('process', 'Process templates.', function () {
@@ -133,7 +134,6 @@ module.exports = function (grunt) {
             }
         },
 
-        // Build JS into one monolith by JamJS/RequireJS
         uglify: {
             release: {
                 files: {
@@ -163,12 +163,6 @@ module.exports = function (grunt) {
         concurrent: {
             release: ['process:release', 'requirejs:release', 'uglify', 'cssmin', 'copy:release'],
             debug: ['process:debug'],
-            watch: {
-                tasks: ['watch:watch', 'jshint'],
-                options: {
-                    logConcurrentOutput: true
-                }
-            },
             testRelease: ['jshint'],
             testDebug: ['jshint']
         }
