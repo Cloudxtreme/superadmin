@@ -114,6 +114,28 @@ module.exports = function (grunt) {
             }
         },
 
+        cssmin: {
+            combine: {
+                files: {
+                    'temp/css/styles.css': [
+                        '<%= defaults.source.dir %>/styles/styles.css',
+                        '<%= defaults.source.dir %><%= defaults.vendor.dir %>bootstrap/dist/css/bootstrap.css'
+                    ]
+                }
+            },
+            minify: {
+                expand: true,
+                cwd: 'temp/css/',
+                src: ['*.css', '!*.min.css'],
+                dest: '<%= defaults.release.dir %>/css/',
+                ext: '.min.css'
+            },
+            build: {
+                src: 'temp/css/styles.css',
+                dest: '<%= defaults.release.dir %>/css/styles.css'
+            }
+        },
+
         // Build JS into one monolith by JamJS/RequireJS
         uglify: {
             release: {
@@ -140,7 +162,7 @@ module.exports = function (grunt) {
         },
 
         concurrent: {
-            release: ['process:release', 'requirejs:release', 'uglify', 'copy:release'],
+            release: ['process:release', 'requirejs:release', 'uglify', 'cssmin', 'copy:release'],
             debug: ['process:debug'],
             watch: {
                 tasks: ['watch:watch', 'jshint'],
@@ -159,12 +181,7 @@ module.exports = function (grunt) {
      // Task configuration.
 
 
-     cssmin: {
-     build: {
-     src: 'src/styles/styles.css',
-     dest: 'dist/css/styles.css'
-     }
-     },
+
 
      watch: {
      html: {
