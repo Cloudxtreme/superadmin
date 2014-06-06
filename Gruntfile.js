@@ -154,8 +154,8 @@ module.exports = function (grunt) {
                         dest: '<%= defaults.release.dir %>/',
                         filter: 'isFile'
                     },
-                    {expand: true, src: ['<%= defaults.source.dir %>/oauth.html'], dest: '<%= defaults.release.dir %>/', filter: 'isFile'},
-                    {expand: true, src: ['<%= defaults.source.dir %>/robots.txt'], dest: '<%= defaults.release.dir %>/', filter: 'isFile'}
+                    {expand: true, cwd: '<%= defaults.source.dir %>', src: 'oauth.html', dest: '<%= defaults.release.dir %>/', filter: 'isFile'},
+                    {expand: true, cwd: '<%= defaults.source.dir %>', src: ['robots.txt', 'favicon.ico'], dest: '<%= defaults.release.dir %>/', filter: 'isFile'}
                 ]
             }
         },
