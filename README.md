@@ -5,7 +5,9 @@
 
 1. Install [Node.js](http://nodejs.org/)
 2. Run ```sudo npm install -g grunt-cli bower```
-3. Run ```bower install``` to install the required client-side dependencies.
+3. Run ```npm install``` to install the required dependencies.
+4. Run ```npm build``` to build the distribution folder.
+5. Run ```npm test``` to test the release files.
 
 If on of these these fails, try running the command by yourself.
 
