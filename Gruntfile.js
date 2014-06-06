@@ -63,7 +63,8 @@ module.exports = function (grunt) {
 
         /* Cleaning process */
         clean: {
-            all: [ 'temp', '<%= defaults.debug.dir %>', '<%= defaults.release.dir %>', '<%= defaults.vendor.dir %>' ]
+            all: [ 'temp', '<%= defaults.debug.dir %>', '<%= defaults.release.dir %>' ],
+            final: [ 'temp', '<%= defaults.vendor.dir %>' ]
         },
 
         /* Code quality related tasks */
@@ -147,7 +148,6 @@ module.exports = function (grunt) {
         copy: {
             release: {
                 files: [
-                    /* Copy to temp directory first */
                     {
                         src: '*.html',
                         expand: true,
@@ -172,60 +172,8 @@ module.exports = function (grunt) {
         }
     });
 
-
-    /*
-
-     // Task configuration.
-
-
-
-
-     watch: {
-     html: {
-     files: ['index.html'],
-     tasks: ['htmlhint']
-     },
-     js: {
-     files: ['src/scripts/main.js'],
-     tasks: ['uglify']
-     },
-     css: {
-     files: ['src/styles/*.css'],
-     tasks: ['buildcss']
-     }
-     },
-
-     htmlhint: {
-     build: {
-     options: {
-     'tag-pair': true, // Force tags to have a closing pair
-     'tagname-lowercase': true, // Force tags to be lowercase
-     'attr-lowercase': true, // Force attribute names to be lowercase e.g. <div id="header"> is invalid
-     'attr-value-double-quotes': true, // Force attributes to have double quotes rather than single
-     'doctype-first': true, // Force the DOCTYPE declaration to come first in the document
-     'spec-char-escape': true, // Force special characters to be escaped
-     'id-unique': true, // Prevent using the same ID multiple times in a document
-     'head-script-disabled': true, // Prevent script tags being loaded in the  for performance reasons
-     'style-disabled': true // Prevent style tags. CSS should be loaded through
-     },
-     src: ['index.html']
-     }
-     },
-
-     uglify: {
-     build: {
-     files: {
-     'dist/js/main.min.js': ['src/scripts/main.js']
-     }
-     }
-     }
-
-     });
-     */
-    grunt.registerTask('default', ['cssmin']);
-
+    // Register tasks
+    grunt.registerTask('default', []);
     grunt.registerTask('release', ['clean', 'concurrent:release', 'concurrent:testRelease']);
-
-
-    grunt.registerTask('buildcss', ['cssmin']);
+    grunt.registerTask('clean', ['clean:final']);
 };
