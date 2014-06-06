@@ -45,19 +45,6 @@ module.exports = function (grunt) {
             },
             vendor: {
                 dir: 'vendor'
-            },
-            requirejs: {
-                /* Note: We build directly from the source directory to avoid copying of libs */
-                baseUrl: 'src/scripts',
-                mainConfigFile: 'src/scripts/main.js',
-                dir: 'temp/js',
-                optimize: 'uglify2',
-                keepBuildDir: false,
-                paths: {
-                },
-                modules: [
-                    { name: 'main' }
-                ]
             }
         },
 
@@ -110,9 +97,21 @@ module.exports = function (grunt) {
                 }
             }
         },
+
         requirejs: {
             release: {
-                options: '<%= defaults.requirejs %>'
+                options: {
+                    baseUrl: '<%= defaults.source.dir %>/scripts',
+                    mainConfigFile: '<%= defaults.source.dir %>/scripts/main.js',
+                    dir: 'temp/js',
+                    optimize: 'uglify2',
+                    keepBuildDir: false,
+                    paths: {
+                    },
+                    modules: [
+                        { name: 'main' }
+                    ]
+                }
             }
         },
 
