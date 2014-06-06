@@ -5,11 +5,11 @@ define([
     'collections/accounts',
     'text!templates/accounts/list.html',
     'text!templates/accounts/table.html'
-], function ($, _, Backbone, accountsCollection, accountsListTemplate, accountsItemsTemplate) {
+], function ($, _, Backbone, AccountsCollection, AccountsListTemplate, AccountsItemsTemplate) {
 
     var accountsListView = Backbone.View.extend({
         // Compile our template
-        template: _.template(accountsListTemplate),
+        template: _.template(AccountsListTemplate),
 
         events: {
             "change": "change",
@@ -20,7 +20,7 @@ define([
         initialize: function (options) {
             console.log('Initialize accounts list View');
             console.log('Page', options.page || 1);
-            this.model = new accountsCollection();
+            this.model = new AccountsCollection();
             this.model.on('sync', this.list, this);
             this.model.fetch(); // fetching the model data from /my/url
         },
@@ -28,7 +28,7 @@ define([
         // Show data table
         list: function (data) {
             console.log('Accounts list rendering');
-            this.$('#items').html(_.template(accountsItemsTemplate, {items: data.toJSON()}));
+            this.$('#items').html(_.template(AccountsItemsTemplate, {items: data.toJSON()}));
         },
 
         // Render the content

@@ -9,7 +9,7 @@ define([
     'views/accounts/edit',
     'views/docs',
     'views/error'
-], function ($, Backbone, Auth, indexView, loginView, accountsListView, accountsAddView, accountsEditView, documentationView, errorView) {
+], function ($, Backbone, Auth, IndexView, LoginView, AccountsListView, AccountsAddView, AccountsEditView, DocumentationView, ErrorView) {
 
     var Router = Backbone.Router.extend({
         routes: {
@@ -31,13 +31,13 @@ define([
         // Index
         home: function () {
             console.log('"/" route achieved');
-            this.app.page(new indexView());
+            this.app.page(new IndexView());
         },
 
         // Login
         login: function () {
             console.log('"/login" route achieved');
-            this.app.page(new loginView(), 'login');
+            this.app.page(new LoginView(), 'login');
         },
 
         // Logout
@@ -50,28 +50,28 @@ define([
 
         // Accounts list
         accounts: function () {
-            this.app.page(new accountsListView(), 'accounts');
+            this.app.page(new AccountsListView(), 'accounts');
         },
 
         // Account add
         accountsAdd: function () {
-            this.app.page(new accountsAddView(), 'accounts');
+            this.app.page(new AccountsAddView(), 'accounts');
         },
 
         // Account edit
         accountsEdit: function (id) {
-            this.app.page(new accountsEditView(id), 'accounts');
+            this.app.page(new AccountsEditView(id), 'accounts');
         },
 
         // Documentation
         documentation: function () {
-            this.app.page(new documentationView(), 'docs');
+            this.app.page(new DocumentationView(), 'docs');
         },
 
         // Page not found
         default: function (other) {
             console.log('Route not found on', other);
-            //this.app.page(new errorView(other));
+            //this.app.page(new ErrorView(other));
         }
     });
 
