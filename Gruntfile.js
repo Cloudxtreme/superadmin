@@ -1,6 +1,26 @@
 module.exports = function (grunt) {
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
+    // Small-scale utility for processing templates
+    grunt.registerMultiTask('process', 'Process templates.', function() {
+        var data = this.data;
+        var context = data.context;
+        var src = grunt.template.process(data.src);
+        var dest = grunt.template.process(data.dest);
+        // Read file
+        var input = grunt.file.read(src);
+        // Process it
+        var output = grunt.template.process(input, { data: context });
+        // And write to a file
+        grunt.file.write(dest, output);
+
+        // Fail task if errors were logged.
+        if (this.errorCount) { return false; }
+
+        // Otherwise, print a success message.
+        grunt.log.writeln('File "' + dest + '" processed.');
+    });
+
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -16,11 +36,14 @@ module.exports = function (grunt) {
             release: {
                 dir: 'dist'
             },
+            vendor: {
+                dir: 'vendor'
+            },
             requirejs: {
                 /* Note: We build directly from the source directory to avoid copying of libs */
-                baseUrl: 'src/app',
-                mainConfigFile: 'src/app/config.js',
-                dir: 'temp/app',
+                baseUrl: 'src/scripts',
+                mainConfigFile: 'src/scripts/config.js',
+                dir: 'temp/js',
                 optimize: 'none',
                 keepBuildDir: false,
                 paths: {
@@ -33,7 +56,7 @@ module.exports = function (grunt) {
 
         /* Cleaning process */
         clean: {
-            all: [ 'temp', '<%= defaults.debug.dir %>', '<%= defaults.release.dir %>' ]
+            all: [ 'temp', '<%= defaults.debug.dir %>', '<%= defaults.release.dir %>', '<%= defaults.source.dir %>' ]
         },
 
         /* Code quality related tasks */
@@ -62,7 +85,7 @@ module.exports = function (grunt) {
                     stylesheetFile: 'css/styles.css',
                     stylesheetLanguage: 'stylesheet',
                     scriptFile: 'scripts/main.js',
-                    scriptLoader: 'vendor/requirejs/require.js',
+                    scriptLoader: '<%= defaults.vendor.dir %>/requirejs/require.js',
                     scripts: []
                 }
             },
@@ -73,7 +96,7 @@ module.exports = function (grunt) {
                     stylesheetFile: 'css/styles-<%= pkg.version %>.css',
                     stylesheetLanguage: 'stylesheet',
                     scriptFile: 'app/main-<%= pkg.version %>.js',
-                    scriptLoader: 'vendor/requirejs/require-<%= pkg.version %>.js',
+                    scriptLoader: '<%= defaults.vendor.dir %>/requirejs/require-<%= pkg.version %>.Cjs',
                     scripts: []
                 }
             }
@@ -89,7 +112,7 @@ module.exports = function (grunt) {
             release: {
                 files: {
                     '<%= defaults.release.dir %>/js/main-<%= pkg.version %>.js': 'temp/js/main.js',
-                    '<%= defaults.release.dir %>/vendor/requirejs/require-<%= pkg.version %>.js': '<%= defaults.source.dir %>/vendor/requirejs/require.js'
+                    '<%= defaults.release.dir %>/<%= defaults.vendor.dir %>/requirejs/require-<%= pkg.version %>.js': '<%= defaults.source.dir %>/<%= defaults.vendor.dir %>/requirejs/require.js'
                 }
             }
         },

@@ -28,5 +28,11 @@
         "grunt-htmlhint": "*",
         "load-grunt-tasks": "*",
         "matchdep": "*"
+    },
+    "scripts": {
+        "install": "bower install",
+        "build": "grunt release",
+        "update": "bower update; grunt release",
+        "test": "grunt test"
     }
 }
