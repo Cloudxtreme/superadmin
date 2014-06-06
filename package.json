@@ -16,23 +16,21 @@
     "dependencies": {},
     "devDependencies": {
         "grunt": "*",
+        "load-grunt-tasks": "*",
         "grunt-contrib-requirejs": "*",
         "grunt-contrib-clean": "*",
         "grunt-contrib-copy": "*",
-        "grunt-contrib-jshint": "*",
         "grunt-contrib-cssmin": "*",
         "grunt-contrib-csslint": "*",
+        "grunt-contrib-jshint": "*",
         "grunt-contrib-uglify": "*",
-        "grunt-contrib-watch": "*",
         "grunt-concurrent": "*",
-        "grunt-htmlhint": "*",
-        "load-grunt-tasks": "*",
-        "matchdep": "*"
+        "grunt-htmlhint": "*"
     },
     "scripts": {
         "install": "bower install",
         "build": "grunt release",
         "update": "bower update; grunt release",
-        "test": "grunt test"
+        "test": "grunt test:release"
     }
 }
