@@ -42,7 +42,7 @@ module.exports = function (grunt) {
             requirejs: {
                 /* Note: We build directly from the source directory to avoid copying of libs */
                 baseUrl: 'src/scripts',
-                mainConfigFile: 'src/scripts/config.js',
+                mainConfigFile: 'src/scripts/main.js',
                 dir: 'temp/js',
                 optimize: 'none',
                 keepBuildDir: false,
