@@ -2,7 +2,7 @@ module.exports = function (grunt) {
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
     // Small-scale utility for processing templates
-    grunt.registerMultiTask('process', 'Process templates.', function() {
+    grunt.registerMultiTask('process', 'Process templates.', function () {
         var data = this.data;
         var context = data.context;
         var src = grunt.template.process(data.src);
@@ -15,7 +15,9 @@ module.exports = function (grunt) {
         grunt.file.write(dest, output);
 
         // Fail task if errors were logged.
-        if (this.errorCount) { return false; }
+        if (this.errorCount) {
+            return false;
+        }
 
         // Otherwise, print a success message.
         grunt.log.writeln('File "' + dest + '" processed.');
@@ -26,6 +28,10 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
 
         defaults: {
+            app: {
+                'title': '<%= pkg.name %>',
+                'description': '<%= pkg.description %>'
+            },
             source: {
                 /* Note: You also need to change RequireJS paths below */
                 dir: 'src'
@@ -92,6 +98,8 @@ module.exports = function (grunt) {
                 src: '<%= defaults.source.dir %>/index.html',
                 dest: '<%= defaults.release.dir %>/index.html',
                 context: {
+                    metaTitle: '<%= defaults.app.title %>',
+                    metaDescription: '<%= defaults.app.description %>',
                     assetRoot: '/',
                     stylesheetFile: 'css/styles-<%= pkg.version %>.css',
                     scriptFile: 'js/main-<%= pkg.version %>.js',
