@@ -119,8 +119,8 @@ module.exports = function (grunt) {
             combine: {
                 files: {
                     'temp/css/styles.css': [
-                        '<%= defaults.source.dir %>/styles/styles.css',
-                        '<%= defaults.source.dir %><%= defaults.vendor.dir %>bootstrap/dist/css/bootstrap.css'
+                        '<%= defaults.source.dir %>/<%= defaults.vendor.dir %>/bootstrap/dist/css/bootstrap.css',
+                        '<%= defaults.source.dir %>/styles/styles.css'
                     ]
                 }
             },
@@ -130,10 +130,6 @@ module.exports = function (grunt) {
                 src: ['*.css', '!*.min.css'],
                 dest: '<%= defaults.release.dir %>/css/',
                 ext: '.min.css'
-            },
-            build: {
-                src: 'temp/css/styles.css',
-                dest: '<%= defaults.release.dir %>/css/styles.css'
             }
         },
 
