@@ -4,7 +4,7 @@
             return factory(_ || root._, Backbone || root.Backbone);
         });
     } else {
-        return factory(_, Backbone, config);
+        return factory(_, Backbone);
     }
 }(this, function (_, Backbone) {
     // Parse hash helper method used for parsing location.hash.
