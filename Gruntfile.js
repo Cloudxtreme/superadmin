@@ -83,8 +83,7 @@ module.exports = function (grunt) {
                 dest: '<%= defaults.debug.dir %>/index.html',
                 context: {
                     stylesheetFile: 'css/styles.css',
-                    stylesheetLanguage: 'stylesheet',
-                    scriptFile: 'scripts/main.js',
+                    scriptFile: 'js/main.js',
                     scriptLoader: '<%= defaults.vendor.dir %>/requirejs/require.js',
                     scripts: []
                 }
@@ -95,8 +94,8 @@ module.exports = function (grunt) {
                 context: {
                     assetRoot: '/',
                     stylesheetFile: 'css/styles-<%= pkg.version %>.css',
-                    scriptFile: 'app/main-<%= pkg.version %>.js',
-                    scriptLoader: '<%= defaults.vendor.dir %>/requirejs/require-<%= pkg.version %>.js',
+                    scriptFile: 'js/main-<%= pkg.version %>.js',
+                    scriptLoader: 'js/<%= defaults.vendor.dir %>/requirejs/require-<%= pkg.version %>.js',
                     scripts: []
                 }
             }
