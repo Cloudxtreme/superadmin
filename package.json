@@ -21,9 +21,12 @@
         "grunt-contrib-copy": "*",
         "grunt-contrib-jshint": "*",
         "grunt-contrib-cssmin": "*",
+        "grunt-contrib-csslint": "*",
         "grunt-contrib-uglify": "*",
         "grunt-contrib-watch": "*",
+        "grunt-concurrent": "*",
         "grunt-htmlhint": "*",
+        "load-grunt-tasks": "*",
         "matchdep": "*"
     }
 }
