@@ -148,9 +148,9 @@ module.exports = function (grunt) {
             release: {
                 files: [
                     {
-                        src: '*.html',
                         expand: true,
                         cwd: 'temp',
+                        src: '*.html',
                         dest: '<%= defaults.release.dir %>/',
                         filter: 'isFile'
                     },
