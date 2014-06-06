@@ -44,7 +44,7 @@ module.exports = function (grunt) {
                 baseUrl: 'src/scripts',
                 mainConfigFile: 'src/scripts/main.js',
                 dir: 'temp/js',
-                optimize: 'none',
+                optimize: 'uglify2',
                 keepBuildDir: false,
                 paths: {
                 },
@@ -93,10 +93,10 @@ module.exports = function (grunt) {
                 src: '<%= defaults.source.dir %>/index.html',
                 dest: '<%= defaults.release.dir %>/index.html',
                 context: {
+                    assetRoot: '/',
                     stylesheetFile: 'css/styles-<%= pkg.version %>.css',
-                    stylesheetLanguage: 'stylesheet',
                     scriptFile: 'app/main-<%= pkg.version %>.js',
-                    scriptLoader: '<%= defaults.vendor.dir %>/requirejs/require-<%= pkg.version %>.Cjs',
+                    scriptLoader: '<%= defaults.vendor.dir %>/requirejs/require-<%= pkg.version %>.js',
                     scripts: []
                 }
             }
@@ -112,7 +112,7 @@ module.exports = function (grunt) {
             release: {
                 files: {
                     '<%= defaults.release.dir %>/js/main-<%= pkg.version %>.js': 'temp/js/main.js',
-                    '<%= defaults.release.dir %>/<%= defaults.vendor.dir %>/requirejs/require-<%= pkg.version %>.js': '<%= defaults.source.dir %>/<%= defaults.vendor.dir %>/requirejs/require.js'
+                    '<%= defaults.release.dir %>/js/<%= defaults.vendor.dir %>/requirejs/require-<%= pkg.version %>.js': '<%= defaults.source.dir %>/<%= defaults.vendor.dir %>/requirejs/require.js'
                 }
             }
         },
