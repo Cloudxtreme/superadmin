@@ -6,9 +6,10 @@ define([
     'views/login',
     'views/accounts/list',
     'views/accounts/add',
+    'views/accounts/edit',
     'views/docs',
     'views/error'
-], function ($, Backbone, Auth, indexView, loginView, accountsListView, accountsAddView, documentationView, errorView) {
+], function ($, Backbone, Auth, indexView, loginView, accountsListView, accountsAddView, accountsEditView, documentationView, errorView) {
 
     var Router = Backbone.Router.extend({
         routes: {
@@ -17,6 +18,7 @@ define([
             'logout': 'logout',
             'accounts': 'accounts',
             'accounts/add': 'accountsAdd',
+            'accounts/:id': 'accountsEdit',
             'docs': 'documentation',
             '*other': 'default'
         },
@@ -54,6 +56,11 @@ define([
         // Account add
         accountsAdd: function () {
             this.app.page(new accountsAddView(), 'accounts');
+        },
+
+        // Account edit
+        accountsEdit: function (id) {
+            this.app.page(new accountsEditView(id), 'accounts');
         },
 
         // Documentation

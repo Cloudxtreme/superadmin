@@ -17,12 +17,12 @@ define([
         },
 
         // View constructor
-        initialize: function () {
+        initialize: function (options) {
             console.log('Initialize accounts list View');
-
-            var accounts = new accountsCollection();
-            accounts.on('sync', this.list, this);
-            accounts.fetch(); // fetching the model data from /my/url
+            console.log('Page', options.page || 1);
+            this.model = new accountsCollection();
+            this.model.on('sync', this.list, this);
+            this.model.fetch(); // fetching the model data from /my/url
         },
 
         // Show data table
