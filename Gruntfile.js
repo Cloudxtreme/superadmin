@@ -173,5 +173,6 @@ module.exports = function (grunt) {
     grunt.registerTask('debug', ['clean', 'concurrent:debug', 'concurrent:testDebug']);
     grunt.registerTask('test:release', ['concurrent:testRelease']);
     grunt.registerTask('test:debug', ['concurrent:testDebug']);
+    grunt.registerTask('clean:reset', ['clean:undo']);
     grunt.registerTask('default', ['release']);
 };
