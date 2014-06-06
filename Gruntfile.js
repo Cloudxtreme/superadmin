@@ -50,8 +50,7 @@ module.exports = function (grunt) {
 
         /* Cleaning process */
         clean: {
-            all: [ 'temp', '<%= defaults.debug.dir %>', '<%= defaults.release.dir %>' ],
-            final: [ 'temp', '<%= defaults.vendor.dir %>' ]
+            all: [ 'temp', '<%= defaults.debug.dir %>', '<%= defaults.release.dir %>' ]
         },
 
         /* Code quality related tasks */
@@ -172,7 +171,10 @@ module.exports = function (grunt) {
     });
 
     // Register tasks
-    grunt.registerTask('default', []);
     grunt.registerTask('release', ['clean', 'concurrent:release', 'concurrent:testRelease']);
-    grunt.registerTask('clean', ['clean:final']);
+    grunt.registerTask('debug', ['clean', 'concurrent:debug', 'concurrent:testDebug']);
+    grunt.registerTask('test:release', ['concurrent:testRelease']);
+    grunt.registerTask('test:debug', ['concurrent:testDebug']);
+    grunt.registerTask('clean', ['clean']);
+    grunt.registerTask('default', ['release']);
 };
