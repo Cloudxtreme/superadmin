@@ -56,7 +56,7 @@ module.exports = function (grunt) {
 
         /* Cleaning process */
         clean: {
-            all: [ 'temp', '<%= defaults.debug.dir %>', '<%= defaults.release.dir %>', '<%= defaults.source.dir %>' ]
+            all: [ 'temp', '<%= defaults.debug.dir %>', '<%= defaults.release.dir %>', '<%= defaults.vendor.dir %>' ]
         },
 
         /* Code quality related tasks */
