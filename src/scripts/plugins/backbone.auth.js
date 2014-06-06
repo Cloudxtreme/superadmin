@@ -1,3 +1,4 @@
+/*global _:false, Backbone:false */
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         return define(['underscore', 'backbone'], function (_, Backbone) {
@@ -18,7 +19,7 @@
         }
 
         return params;
-    }
+    };
 
     // Add a public method so that anything else can also create the header
     Backbone.Auth = {
@@ -28,10 +29,7 @@
 
             var params = {},
                 that = this,
-                url = this.authUrl
-                    + '?client_id=' + this.clientId
-                    + '&redirect_uri=' + this.redirectUrl
-                    + '&response_type=token',
+                url = this.authUrl + '?client_id=' + this.clientId + '&redirect_uri=' + this.redirectUrl + '&response_type=token',
                 left = (screen.width / 2) - (this.width / 2) || 0,
                 top = (screen.height / 2) - (this.height / 2) || 0;
 

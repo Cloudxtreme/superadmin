@@ -1,6 +1,6 @@
 {
-    "name": "cloudwalkers-superadmin",
-    "version": "0.1.2",
+    "name": "Cloudwalkers Superadmin",
+    "version": "0.1.3",
     "description": "Superadmin application using Backbone.js, RequireJS, Grunt & Bower over REST",
     "homepage": "",
     "bugs": "",
