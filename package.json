@@ -16,10 +16,14 @@
     "dependencies": {},
     "devDependencies": {
         "grunt": "*",
-        "grunt-contrib-cssmin":         "*",
-        "grunt-contrib-uglify":         "*",
-        "grunt-contrib-watch":          "*",
-        "grunt-htmlhint":               "*",
-        "matchdep":                     "*"
+        "grunt-contrib-requirejs": "*",
+        "grunt-contrib-clean": "*",
+        "grunt-contrib-copy": "*",
+        "grunt-contrib-jshint": "*",
+        "grunt-contrib-cssmin": "*",
+        "grunt-contrib-uglify": "*",
+        "grunt-contrib-watch": "*",
+        "grunt-htmlhint": "*",
+        "matchdep": "*"
     }
 }
