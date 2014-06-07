@@ -1,6 +1,7 @@
 {
     "name": "cloudwalkers-superadmin",
     "version": "0.1.3",
+    "title" : "Cloudwalkers Superadmin",
     "description": "Superadmin application using Backbone.js, RequireJS, Grunt & Bower over REST",
     "homepage": "",
     "bugs": "",
@@ -15,7 +16,6 @@
     },
     "dependencies": {},
     "devDependencies": {
-        "grunt": "*",
         "load-grunt-tasks": "*",
         "grunt-contrib-requirejs": "*",
         "grunt-contrib-clean": "*",
