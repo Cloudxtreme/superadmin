@@ -31,7 +31,7 @@ module.exports = function (grunt) {
 
         defaults: {
             app: {
-                'title': '<%= pkg.name %>',
+                'title': '<%= pkg.title %>',
                 'description': '<%= pkg.description %>'
             },
             source: {
@@ -51,16 +51,11 @@ module.exports = function (grunt) {
 
         /* Cleaning process */
         clean: {
-            all: [ 'temp', '<%= defaults.debug.dir %>', '<%= defaults.release.dir %>' ],
-            undo: [ 'temp', '<%= defaults.vendor.dir %>' ]
+            all: [ '<%= defaults.debug.dir %>', '<%= defaults.release.dir %>' ]
         },
 
         /* Code quality related tasks */
         jshint: {
-            files: [
-                '<%= defaults.source.dir %>/scripts/**/*.js',
-                '*.js'
-            ],
             options: {
                 curly: true, eqeqeq: true, immed: true, latedef: true,
                 newcap: true, noarg: true, sub: true, undef: true,
@@ -68,6 +63,16 @@ module.exports = function (grunt) {
                 globals: {
                     require: true,
                     define: true
+                }
+            },
+            source: ['<%= defaults.source.dir %>/scripts/**/*.js', '*.js'],
+            release: {
+                options : {
+                    asi : true,
+                    eqeqeq : false
+                },
+                files: {
+                    src: ['<%= defaults.release.dir %>/js/**/*.js', '*.js' ]
                 }
             }
         },
@@ -79,7 +84,7 @@ module.exports = function (grunt) {
                 dest: '<%= defaults.debug.dir %>/index.html',
                 context: {
                     stylesheetFile: 'css/styles.css',
-                    scriptFile: 'js/main.js',
+                    scriptFile: 'js/app-<%= pkg.version %>',
                     scriptLoader: '<%= defaults.vendor.dir %>/requirejs/require.js',
                     scripts: []
                 }
@@ -92,7 +97,7 @@ module.exports = function (grunt) {
                     metaDescription: '<%= defaults.app.description %>',
                     assetRoot: '/',
                     stylesheetFile: 'css/styles-<%= pkg.version %>.css',
-                    scriptFile: 'js/main-<%= pkg.version %>.js',
+                    scriptFile: 'js/main-<%= pkg.version %>',
                     scriptLoader: 'js/<%= defaults.vendor.dir %>/requirejs/require-<%= pkg.version %>.js',
                     scripts: []
                 }
@@ -104,14 +109,12 @@ module.exports = function (grunt) {
                 options: {
                     baseUrl: '<%= defaults.source.dir %>/scripts',
                     mainConfigFile: '<%= defaults.source.dir %>/scripts/main.js',
-                    dir: 'temp/js',
+                    name: 'main',
                     optimize: 'uglify2',
-                    keepBuildDir: false,
-                    paths: {
-                    },
-                    modules: [
-                        { name: 'main' }
-                    ]
+                    out: '<%= defaults.release.dir %>/js/main-<%= pkg.version %>.js',
+                    preserveLicenseComments: false,
+                    useStrict: true,
+                    paths: {}
                 }
             }
         },
@@ -119,7 +122,7 @@ module.exports = function (grunt) {
         cssmin: {
             combine: {
                 files: {
-                    'temp/css/styles.css': [
+                    '<%= defaults.release.dir %>/css/styles.css': [
                         '<%= defaults.source.dir %>/<%= defaults.vendor.dir %>/bootstrap/dist/css/bootstrap.css',
                         '<%= defaults.source.dir %>/styles/styles.css'
                     ]
@@ -127,52 +130,45 @@ module.exports = function (grunt) {
             },
             minify: {
                 expand: true,
-                cwd: 'temp/css/',
+                cwd: '<%= defaults.release.dir %>/css/',
                 src: ['*.css', '!*.min.css'],
                 dest: '<%= defaults.release.dir %>/css/',
-                ext: '.min.css'
+                ext: '-<%= pkg.version %>.css'
             }
         },
 
         uglify: {
             release: {
                 files: {
-                    '<%= defaults.release.dir %>/js/main-<%= pkg.version %>.js': 'temp/js/main.js',
                     '<%= defaults.release.dir %>/js/<%= defaults.vendor.dir %>/requirejs/require-<%= pkg.version %>.js': '<%= defaults.source.dir %>/<%= defaults.vendor.dir %>/requirejs/require.js'
                 }
             }
         },
 
-        /* Helper tasks */
         copy: {
             release: {
                 files: [
-                    {
-                        expand: true,
-                        cwd: 'temp',
-                        src: '*.html',
-                        dest: '<%= defaults.release.dir %>/',
-                        filter: 'isFile'
-                    },
                     {expand: true, cwd: '<%= defaults.source.dir %>', src: 'oauth.html', dest: '<%= defaults.release.dir %>/', filter: 'isFile'},
-                    {expand: true, cwd: '<%= defaults.source.dir %>', src: ['robots.txt', 'favicon.ico'], dest: '<%= defaults.release.dir %>/', filter: 'isFile'}
+                    {expand: true, cwd: '<%= defaults.source.dir %>', src: ['robots.txt', 'favicon.ico'], dest: '<%= defaults.release.dir %>/', filter: 'isFile'},
+                    {src: '<%= defaults.source.dir %>/templates/*', dest: '<%= defaults.release.dir %>/templates/'}
                 ]
             }
         },
 
         concurrent: {
-            release: ['process:release', 'requirejs:release', 'uglify', 'cssmin', 'copy:release'],
+            release: ['process:release', 'requirejs:release', 'cssmin', 'copy:release', 'uglify'],
             debug: ['process:debug'],
-            testRelease: ['jshint'],
+            testSource: ['jshint:source'],
+            testRelease: ['jshint:release'],
             testDebug: ['jshint']
         }
     });
 
     // Register tasks
-    grunt.registerTask('release', ['clean', 'concurrent:release', 'concurrent:testRelease']);
+    grunt.registerTask('release', ['clean', 'concurrent:testSource', 'concurrent:release'/*, 'concurrent:testRelease'*/]);
     grunt.registerTask('debug', ['clean', 'concurrent:debug', 'concurrent:testDebug']);
+    grunt.registerTask('test:source', ['concurrent:testSource']);
     grunt.registerTask('test:release', ['concurrent:testRelease']);
     grunt.registerTask('test:debug', ['concurrent:testDebug']);
-    grunt.registerTask('clean:reset', ['clean:undo']);
     grunt.registerTask('default', ['release']);
 };
