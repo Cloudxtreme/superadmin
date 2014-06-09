@@ -28,7 +28,7 @@ require.config({
         }
     },
     paths: {
-        jquery: '../vendor/jquery/dist/jquery.min',
+        jquery: '../vendor/jquery/jquery.min',
         text: '../vendor/requirejs-text/text',
         underscore: '../vendor/underscore/underscore',
         backbone: '../vendor/backbone/backbone',
@@ -40,18 +40,19 @@ require.config({
 
 require([
     'jquery',
-    'bootstrap'
-], function ($, _bootstrap) {
-    // this is where all the site code should begin
-    return {};
-});
-
-require([
     'backbone',
+    'bootstrap',
     'views/app',
     'routes'
-], function (Backbone, App, Router) {
+], function ($, Backbone, bootstrap, App, Router) {
     'use strict';
+
+    // AJAX settings
+    $(document).ajaxStart(function () {
+        $('body').addClass('loading');
+    }).ajaxComplete(function () {
+        $('body').removeClass('loading');
+    });
 
     // Initialize routing & application
     var router = new Router({ app: new App()});
@@ -61,4 +62,7 @@ require([
         pushState: false,
         root: $('[data-main][data-root]').data('root') || '/'
     });
+
+    // this is where all the site code should begin
+    return {};
 });

@@ -2,14 +2,17 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Admin | Cloudwalkers</title>
+    <title><%= metaTitle %></title>
+    <meta name="description" content="<%= metaDescription %>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,700,800">
-    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="<%= assetRoot %><%= stylesheetFile %>">
+    <% for (var i = 0; i < scripts.length; i++) { %>
+    <script src="<%= assetsRoot %><%= scripts[i] %>"></script>
+    <% } %>
 </head>
 <body>
-    <section id="superadmin" role="page">Loading...</section>
-    <script data-main="scripts/main" data-root="/" src="vendor/requirejs/require.js"></script>
+    <section id="app" role="page"><p class="text-center lead">Loading application...</p></section>
+    <script data-main="<%= scriptFile %>" data-root="<%= assetRoot %>"  src="<%= assetRoot %><%= scriptLoader %>"></script>
 </body>
 </html>

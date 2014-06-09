@@ -12,7 +12,7 @@ define([
         view: null,
         header: null,
         footer: null,
-        el: '#superadmin',
+        el: '#app',
 
         // Constructor
         initialize: function () {
@@ -27,20 +27,22 @@ define([
             console.log('---> Main VIEW render()');
 
             // Emergency break
-            if (!this.view) return null;
+            if (!this.view) {
+                return null;
+            }
 
             // Layout reset
             $('header[role="navigation"]').remove();
             $('footer[role="footer"]').remove();
 
             // Session verification
-            if (!Backbone.Auth.active() && this.view.menu != 'login') {
+            if (!Backbone.Auth.active() && this.view.menu !== 'login') {
                 console.log('Invalid SESSION, redirecting to login page...');
                 Backbone.history.navigate('/login', {trigger: true});
             }
 
             // Header injection
-            if (Backbone.Auth.active() && this.view.menu != 'login') {
+            if (Backbone.Auth.active() && this.view.menu !== 'login') {
                 this.$el.before(this.header.render().el);
             }
 
@@ -60,7 +62,9 @@ define([
 
         page: function (view, menuItem) {
             console.log('---> Main VIEW page()');
-            if (this.view) this.view.remove();
+            if (this.view) {
+                this.view.remove();
+            }
 
             this.view = view;
             this.view.menu = menuItem || 'home';

@@ -1,25 +1,25 @@
-;
+/*global _:false, Backbone:false */
 (function (root, factory) {
-    if (typeof exports === 'object' && typeof require === 'function') {
-        return module.exports = factory(require('jquery'), require('underscore'), require('backbone'));
-    } else if (typeof define === 'function' && define.amd) {
-        return define(['jquery', 'underscore', 'backbone', 'config'], function ($, _, Backbone) {
-            return factory($ || root.$, _ || root._, Backbone || root.Backbone);
+    if (typeof define === 'function' && define.amd) {
+        return define(['underscore', 'backbone'], function (_, Backbone) {
+            return factory(_ || root._, Backbone || root.Backbone);
         });
     } else {
-        return factory($, _, Backbone, config);
+        return factory(_, Backbone);
     }
-}(this, function ($, _, Backbone) {
+}(this, function (_, Backbone) {
     // Parse hash helper method used for parsing location.hash.
     var parseHash = function (hash) {
         var params = {},
             queryString = hash.substring(1),
             regex = /([^&=]+)=([^&]*)/g, m;
+
         while (m = regex.exec(queryString)) {
             params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
         }
+
         return params;
-    }
+    };
 
     // Add a public method so that anything else can also create the header
     Backbone.Auth = {
@@ -27,19 +27,20 @@
             // Override any default option with the options passed to the constructor.
             _.extend(this, options);
 
-            var params = {}
-                , that = this
-                , url = this.authUrl
-                    + '?client_id=' + this.clientId
-                    + '&redirect_uri=' + this.redirectUrl
-                    + '&response_type=token'
-                , left = (screen.width / 2) - (this.width / 2) || 0
-                , top = (screen.height / 2) - (this.height / 2) || 0;
+            var params = {},
+                that = this,
+                url = this.authUrl + '?client_id=' + this.clientId + '&redirect_uri=' + this.redirectUrl + '&response_type=token',
+                left = (screen.width / 2) - (this.width / 2) || 0,
+                top = (screen.height / 2) - (this.height / 2) || 0;
 
-            if (this.scope) url += '&scope=' + this.scope;
-            if (this.state) url += '&state=' + this.state;
+            if (this.scope) {
+                url += '&scope=' + this.scope;
+            }
+            if (this.state) {
+                url += '&state=' + this.state;
+            }
 
-            if (!Backbone.Auth.getAccessToken()) {
+            if (!Backbone.Auth.active()) {
                 console.log('NO TOKEN!!!');
                 var popup = window.open(url, '_blank', 'resizable=no,location=no,toolbar=no,width=' + (this.width || 800) + ',height=' + (this.height || 600) + ',left=' + left + ',top=' + top);
             } else {
@@ -57,22 +58,25 @@
                 'Accept': 'application/json'
             };
         },
+        // Return if the session is active
         active: function () {
-            // try loading the session
-            var localSession = Backbone.Auth.getAccessToken();
-            return !_.isNull(localSession) ? localSession : null;
+            return !_.isNull(this.getAccessToken()) ? true : false;
         },
+
+        // Get the access_token from localStorage
         getAccessToken: function () {
-            var data = JSON.parse(window.localStorage.getItem('session'));
-            return (data ? (data.shift()).token : null);
+            if (typeof(window.localStorage) !== 'undefined') {
+                var data = JSON.parse(window.localStorage.getItem('session'));
+                return !_.isNull(data) ? (data.shift()).params.access_token : null;
+            }
+
+            return null;
         },
-        // Detect if we have a successful auth and save it to localStorage.
-        authSuccess: function (params) {
-            return params['access_token'];
-        },
+
+        // Fires on popup redirects
         onRedirect: function (hash) {
             var params = parseHash(hash);
-            if (Backbone.Auth.authSuccess(params)) {
+            if (params['access_token']) {
                 Backbone.Auth.success(params);
             } else {
                 Backbone.Auth.error(params);
@@ -82,17 +86,14 @@
         success: function (params) {
             console.log('OAuth2 onSuccess', params);
 
-            if (typeof(window.localStorage) != 'undefined') {
+            if (typeof(window.localStorage) !== 'undefined') {
                 window.localStorage.setItem('session', JSON.stringify([
-                    {auth: true, token: params['access_token']}
+                    {auth: true, params: params}
                 ]));
 
                 Backbone.history.navigate('', {trigger: true});
-            } else {
-                throw "window.localStorage, not defined";
             }
         },
-
         // Fires onError
         error: function (params) {
             console.log('OAuth2 onError', params);
@@ -109,14 +110,6 @@
     Backbone.sync = function (method, model, options) {
         options = options || {};
         options.headers = options.headers || {};
-
-        if (!options.crossDomain) {
-            options.crossDomain = true;
-        }
-
-        if (!options.xhrFields) {
-            options.xhrFields = {withCredentials: true};
-        }
 
         // Extending headers
         _.extend(options.headers, Backbone.Auth.headers());

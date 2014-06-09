@@ -3,9 +3,12 @@
 
 # Installation
 
-1. Install [Node.js](http://nodejs.org/)
-2. Run ```sudo npm install -g grunt-cli bower```
-3. Run ```bower install``` to install the required client-side dependencies.
+1. Run ```cp src/scripts/config-default.js src/scripts/config.js``` to create a new configuration file.
+2. Install [Node.js](http://nodejs.org/)
+3. Run ```sudo npm install -g grunt-cli bower```
+4. Run ```npm install``` to install the required dependencies.
+5. Run ```npm run-script build``` to build the distribution folder.
+6. Run ```npm test``` to test the release files.
 
 If on of these these fails, try running the command by yourself.
 
@@ -18,7 +21,7 @@ You project directory will look like this:
 - `.bowerrc`       - config file that tells [Bower][Bower] where to install packages
 - `.gitignore`     - files that should not be commited to Git
 - `package.json`   - file that specifies which packages should [npm][npm] install
-- `dist`           - folder where generated files are placed (do not edit files here)
+- `dist`           - folder where compiled files are placed (do not edit files here)
 - `src`            - folder with source files (write your code here)
 	- `vendor` 	     - folder where [Bower][Bower] client-side packages are installed
 	- `images`       - folder containing images

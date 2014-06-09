@@ -3,13 +3,13 @@ define([
     'underscore',
     'backbone',
     'collections/accounts',
-    'text!templates/accounts/list.html'
-], function ($, _, Backbone, accountsCollection, accountsListTemplate) {
+    'text!templates/accounts/list.html',
+    'text!templates/accounts/table.html'
+], function ($, _, Backbone, AccountsCollection, AccountsListTemplate, AccountsItemsTemplate) {
 
     var accountsListView = Backbone.View.extend({
-
         // Compile our template
-        template: _.template(accountsListTemplate),
+        template: _.template(AccountsListTemplate),
 
         events: {
             "change": "change",
@@ -17,19 +17,26 @@ define([
         },
 
         // View constructor
-        initialize: function () {
-            this.model = new accountsCollection();
-            this.model.on('change', this.render); // attempt to bind to model change event
-            this.model.fetch(); // fetching the model data from /my/url
-
+        initialize: function (options) {
             console.log('Initialize accounts list View');
+            console.log('Page', options.page || 1);
+            this.model = new AccountsCollection();
+            this.model.on('sync', this.list, this);
+            this.model.fetch(); // fetching the model data from /my/url
+        },
+
+        // Show data table
+        list: function (data) {
+            console.log('Accounts list rendering');
+            this.$('#items').html(_.template(AccountsItemsTemplate, {items: data.toJSON()}));
         },
 
         // Render the content
         render: function () {
             console.log('Render accounts list View');
 
-            this.setElement(this.template({ items: this.model.toJSON() }));
+            // Main view template
+            this.setElement(this.template());
 
             // Maintains chainability
             return this;
