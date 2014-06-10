@@ -38,7 +38,7 @@ body::before {
     background: linear-gradient(to right, #30ff90 0%, #ed2ded 25%, #c99826 50%, #30ffe6 75%, #30ff90 100%);
 }
 
-body.loading::before {
+.loading::before {
     top: 0;
 }
 
