@@ -67,13 +67,37 @@ module.exports = function (grunt) {
             },
             source: ['<%= defaults.source.dir %>/scripts/**/*.js', '*.js'],
             release: {
-                options : {
-                    asi : true,
-                    eqeqeq : false
+                options: {
+                    asi: true,
+                    eqeqeq: false
                 },
                 files: {
                     src: ['<%= defaults.release.dir %>/js/**/*.js', '*.js' ]
                 }
+            }
+        },
+
+        htmlhint: {
+            options: {
+                'tag-pair': true
+            },
+            release: {
+                src: ['<%= defaults.release.dir %>/*.html']
+            }
+        },
+
+        csslint: {
+            source: {
+                options: {
+                    import: false
+                },
+                src: ['<%= defaults.source.dir %>/styles/*.css']
+            },
+            release: {
+                options: {
+                    import: false
+                },
+                src: ['<%= defaults.release.dir %>/css/*.css']
             }
         },
 
@@ -158,8 +182,8 @@ module.exports = function (grunt) {
         concurrent: {
             release: ['process:release', 'requirejs:release', 'cssmin', 'copy:release', 'uglify'],
             debug: ['process:debug'],
-            testSource: ['jshint:source'],
-            testRelease: ['jshint:release'],
+            testSource: ['jshint:source', 'csshint:source', 'htmlhint:source'],
+            testRelease: ['jshint:release', 'csshint:release', 'htmlhint:release'],
             testDebug: ['jshint']
         }
     });
