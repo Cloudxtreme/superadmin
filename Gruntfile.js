@@ -182,8 +182,8 @@ module.exports = function (grunt) {
         concurrent: {
             release: ['process:release', 'requirejs:release', 'cssmin', 'copy:release', 'uglify'],
             debug: ['process:debug'],
-            testSource: ['jshint:source', 'csshint:source', 'htmlhint:source'],
-            testRelease: ['jshint:release', 'csshint:release', 'htmlhint:release'],
+            testSource: ['jshint:source', 'csslint:source', 'htmlhint:source'],
+            testRelease: ['jshint:release', 'csslint:release', 'htmlhint:release'],
             testDebug: ['jshint']
         }
     });
