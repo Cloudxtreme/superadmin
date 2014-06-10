@@ -81,6 +81,9 @@ module.exports = function (grunt) {
             options: {
                 'tag-pair': true
             },
+            source: {
+                src: ['<%= defaults.source.dir %>/*.html']
+            },
             release: {
                 src: ['<%= defaults.release.dir %>/*.html']
             }
