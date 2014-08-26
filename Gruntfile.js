@@ -16,7 +16,6 @@
  *	Interesting read: 			http://www.html5rocks.com/en/tutorials/tooling/supercharging-your-gruntfile/
 **/
 
-<<<<<<< HEAD
 /*global module:false*/
 module.exports = function (grunt)
 {
