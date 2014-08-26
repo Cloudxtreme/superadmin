@@ -1,40 +1,35 @@
-# Watchy
-cd /to/path
-node_modules/watchy/bin/watchy -w ./src -i '/vendor|/dist|/css/styles.combine.css' -- grunt release
-
 # Getting Started
-> `Superadmin` application using Backbone.js, RequireJS, Grunt & Bower)
+
+`Superadmin` application using Backbone.js, Grunt & Bower
+
 
 # Installation
 
-1. Run ```cp src/scripts/config-default.js src/scripts/config.js``` to create a new configuration file.
-2. Install [Node.js](http://nodejs.org/)
+1. Install [Node.js](http://nodejs.org/)
+2. Run ```cd path/to/local/superadmin```
 3. Run ```sudo npm install -g grunt-cli bower```
-4. Run ```npm install``` to install the required dependencies.
-5. Run ```npm run-script build``` to build the distribution folder.
-6. Run ```npm test``` to test the release files.
+4. Run ```bower install``` to install vendor dependencies.
+4. Run ```grunt install``` to install the required dependencies.
+5. Run ```grunt staging``` to build the staging folder.
+6. Run ```grunt watcher``` to watch and process src changes.
 
-If on of these these fails, try running the command by yourself.
 
-*`Superadmin` uses [Grunt][Grunt] as task runner and [Bower][Bower] for installing client-side packages*
+# Cloudwalkers Gruntfile
 
-# Project structure
+The gruntfile takes care of JS sanity testing,
+compression of javascript and css files, concatinating of template files
+and the templating process of the html files.
 
-You project directory will look like this:
+Run before first use: 		grunt install
+Run for release: 			grunt release
+Run for staging:			grunt staging
+Change listener:			grunt watcher
 
-- `.bowerrc`       - config file that tells [Bower][Bower] where to install packages
-- `.gitignore`     - files that should not be commited to Git
-- `package.json`   - file that specifies which packages should [npm][npm] install
-- `dist`           - folder where compiled files are placed (do not edit files here)
-- `src`            - folder with source files (write your code here)
-	- `vendor` 	     - folder where [Bower][Bower] client-side packages are installed
-	- `images`       - folder containing images
-	- `scripts`    	 - folder with JavaScript code
-	- `styles`       - folder containing stylesheets
-	- `templates`    - folder containing template files
-	- `oauth.html`   - OAuth2 markup sample file
-	- `index.html`   - main markup file
-	- `robots.txt`   - robots file
+Working directory: 			src
+Distribution direactory: 	dist
+Required files: 			package.json (all grunt plugins are listed)
+Interesting read: 			http://www.html5rocks.com/en/tutorials/tooling/supercharging-your-gruntfile/
+
 
 [Grunt]: http://gruntjs.com/
 [Bower]: http://bower.io/
