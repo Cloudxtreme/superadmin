@@ -1,3 +1,7 @@
+# Watchy
+cd /to/path
+node_modules/watchy/bin/watchy -w ./src -i '/vendor|/dist|/css/styles.combine.css' -- grunt release
+
 # Getting Started
 > `Superadmin` application using Backbone.js, RequireJS, Grunt & Bower)
 

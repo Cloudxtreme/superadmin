@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Superadmin application using Backbone.js, Grunt &amp; Bower over REST">
+		
+		<title>Cloudwalkers Superadmin</title>
+		
+		<link rel="icon" href="favicon.ico">
+		<link href="/css/styles-0.1.4.min.css" rel="stylesheet">
+		
+		<!-- Bootstrap CSS -->
+		<link href="/vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/vendor/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+
+	<body class="cover">
+	
+		<div class="site-wrapper site-wrapper-shadow">
+			<div class="site-wrapper-inner">
+				
+				<div class="cover-container">
+				
+					<div class="masthead clearfix">
+						<div class="inner">
+							<h3 class="masthead-brand">
+							<img src="images/shield.png" alt="brand" style="height: 30px;" /> 
+							Cloudwalkers
+							</h3>
+							<ul class="nav masthead-nav">
+								<li class="active"><a href="#">Home</a></li>
+								<li><a href="https://devapi.cloudwalkers.be/docs/">Teamlog</a></li>
+								<li><a href="https://cloudwalkers.zendesk.com">Support</a></li>
+							</ul>
+						</div>
+					</div>
+					
+					<div class="inner cover-body">
+					
+						<h1 class="cover-heading">Superadmin.</h1>
+						<p class="lead">Manage, administer and tinker all Cloudwalkers logs, accounts, users, setups and templates. For team eyes only.</p>
+						<p class="lead"></p>
+						
+						<iframe src="https://devapi.cloudwalkers.be/oauth2/authorize?response_type=token&state=xyz&client_id=oauth253df6850dec638.12776363&redirect_uri=http://superadmin.cloudwalkers.local/login-dark.html" class="login"></iframe>
+					
+					</div>
+					
+					<div class="mastfoot">
+						<div class="inner">
+							<p>Managed for <a href="http://cloudwalkers.be">Cloudwalkers v.0.1.4</a>, by <a href="https://twitter.com/cloudwlkrs">@cloudwlkrs</a>.</p>
+						</div>
+					</div>
+				
+				</div>
+			</div>
+		</div>
+		
+		<!-- Bootstrap core JavaScript
+		================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="/assets/plugins/bootstrap.min.js"></script>
+		
+		<!-- PLUGINS -->
+		<script src="/assets/plugins/mustache.0.8.2-min.js" type="text/javascript"></script>
+		<script src="/assets/plugins/underscore.1.5.2-min.js" type="text/javascript"></script>
+		<script src="/assets/plugins/backbone.1.1.2-min.js" type="text/javascript"></script>
+		
+		<!-- STORAGE -->
+		<script src="js/Utilities/localStorage.js"></script>
+		<script src="js/Utilities/IDBStorage.js"></script>
+		<script src="js/Utilities/IDBStores.js"></script>
+		
+		<script type="text/javascript">
+			
+			function hello()
+			{
+				window.location = "dashboard.html";
+			}
+			
+			function hasToken()
+			{
+				Store.get("settings", "token", function(entry)
+				{
+					if(entry) hello();
+					
+					else window.addEventListener("message", receiveToken, false);
+				});
+			}
+			
+			function receiveToken(event)
+			{
+				if (event.origin !== window.location.origin)
+				return;
+				
+				Store.set("settings", {key: "token", value: event.data}, hello);
+			}
+			
+			// IDB Store
+			Store = new StorageClassIDB("cwdSuperDB", 2, hasToken);
+		
+		</script>
+	
+	</body>
+</html>

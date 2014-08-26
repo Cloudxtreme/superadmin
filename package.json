@@ -1,36 +1,41 @@
 {
-    "name": "cloudwalkers-superadmin",
-    "version": "0.1.3",
-    "title" : "Cloudwalkers Superadmin",
-    "description": "Superadmin application using Backbone.js, RequireJS, Grunt & Bower over REST",
-    "homepage": "",
-    "bugs": "",
-    "keywords": [],
-    "private": true,
-    "contributors": [
-        "Daniel Stancu <daniel@bmgroup.be>"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/Cloudwalkers/superadmin"
-    },
-    "dependencies": {},
-    "devDependencies": {
-        "load-grunt-tasks": "*",
-        "grunt-contrib-requirejs": "*",
-        "grunt-contrib-clean": "*",
-        "grunt-contrib-copy": "*",
-        "grunt-contrib-cssmin": "*",
-        "grunt-contrib-csslint": "*",
-        "grunt-contrib-jshint": "*",
-        "grunt-contrib-uglify": "*",
-        "grunt-concurrent": "*",
-        "grunt-htmlhint": "*"
-    },
-    "scripts": {
-        "install": "bower install",
-        "build": "grunt release",
-        "update": "bower update; grunt release",
-        "test": "grunt test:release"
-    }
+	"name": "cloudwalkers-superadmin",
+	"version": "0.1.4",
+	"title" : "Cloudwalkers Superadmin",
+	"description": "Superadmin application using Backbone.js, Grunt & Bower over REST",
+	"homepage": "",
+	"bugs": "",
+	"keywords": [],
+	"private": true,
+	"contributors": [
+		"Koen Betsens <koen@bmgroup.be>"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Cloudwalkers/superadmin"
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"grunt-notify": "*",
+		"grunt-newer": "*",
+		"load-grunt-tasks": "*",
+		"grunt-contrib-watch": "*",
+		"grunt-contrib-clean": "*",
+		"grunt-contrib-copy": "*",
+		"grunt-contrib-concat": "*",
+		"grunt-contrib-cssmin": "*",
+		"grunt-contrib-csslint": "*",
+		"grunt-contrib-jshint": "*",
+		"grunt-contrib-uglify": "*",
+		"grunt-concurrent": "*",
+		"grunt-mustache": "*",
+		"grunt-mustache-render": "*",
+		"grunt-htmlhint": "*"
+	},
+	"scripts": {
+		"install": "bower install",
+		"build": "grunt release",
+		"update": "bower update; grunt release",
+		"test": "grunt test:release"
+	}
 }

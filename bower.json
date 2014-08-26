@@ -1,21 +1,18 @@
 {
     "name": "superadmin",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "authors": [
-        "Daniel STANCU <daniel.stancu@arnia.ro>"
+        "Koen Betsens <koen@betsens.be>"
     ],
     "dependencies": {
         "modernizr": "*",
         "jquery": "*",
-        "requirejs": "*",
-        "requirejs-text": "*",
         "underscore": "*",
         "backbone": "*",
+        "mustache": "*",
         "bootstrap": "*",
-        "parsleyjs": "*",
         "backgrid": "*",
-        "backgrid-paginator": "*",
+        "backbone.paginator": "*",
         "backgrid-filter": "*"
-    },
-    "devDependencies": {}
+    }
 }

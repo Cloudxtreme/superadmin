@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Superadmin application using Backbone.js, Grunt &amp; Bower over REST">
+		
+		<title>Cloudwalkers Superadmin</title>
+		
+		<link rel="icon" href="favicon.ico">
+		<link href="" rel="stylesheet">
+		
+		<!-- Bootstrap CSS -->
+		<link href="/vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/vendor/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+	
+		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="/dashboard.html">Cloudwalkers Superadmin</a>
+				</div>
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="active"><a href="/dashboard.html">Dashboard</a></li>
+						<li><a href="https://devapi.cloudwalkers.be/docs/">Teamlog</a></li>
+						<li><a href="https://cloudwalkers.zendesk.com">Support</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-fluid">
+			<div class="row">
+				<div id="sidebar" class="col-sm-3 col-md-2 sidebar">
+					<ul class="nav nav-sidebar">
+						<li class="active"><a href="#">Overview</a></li>
+						<li><a href="#">Statistics</a></li>
+					</ul>
+					<ul class="nav nav-sidebar">
+						<li><a href=""><strong>Accounts</strong> Overview</a></li>
+						<li><a href=""><strong>Account</strong> Plans</a></li>
+					</ul>					
+					<ul class="nav nav-sidebar">
+						<li><a href=""><strong>Users</strong> Overview</a></li>
+						<li><a href=""><strong>User</strong> Roles</a></li>
+					</ul>					
+					<ul class="nav nav-sidebar">
+						<li><a href=""><strong>Stream</strong> Scheduling</a></li>
+						<li><a href=""><strong>Streams</strong> Management</a></li>
+					</ul>					
+					<ul class="nav nav-sidebar">
+						<li><a href=""><strong>Performance</strong> Statistics</a></li>
+						<li><a href=""><strong>Performance</strong> Servers</a></li>
+						<li><a href=""><strong>Performance</strong> Logs</a></li>
+					</ul>
+				</div>
+        
+				<div id="container" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+					<h1 class="page-header">Dashboard</h1>
+				
+					<div class="row">
+					
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Bootstrap core JavaScript
+		================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="/assets/plugins/bootstrap.min.js"></script>
+		
+		<!-- PLUGINS -->
+		<script src="/assets/plugins/mustache.0.8.2-min.js" type="text/javascript"></script>
+		<script src="/assets/plugins/underscore.1.5.2-min.js" type="text/javascript"></script>
+		<script src="/assets/plugins/backbone.1.1.2-min.js" type="text/javascript"></script>
+		
+		<!-- STORAGE -->
+		<script src="js/Utilities/localStorage.js"></script>
+		<script src="js/Utilities/IDBStorage.js"></script>
+		<script src="js/Utilities/IDBStores.js"></script>
+		
+		<!-- BACKBONE -->
+		<!-- Application -->
+		<script type="text/javascript" src="/js/Cloudwalkers.js"></script>
+		<script type="text/javascript" src="/js/Session.js"></script>
+		<script type="text/javascript" src="/js/Router.js"></script>
+		
+		<script type="text/javascript" src="/js/Models/Account.js"></script>
+		<script type="text/javascript" src="/js/Models/User.js"></script>
+		<script type="text/javascript" src="/js/Models/Me.js"></script>
+		
+		<script type="text/javascript">
+			
+			// IDB Store
+			Store = new StorageClassIDB("cwdSuperDB", 2, function()
+			{
+				Cloudwalkers.init();	
+			});
+			
+		</script>
+	</body>
+</html>
