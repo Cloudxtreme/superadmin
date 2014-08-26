@@ -4,6 +4,6 @@ Thumbs.db
 *.log
 
 node_modules
+dist/
 src/scripts/config.js
 src/vendor
-src/*.ph
