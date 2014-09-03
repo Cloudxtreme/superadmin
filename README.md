@@ -26,7 +26,7 @@ Run for staging:			grunt staging
 Change listener:			grunt watcher
 
 Working directory: 			src
-Distribution direactory: 	dist
+Distribution directory: 	dist
 Required files: 			package.json (all grunt plugins are listed)
 Interesting read: 			http://www.html5rocks.com/en/tutorials/tooling/supercharging-your-gruntfile/
 
