@@ -9,7 +9,8 @@
 2. Run ```cd path/to/local/superadmin```
 3. Run ```sudo npm install -g grunt-cli bower```
 4. Run ```bower install``` to install vendor dependencies.
-4. Run ```grunt install``` to install the required dependencies.
+5. Run ```grunt install``` to install the required dependencies.
+6. Copy ./src/js/config-default.js to ./src/js/config.js and edit if required.
 
 
 # Cloudwalkers Gruntfile
