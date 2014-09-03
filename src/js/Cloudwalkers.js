@@ -11,7 +11,9 @@ var Cloudwalkers = {
 
 	'init' : function ()
 	{
-
+		// Set config
+		this.config = config;
+		
 		// First load essential user data
 		Cloudwalkers.Session.loadEssentialData (function ()
 		{
@@ -23,7 +25,40 @@ var Cloudwalkers = {
 			Backbone.history.start();
 
 		});
-	}
+	},
+	
+	hasToken : function ()
+	{
+		Store.get("settings", "token", function(entry)
+		{
+			if(entry) Cloudwalkers.hello();
+			
+			else
+			{
+				Cloudwalkers.setloginwindow();
+				window.addEventListener("message", Cloudwalkers.receiveToken, false);	
+			}
+		});
+	},
+	
+	receiveToken: function (event)
+	{
+		if (event.origin !== window.location.origin)
+		return;
+		
+		Store.set("settings", {key: "token", value: event.data}, hello);
+	},
+	
+	setloginwindow : function ()
+	{
+		$("iframe").get(0).src = config.authurl + "authorize?response_type=token&state=xyz&client_id=" + config.appid + "&redirect_uri=" + encodeURIComponent(origin() + "/auth.html");
+	},
+	
+	hello : function ()
+	{
+		window.location = "/";
+	},
+
 };
 
 /**
@@ -52,8 +87,8 @@ Backbone.Model = Backbone.Model.extend({
     {
         return this.endpoint?
         
-        	Cloudwalkers.apiurl + 'admin/' + this.typestring + '/' + this.id + this.endpoint :
-        	Cloudwalkers.apiurl + this.typestring + '/' + this.id;
+        	Cloudwalkers.config.apiurl + 'admin/' + this.typestring + '/' + this.id + this.endpoint :
+        	Cloudwalkers.config.apiurl + this.typestring + '/' + this.id;
     },
     
     'sync' : function (method, model, options)
@@ -91,8 +126,8 @@ Backbone.Collection = Backbone.Collection.extend({
 		
 		var url = (this.parentmodel)?
 	
-			Cloudwalkers.apiurl + 'admin/' + this.parenttype + "/" + this.parentmodel.id :
-			Cloudwalkers.apiurl + 'admin/' + this.typestring;
+			Cloudwalkers.config.apiurl + 'admin/' + this.parenttype + "/" + this.parentmodel.id :
+			Cloudwalkers.config.apiurl + 'admin/' + this.typestring;
 				
 		if(this.endpoint)	url += "/" + this.endpoint;
 	
@@ -108,7 +143,7 @@ Backbone.Collection = Backbone.Collection.extend({
 		
 		// Hack
 		if(method == "update") return false;
-		
+
 		return Backbone.sync(method, model, options);
 	},
 	
@@ -204,55 +239,7 @@ Backbone.Collection = Backbone.Collection.extend({
 		this.seed(ids);
 	},
 	
-	/**
-	 *	Caching seed
-	
-	'seed' : function(ids)
-	{
-		// Ignore empty id lists
-		if(!ids) ids = [];
 
-		var list = [];
-		var fresh = _.compact( ids.map(function(id)
-		{
-			// In current Collection
-			var model = this.get(id);
-			
-			// Or in Session collection
-			if(!model)
-				model = Cloudwalkers.Session.user.account[this.typestring].get (id);
-			
-			// Or create new
-			if(!model) model = this.create({id: id});
-			else this.add(model);
-				
-			list.push(model);
-			
-			if(model.get("objectType") && !model.outdated) model.stamp();
-			else return id;
-		
-		}, this));
-		
-		// Get list based on ids
-		if(fresh.length)
-		{
-			this.endpoint = this.parentmodel? this.typestring: null;
-			this.parameters = {ids: fresh.join(",")};
-			
-			this.fetch({remove: false});
-		}
-		
-		// Trigger listening models
-		this.trigger("seed", list);
-		
-		//Trigger cached, partial or empty load
-		//if (fresh.length && fresh.length != ids.length)	this.trigger("cached:partial", this, list);
-		//else if (!fresh.length && ids.length)			this.trigger("cached", this, list);
-		//else if (!ids.length)							this.trigger("cached:empty", this, list);
-
-		return list;
-	},*/
-	
 	/**
 		Temp: non-caching seed
 	**/
@@ -310,3 +297,8 @@ Backbone.Collection = Backbone.Collection.extend({
 		setTimeout(function(collection){ collection.trigger("ready", collection); }, 1, this);
 	}
 });
+
+var origin = function ()
+{
+	return (window.location.origin)? window.location.origin : window.location.protocol + "//" + window.location.hostname;
+}

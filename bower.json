@@ -1,18 +1,22 @@
 {
-    "name": "superadmin",
-    "version": "0.0.2",
-    "authors": [
-        "Koen Betsens <koen@betsens.be>"
-    ],
-    "dependencies": {
-        "modernizr": "*",
-        "jquery": "*",
-        "underscore": "*",
-        "backbone": "*",
-        "mustache": "*",
-        "bootstrap": "*",
-        "backgrid": "*",
-        "backbone.paginator": "*",
-        "backgrid-filter": "*"
-    }
+	"name": "superadmin",
+	"version": "0.0.2",
+	"authors": [
+		"Koen Betsens <koen@betsens.be>"
+	],
+	"dependencies": {
+		"modernizr": "*",
+		"jquery": "*",
+		"underscore": "*",
+		"backbone": "*",
+		"mustache": "*",
+		"bootstrap": "*",
+		"backgrid": "*",
+		"backgrid-filter": "*",
+		"backgrid-object-cell": "*",
+		"backgrid-moment-cell": "*",
+		"backgrid-paginator": "*",
+		"backgrid-select2-cell": "*",
+		"backgrid-text-cell": "*"
+	}
 }

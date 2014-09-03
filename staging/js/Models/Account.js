@@ -2,23 +2,14 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 	
 	'typestring' : "accounts",
 	
-	'endpoint' : "",
-	
-	// Gets updated when account activates
-	'limits' : {users: 50, networks: 15, keywords: 10},
-	
 	'initialize' : function ()
 	{
 		
 	},
 	
 	'parse' : function (response)
-	{
-		this.endpoint = "";
-		
-		Store.set("accounts", response.account);
-		
-		return response.account;
+	{		
+		return response.account? response.account: response;
 	},
 	
 	'url' : function ()
@@ -28,7 +19,6 @@ Cloudwalkers.Models.Account = Backbone.Model.extend({
 	
 	'sync' : function (method, model, options)
 	{
-		this.endpoint = (options.endpoint)? "/" + options.endpoint: "";
 
 		return Backbone.sync(method, model, options);
 	},

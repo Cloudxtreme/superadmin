@@ -19,6 +19,21 @@ body.dashboard	{ padding-top: 50px; }
 * Hide default border to remove 1px line.
 */
 .dashboard .navbar-fixed-top	{ border: 0; }
+.navbar-fixed-top img.cid	{
+	height: 90%; margin-top: -2px;
+}
+
+.navbar-fixed-top .profile-avatar	{
+	width: 36px; height: 36px; padding: 2px 5px; margin: 6px 10px 0; background: center no-repeat #333; background-size: 100%; border-radius: 20px;
+	color: rgba(0,0,0,0); font-size: 32px; line-height: 0em;
+}
+
+.profile-avatar a	{ color: inherit; }
+
+.profile-avatar:hover	{
+	background-size: 0%; background-color: white;
+	color: #222;
+}
 
 /*
 * Sidebar

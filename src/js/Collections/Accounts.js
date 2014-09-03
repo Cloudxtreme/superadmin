@@ -1,17 +1,17 @@
+$(function()
+{
 Cloudwalkers.Collections.Accounts = Backbone.Collection.extend({
 
 	'model' : Cloudwalkers.Models.Account,
 	
 	'initialize' : function ()
 	{
-		if (Cloudwalkers.Session.accounts)
-			Cloudwalkers.Session.accounts.listenTo(this, "add", Cloudwalkers.Session.accounts.distantAdd)	
+		//if (Cloudwalkers.Session.accounts)
+		//	Cloudwalkers.Session.accounts.listenTo(this, "add", Cloudwalkers.Session.accounts.distantAdd)	
 	},
 	
 	'parse' : function (response)
-	{	
-		console.log(response)
-		
+	{			
 		/*if(this.parentmodel && !this.parenttype)
 			this.parenttype = this.parentmodel.get("objectType");
 		
@@ -61,4 +61,5 @@ Cloudwalkers.Collections.Accounts = Backbone.Collection.extend({
 		// Update model
 		var model = this.updates([id]);
 	}
+});
 });

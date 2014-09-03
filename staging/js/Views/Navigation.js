@@ -1,24 +1,29 @@
 Cloudwalkers.Views.Navigation = Backbone.View.extend({
 	
 	'events' : {},
-
+	
 	'initialize' : function ()
 	{
-
+		this.$header = $('.navbar-fixed-top').first();
 	},
 	
 	'render' : function ()
 	{
-
 		var data;
 		
 		this.$el.html (Mustache.render(Templates.navigation, data));
 		
 		this.handleSidebarMenu();
+		this.handleHeader();
 		
 		return this;
 	},
 	
+	'handleHeader' : function () {
+		
+		this.$header.find('.profile-avatar').css('background-image', 'url(' + Cloudwalkers.Session.user.get('avatar') + ')');
+    },
+    
 	'handleSidebarMenu' : function () {
 		
 		var path = Backbone.history.fragment;
@@ -28,7 +33,7 @@ Cloudwalkers.Views.Navigation = Backbone.View.extend({
 		
 		this.setActive(path);
     },
-    
+
     'setActive' : function (path) {
 		
 		// Toggle .active class

@@ -73,33 +73,16 @@
 		<script src="/storage/IDBStorage.js" type="text/javascript"></script>
 		<script src="/storage/IDBStores.js" type="text/javascript"></script>
 		
+		<!-- Application -->
+		{{#files.scripts}}
+		<script src="{{{src}}}" type="text/javascript"></script>
+		{{/files.scripts}}
+		
 		<script type="text/javascript">
-
-			function hello()
-			{
-				window.location = "dashboard.html";
-			}
 			
-			function hasToken()
-			{
-				Store.get("settings", "token", function(entry)
-				{
-					if(entry) hello();
-					
-					else window.addEventListener("message", receiveToken, false);
-				});
-			}
-			
-			function receiveToken(event)
-			{
-				if (event.origin !== window.location.origin)
-				return;
-				
-				Store.set("settings", {key: "token", value: event.data}, hello);
-			}
-			
+			// Set login window			
 			// IDB Store
-			Store = new StorageClassIDB("cwdSuperDB", 2, hasToken);
+			Store = new StorageClassIDB("cwdSuperDB", 2, Cloudwalkers.hasToken);
 		
 		</script>
 	

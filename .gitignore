@@ -1,9 +1,9 @@
 .idea
 .DS_Store
-Thumbs.db
 *.log
 
 node_modules
 dist/
-src/scripts/config.js
+staging/
+src/config.js
 src/vendor

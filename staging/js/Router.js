@@ -13,6 +13,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'performance/servers' : 'performance_servers',
 		'performance/logs' : 'performance_logs',
 
+		'logout' : 'logout',
 		'*path' : 'dashboard'
 	},
 
@@ -37,13 +38,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Firsttime());
 	},
 	
-	home : function ()
-	{	
-		Cloudwalkers.Session.reset();
-		window.location = "/";
-		
-		return false;
-	},
+	
 	
 	exception : function (errno)
 	{ 
@@ -117,5 +112,21 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	performance_logs : function ()
 	{	
 		this.navigate("#dashboard", true);
-	}
+	},
+	
+	logout : function ()
+	{	
+		$.ajax({ url: Cloudwalkers.config.authurl + "revoke", headers : {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        },
+        success: function()
+        {
+        	window.location = "/";
+        }});
+		
+		Cloudwalkers.RootView.view.remove();
+		Cloudwalkers.RootView.navigation.remove();
+		Cloudwalkers.Session.reset();
+	},
 });
