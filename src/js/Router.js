@@ -7,8 +7,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		'accounts/plans' : 'accounts_plans',
 		'users' : 'users',
 		'users/roles' : 'users_roles',
-		'streams' : 'streams',
-		'streams/scheduling' : 'streams_scheduling',
+		'performance/little' : 'little_ken',
 		'performance' : 'performance',
 		'performance/servers' : 'performance_servers',
 		'performance/logs' : 'performance_logs',
@@ -85,9 +84,9 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 	 *	Streams
 	 **/
 
-	streams : function ()
+	little_ken : function ()
 	{	
-		this.navigate("#dashboard", true);
+		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Little());
 	},
 	
 	streams_scheduling : function ()
@@ -127,6 +126,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 		
 		Cloudwalkers.RootView.view.remove();
 		Cloudwalkers.RootView.navigation.remove();
-		Cloudwalkers.Session.reset();
+		
+		window.localStorage.clear();
 	},
 });

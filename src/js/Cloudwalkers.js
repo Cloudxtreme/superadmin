@@ -11,8 +11,18 @@ var Cloudwalkers = {
 
 	'init' : function ()
 	{
-		// Set config
-		this.config = config;
+		// Authentication
+		var token = window.localStorage.getItem('token');
+		
+		// Check if there is authentication
+		if(token && token.length > 9)
+		{	
+			Cloudwalkers.Session.authenticationtoken = token;
+			
+		} else window.location = "/login.html";
+
+		// Define API root
+		Cloudwalkers.Session.api = config.apiurl;
 		
 		// First load essential user data
 		Cloudwalkers.Session.loadEssentialData (function ()
@@ -25,6 +35,10 @@ var Cloudwalkers = {
 			Backbone.history.start();
 
 		});
+		
+		// Set config
+		this.config = config;
+
 	},
 	
 	hasToken : function ()
@@ -76,6 +90,23 @@ AuthorizationError.prototype = new Error();
 AuthorizationError.prototype.constructor = AuthorizationError;
 
 
+/*
+ *	Add authorization headers to each Backbone.sync call
+ */
+Backbone.ajax = function()
+{
+	// Is there a auth token?
+	if(Cloudwalkers.Session.authenticationtoken)
+		
+		arguments[0].headers = {
+            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+            'Accept': "application/json"
+        };
+
+	return Backbone.$.ajax.apply(Backbone.$, arguments);
+};
+
+
  /**
  *	Model functions
  *
@@ -93,11 +124,6 @@ Backbone.Model = Backbone.Model.extend({
     
     'sync' : function (method, model, options)
 	{
-		options.headers = {
-            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
-            'Accept': "application/json"
-        };
-		
 		// Hack
 		if(method == "update") return false;
 		
@@ -136,11 +162,6 @@ Backbone.Collection = Backbone.Collection.extend({
 	
 	'sync' : function (method, model, options)
 	{
-		options.headers = {
-            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
-            'Accept': "application/json"
-        };
-		
 		// Hack
 		if(method == "update") return false;
 

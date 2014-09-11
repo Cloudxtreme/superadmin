@@ -49,7 +49,7 @@
 						<p class="lead">Manage, administer and tinker all Cloudwalkers logs, accounts, users, setups and templates. For team eyes only.</p>
 						<p class="lead"></p>
 						
-						<iframe src="https://devapi.cloudwalkers.be/oauth2/authorize?response_type=token&state=xyz&client_id=oauth253df6850dec638.12776363&redirect_uri=http://superadmin.cloudwalkers.local/login-dark.html" class="login"></iframe>
+						 <iframe class="login"></iframe>
 					
 					</div>
 					
@@ -63,28 +63,20 @@
 			</div>
 		</div>
 		
-		<!-- Bootstrap core JavaScript
-		================================================== -->
-		<!-- Placed at the end of the document so the pages load faster -->
+		<!-- Application scripts -->
+		<script src="https://www.google.com/jsapi" type="text/javascript"></script>
 		<script src="/vendor/jquery/jquery.min.js" type="text/javascript"></script>
-		<script src="/vendor/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
-		
-		<!-- Storage -->
-		<script src="/storage/IDBStorage.js" type="text/javascript"></script>
-		<script src="/storage/IDBStores.js" type="text/javascript"></script>
-		
-		<!-- Application -->
-		{{#files.scripts}}
-		<script src="{{{src}}}" type="text/javascript"></script>
-		{{/files.scripts}}
-		
-		<script type="text/javascript">
+		<script src="/js/config.js" type="text/javascript" ></script>
+
+		<script>
 			
-			// Set login window			
-			// IDB Store
-			Store = new StorageClassIDB("cwdSuperDB", 2, Cloudwalkers.hasToken);
-		
+			$(function()
+			{
+				config.hasToken();	
+			});
+
 		</script>
+		<!-- end Application scripts -->
 	
 	</body>
 </html>

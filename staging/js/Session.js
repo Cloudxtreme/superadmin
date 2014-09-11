@@ -21,8 +21,9 @@ Cloudwalkers.Session =
 	{
 		
 		this.user = new Cloudwalkers.Models.Me();
+		this.user.fetch({success: callback, error: this.logout});
 
-		Store.get("settings", "token", function(entry)
+		/*Store.get("settings", "token", function(entry)
 		{
 			this.authenticationtoken = entry? entry.value: undefined;
 			
@@ -30,7 +31,7 @@ Cloudwalkers.Session =
 			else		this.logout();	
 				
 
-		}.bind(this));
+		}.bind(this));*/
 		
 	},
 	

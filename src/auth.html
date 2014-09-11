@@ -4,9 +4,10 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="{{description}}">
 		
-		<title>{{title}} - Oauth2 Dark login</title>
+		<title>Oauth2 login</title>
+		
+		<link rel="icon" href="/favicon.ico">
 		
 		<link rel="icon" href="favicon.ico">
 		{{#files.stylesheets}}
@@ -25,8 +26,9 @@
 			<div class="site-wrapper-inner">
 				<div class="cover-container">
 				
-					<h3 class="form-signin-heading">Here you go</h3>
-				
+					<center>
+					<h4 class="form-signin-heading">...</h4>
+					<center>
 				</div>
 			</div>
 		</div>
@@ -39,10 +41,13 @@
 				return !!match && match[1];
 			}
 			
+			var token = extractToken(window.location.href);
 			
-			window.parent.postMessage(extractToken(window.location.href), window.location.origin);
+			if (token && token.length > 6)
+				window.parent.postMessage(token, window.location.origin? window.location.origin: window.location.protocol + "//" + window.location.hostname);
 		
 		</script>
 	
 	</body>
 </html>
+

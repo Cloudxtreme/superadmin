@@ -30,7 +30,8 @@
 		"grunt-concurrent": "*",
 		"grunt-mustache": "*",
 		"grunt-mustache-render": "*",
-		"grunt-htmlhint": "*"
+		"grunt-htmlhint": "*",
+		"expect.js": "*"
 	},
 	"scripts": {
 		"install": "bower install",
