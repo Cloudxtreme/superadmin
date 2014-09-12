@@ -1,6 +1,6 @@
 
 Cloudwalkers.Views.RecentAccounts = Backbone.View.extend({
-	
+
 	'events' : {
 		'remove' : 'destroy',
 		'click .reload' : 'render'
@@ -18,7 +18,6 @@ Cloudwalkers.Views.RecentAccounts = Backbone.View.extend({
 
 	'render' : function ()
 	{	
-		console.log(this)
 		// Template data
 		var params = {};
 		

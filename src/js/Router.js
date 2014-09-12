@@ -58,7 +58,7 @@ Cloudwalkers.Router = Backbone.Router.extend ({
 
 	accounts : function ()
 	{	
-		this.navigate("#dashboard", true);
+		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Accounts());
 	},
 	
 	accounts_plans : function ()
