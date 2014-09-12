@@ -1,6 +1,6 @@
 var config =
 {
-	appid : "oauth254117aa08b79a5.99870256",
+	appid : "oauth253f63ffbac9012.56862210",
 	apiurl: "https://devapi.cloudwalkers.be/1/",
 	authurl: "https://devapi.cloudwalkers.be/oauth2/",
 	

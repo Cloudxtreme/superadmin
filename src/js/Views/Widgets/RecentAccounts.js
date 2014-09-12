@@ -11,14 +11,14 @@ Cloudwalkers.Views.RecentAccounts = Backbone.View.extend({
 		if(options) $.extend(this, options);
 		
 		// Load models
-		//this.accounts = new Cloudwalkers.Collections.Accounts();
-		//this.listenTo(this.accounts, 'sync', this.fillAccounts);
-			
+		this.accounts = new Cloudwalkers.Collections.Accounts();
+		this.listenTo(this.accounts, 'sync', this.render);		
 		
 	},
 
 	'render' : function ()
 	{	
+		console.log(this)
 		// Template data
 		var params = {};
 		
@@ -32,8 +32,11 @@ Cloudwalkers.Views.RecentAccounts = Backbone.View.extend({
 		var Territory = Backbone.Model.extend({});
 		
 		var Territories = Backbone.Collection.extend({
-		model: Territory,
-		url: "/js/territories.json"
+			model: Territory,
+			url: "/js/territories.json",
+			parse: function(response) {
+				return response;
+			}
 		});
 		
 		var territories = new Territories();
@@ -79,7 +82,7 @@ Cloudwalkers.Views.RecentAccounts = Backbone.View.extend({
 		this.$el.find("#backgrid").append(grid.render().el);
 		
 		// Fetch some countries from the url
-		setTimeout( function(terr){terr.fetch({reset: true});}, 1000, territories);
+		territories.fetch();
 		
 		return this;
 	}
