@@ -117,7 +117,7 @@ module.exports = function (grunt)
 		copy: {
 			staging: {
 				files: [
-					{expand: true, cwd: '<%= defaults.source.dir %>', src: ['*.txt', '*.ico','images/**','fonts/**','css/**','js/**','!js/**-default.js','storage/**'], dest: '<%= defaults.staging.dir %>/', filter: 'isFile'},
+					{expand: true, cwd: '<%= defaults.source.dir %>', src: ['*.txt', '*.ico','images/**','fonts/**','css/**','js/**','tests/**','!js/**-default.js','storage/**'], dest: '<%= defaults.staging.dir %>/', filter: 'isFile'},
 					{expand: true, cwd: '<%= defaults.source.dir %>', src: ['vendor/*/*.js','vendor/*/*.css','vendor/*/dist/**','vendor/*/lib/**',"!**/Gruntfile.js"], dest: '<%= defaults.staging.dir %>/'}
 				]
 			},

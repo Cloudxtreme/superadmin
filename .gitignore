@@ -7,3 +7,4 @@ dist/
 staging/
 src/config.js
 src/vendor
+src/tests

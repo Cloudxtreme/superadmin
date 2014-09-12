@@ -13,15 +13,23 @@ $(function()
 		{
 			// Pageview
 			this.$el.html (Mustache.render (Templates.little_ken, { 'title' : this.title }));
-			/**this.$container = this.$el.find("#container").eq(0);
-
-			mocha.setup({ui: 'bdd'});
-			mocha.checkLeaks();
-			mocha.globals(['jQuery']);
+			this.$container = this.$el.find("#container").eq(0);
 			
-			setTimeout(function(){mocha.run(); console.log('run')}, 100);*/
-			
+			// Request test response
+			$.ajax('/tests/run.php', {success: this.fill.bind(this), error: this.fail});
+						
 			return this;
+		},
+		
+		fill : function (response)
+		{
+			// Little Ken Results
+			this.$container.append(response);
+		},
+		
+		fail : function(err)
+		{
+			this.$container.append("Woops. Little Ken tripped.");
 		}
 	});
 });
