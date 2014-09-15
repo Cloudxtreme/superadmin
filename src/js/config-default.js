@@ -1,12 +1,11 @@
-var config =
-{
+define({
 	appid : "oauth254117aa08b79a5.99870256",
 	apiurl: "https://devapi.cloudwalkers.be/1/",
 	authurl: "https://devapi.cloudwalkers.be/oauth2/",
 	
 	setloginwindow : function ()
 	{
-		$("iframe").get(0).src = config.authurl + "authorize?response_type=token&state=xyz&client_id=" + config.appid + "&redirect_uri=" + origin() + "/auth.html";
+		$("iframe").get(0).src = this.authurl + "authorize?response_type=token&state=xyz&client_id=" + this.appid + "&redirect_uri=" + origin() + "/auth.html";
 	},
 	
 	hello : function ()
@@ -19,13 +18,13 @@ var config =
 		// Authentication
 		var token = window.localStorage.getItem('token');
 		
-		if(token && token.length > 9) config.hello();
+		if(token && token.length > 9) this.hello();
 		else	
 		{
 			if(token) window.localStorage.removeItem('token');
-			
-			config.setloginwindow();
-			window.addEventListener("message", config.receiveToken, false);	
+					
+			this.setloginwindow ();
+			window.addEventListener("message", this.receiveToken.bind(this), false);	
 		}
 	},
 	
@@ -37,11 +36,12 @@ var config =
 		if (event.data && event.data.length > 9)
 		{
 			window.localStorage.setItem('token', event.data);
-			config.hello();
+			this.hello();
 		}
-		else config.setloginwindow();
+		else this.setloginwindow();
 	}
-}
+});
+
 
 var origin = function ()
 {
