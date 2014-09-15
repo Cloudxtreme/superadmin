@@ -5,6 +5,7 @@
 		"Koen Betsens <koen@betsens.be>"
 	],
 	"dependencies": {
+		"requirejs": "*",
 		"modernizr": "*",
 		"jquery": "*",
 		"underscore": "*",
@@ -15,9 +16,11 @@
 		"chai": "*",
 		"backgrid": "*",
 		"backgrid-filter": "*",
+		"backbone.paginator": "*",
+		"backgrid-paginator": "#master",
 		"backgrid-moment-cell": "*",
-		"backgrid-paginator": "*",
 		"backgrid-select2-cell": "*",
-		"backgrid-text-cell": "*"
+		"backgrid-text-cell": "*",
+		"backgrid-object-cell": "git@github.com:AmiliaApp/backgrid-object-cell"
 	}
 }

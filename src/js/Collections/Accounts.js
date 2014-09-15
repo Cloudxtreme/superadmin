@@ -1,65 +1,75 @@
-$(function()
-{
-Cloudwalkers.Collections.Accounts = Backbone.Collection.extend({
-
-	'model' : Cloudwalkers.Models.Account,
-	
-	'initialize' : function ()
+define (
+	['backbone', 'backbone.paginator', 'Models/Account'],
+	function(Backbone, PageableCollection, Account)
 	{
-		//if (Cloudwalkers.Session.accounts)
-		//	Cloudwalkers.Session.accounts.listenTo(this, "add", Cloudwalkers.Session.accounts.distantAdd)	
-	},
-	
-	'parse' : function (response)
-	{			
-		/*if(this.parentmodel && !this.parenttype)
-			this.parenttype = this.parentmodel.get("objectType");
-		
-		// Solve response json tree problem
-		if (this.parentmodel)
-			response = response[this.parenttype];
-		
-		// Get paging
-		if(response)
-			this.setcursor(response.paging);
-		
-		// Ready?
-		if(!response.paging) this.ready();
-		
-		return response[this.typestring];*/
-		
-		return response;
-	},
-	
-	/*'fetch' : function(method, model, options) 
-	{
-		return Cloudwalkers.Session.user.get("accounts");
-	},*/
-	
-	'updates' : function (ids)
-	{
-		for(var n in ids)
+		var Accounts = PageableCollection.extend(
 		{
-			var model = this.get(ids[n]);
+			typestring : "accounts",
 			
-			if(model)
-			{
-				// Store with outdated parameter
-				Store.set(this.typestring, {id: ids[n], outdated: true});
+			model: Account,
+			
+			url : function(a)
+			{	
+				// local
+				if(true) return '/accounts.json';
 				
-				// Hard relaod data
-				model.fetch();
-			}
-		}
-	},
-
-	'outdated' : function(id)
-	{
-		// Collection
-		if(!id) return this.filter(function(model){ return model.outdated});
+				// Get parent model
+				if(this.parentmodel && !this.parenttype) this.parenttype = this.parentmodel.get("objectType");
+				
+				var url = (this.parentmodel)?
+			
+					Cloudwalkers.config.apiurl + 'resellers/1/' + this.parenttype + "/" + this.parentmodel.id :
+					Cloudwalkers.config.apiurl + 'resellers/1/' + this.typestring;
+						
+				if(this.endpoint)	url += "/" + this.endpoint;
+			
+				return this.parameters? url + "?" + $.param (this.parameters): url;
+			},
+			
+			sync : function (method, model, options)
+			{
+				// Hack
+				if(method == "update") return false;
 		
-		// Update model
-		var model = this.updates([id]);
+				return Backbone.sync(method, model, options);
+			},
+			
+			parse: function (response)
+			{	
+				// Hack for double array		
+				if (response.length == 1)
+					response = response[0];
+				
+				return response;
+			},
+			
+			updates: function (ids)
+			{
+				for(var n in ids)
+				{
+					var model = this.get(ids[n]);
+					
+					if(model)
+					{
+						// Store with outdated parameter
+						Store.set(this.typestring, {id: ids[n], outdated: true});
+						
+						// Hard relaod data
+						model.fetch();
+					}
+				}
+			},
+		
+			outdated: function(id)
+			{
+				// Collection
+				if(!id) return this.filter(function(model){ return model.outdated});
+				
+				// Update model
+				var model = this.updates([id]);
+			}
+		});
+		
+		return Accounts;
 	}
-});
-});
+);

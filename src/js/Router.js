@@ -1,132 +1,128 @@
-Cloudwalkers.Router = Backbone.Router.extend ({
-
-	routes :
+define(
+	['backbone', 'Views/Dashboard', 'Views/Accounts', 'Views/Little'],
+	function (Backbone, DashboardView, AccountsView, LittleView)
 	{
-		'statistics' : 'statistics',
-		'accounts' : 'accounts',
-		'accounts/plans' : 'accounts_plans',
-		'users' : 'users',
-		'users/roles' : 'users_roles',
-		'performance/little' : 'little_ken',
-		'performance' : 'performance',
-		'performance/servers' : 'performance_servers',
-		'performance/logs' : 'performance_logs',
-
-		'logout' : 'logout',
-		'*path' : 'dashboard'
-	},
-
-	initialize : function (){},
-	
-	/**
-	 *	General
-	 **/
-
-	dashboard : function ()
-	{	
-		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Dashboard());
-	},
-	
-	statistics : function ()
-	{	
-		this.navigate("#dashboard", true);
-	},
-	
-	firsttime : function ()
-	{	
-		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Firsttime());
-	},
-	
-	
-	
-	exception : function (errno)
-	{ 
-		var red = "/";
-		
-		/*switch(errno)
+		var Router = Backbone.Router.extend (
 		{
-			case 401 : red = "/401.html";
-			case 503 : red = "/503.html";
-
-			default : window.location = red;
-		}*/
-	},
-	
-	/**
-	 *	Accounts
-	 **/
-
-	accounts : function ()
-	{	
-		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Accounts());
-	},
-	
-	accounts_plans : function ()
-	{	
-		this.navigate("#dashboard", true);
-	},
-	
-	/**
-	 *	Users
-	 **/
-
-	users : function ()
-	{	
-		this.navigate("#dashboard", true);
-	},
-	
-	users_roles : function ()
-	{	
-		this.navigate("#dashboard", true);
-	},
-	
-	/**
-	 *	Streams
-	 **/
-
-	little_ken : function ()
-	{	
-		Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Little());
-	},
-	
-	streams_scheduling : function ()
-	{	
-		this.navigate("#dashboard", true);
-	},
-	
-	/**
-	 *	Performance
-	 **/
-
-	performance : function ()
-	{	
-		this.navigate("#dashboard", true);
-	},
-	
-	performance_servers : function ()
-	{	
-		this.navigate("#dashboard", true);
-	},
-	
-	performance_logs : function ()
-	{	
-		this.navigate("#dashboard", true);
-	},
-	
-	logout : function ()
-	{	
-		$.ajax({ url: Cloudwalkers.config.authurl + "revoke", headers : {
-            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
-            'Accept': "application/json"
-        },
-        success: function()
-        {
-        	window.location = "/";
-        }});
+			routes :
+			{
+				'statistics' : 'statistics',
+				'accounts' : 'accounts',
+				'accounts/plans' : 'accounts_plans',
+				'users' : 'users',
+				'users/roles' : 'users_roles',
+				'performance/little' : 'little_ken',
+				'performance' : 'performance',
+				'performance/servers' : 'performance_servers',
+				'performance/logs' : 'performance_logs',
 		
-		Cloudwalkers.RootView.view.remove();
-		Cloudwalkers.RootView.navigation.remove();
+				'logout' : 'logout',
+				'*path' : 'dashboard'
+			},
+			
+			/**
+			 *	General
+			 **/
 		
-		window.localStorage.clear();
-	},
-});
+			dashboard : function ()
+			{
+				Cloudwalkers.RootView.setView (new DashboardView());
+			},
+			
+			statistics : function ()
+			{	
+				this.navigate("#dashboard", true);
+			},
+			
+			firsttime : function ()
+			{	
+				Cloudwalkers.RootView.setView (new Cloudwalkers.Views.Firsttime());
+			},
+			
+			exception : function (errno)
+			{ 
+				var red = "/";
+			},
+			
+			/**
+			 *	Accounts
+			 **/
+		
+			accounts : function ()
+			{	
+				Cloudwalkers.RootView.setView (new AccountsView());
+			},
+			
+			accounts_plans : function ()
+			{	
+				this.navigate("#dashboard", true);
+			},
+			
+			/**
+			 *	Users
+			 **/
+		
+			users : function ()
+			{	
+				this.navigate("#dashboard", true);
+			},
+			
+			users_roles : function ()
+			{	
+				this.navigate("#dashboard", true);
+			},
+			
+			/**
+			 *	Streams
+			 **/
+		
+			little_ken : function ()
+			{	
+				Cloudwalkers.RootView.setView (new LittleView());
+			},
+			
+			streams_scheduling : function ()
+			{	
+				this.navigate("#dashboard", true);
+			},
+			
+			/**
+			 *	Performance
+			 **/
+		
+			performance : function ()
+			{	
+				this.navigate("#dashboard", true);
+			},
+			
+			performance_servers : function ()
+			{	
+				this.navigate("#dashboard", true);
+			},
+			
+			performance_logs : function ()
+			{	
+				this.navigate("#dashboard", true);
+			},
+			
+			logout : function ()
+			{	
+				$.ajax({ url: Cloudwalkers.config.authurl + "revoke", headers : {
+		            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+		            'Accept': "application/json"
+		        },
+		        success: function()
+		        {
+		        	window.location = "/";
+		        }});
+				
+				Cloudwalkers.RootView.view.remove();
+				Cloudwalkers.RootView.navigation.remove();
+				
+				window.localStorage.clear();
+			},
+		});
+		
+		return Router;
+	}
+);

@@ -1,37 +1,41 @@
-$(function()
-{
-	Cloudwalkers.Views.Little = Cloudwalkers.Views.Pageview.extend({
-	
-		title : "Little Ken",
+define (
+	['mustache', 'Views/Pageview'],
+	function (Mustache, Pageview)
+	{
+		var Little = Pageview.extend({
 		
-		initialize : function()
-		{
+			title : "Little Ken",
 			
-		},
+			initialize : function()
+			{
+				
+			},
+				
+			render : function ()
+			{
+				// Pageview
+				this.$el.html (Mustache.render (Templates.little_ken, { 'title' : this.title }));
+				this.$container = this.$el.find("#container").eq(0);
+				
+				// Request test response
+				$.ajax('/tests/run.php', {success: this.fill.bind(this), error: this.fail});
+							
+				return this;
+			},
 			
-		render : function ()
-		{
-			// Pageview
-			this.$el.html (Mustache.render (Templates.little_ken, { 'title' : this.title }));
-			this.$container = this.$el.find("#container").eq(0);
+			fill : function (response)
+			{
+				// Little Ken Results
+				this.$container.append(response);
+			},
 			
-			// Request test response
-			$.ajax('/tests/run.php', {success: this.fill.bind(this), error: this.fail});
-						
-			return this;
-		},
+			fail : function(err)
+			{
+				this.$container.append("Woops. Little Ken tripped.");
+			}
+		});
 		
-		fill : function (response)
-		{
-			// Little Ken Results
-			this.$container.append(response);
-		},
-		
-		fail : function(err)
-		{
-			this.$container.append("Woops. Little Ken tripped.");
-		}
-	});
+		return Little;
 });
 
 function assert(expr, msg)
