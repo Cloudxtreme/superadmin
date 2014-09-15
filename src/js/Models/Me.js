@@ -15,8 +15,8 @@ define (
 		
 			url: function ()
 			{
-				return '/me.json';
-				// return "https://devapi.cloudwalkers.be/1/users/me?include_accounts=ids";
+				//return '/me.json';
+				return "https://devapi.cloudwalkers.be/1/users/me?include_accounts=ids";
 			},
 			
 			parse: function (response)

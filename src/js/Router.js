@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Views/Dashboard', 'Views/Accounts', 'Views/Little'],
-	function (Backbone, DashboardView, AccountsView, LittleView)
+	['backbone', 'Views/Dashboard', 'Views/Accounts', 'Views/Plans', 'Views/Little'],
+	function (Backbone, DashboardView, AccountsView, PlansView, LittleView)
 	{
 		var Router = Backbone.Router.extend (
 		{
@@ -55,7 +55,7 @@ define(
 			
 			accounts_plans : function ()
 			{	
-				this.navigate("#dashboard", true);
+				Cloudwalkers.RootView.setView (new PlansView());
 			},
 			
 			/**

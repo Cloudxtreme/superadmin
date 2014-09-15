@@ -1,18 +1,18 @@
 define (
 	['backbone', 'backbone.paginator', 'Models/Account'],
-	function(Backbone, PageableCollection, Account)
+	function(Backbone, PageableCollection, Plan)
 	{
-		var Accounts = PageableCollection.extend(
+		var Plans = PageableCollection.extend(
 		{
-			typestring : "accounts",
+			typestring : "plans",
 			
-			model: Account,
+			model: Plan,
 			
 			url : function(a)
 			{	
 				// local
 				//if(true) return '/accounts.json';
-
+				
 				// Get parent model
 				if(this.parentmodel && !this.parenttype) this.parenttype = this.parentmodel.get("objectType");
 				
@@ -40,7 +40,7 @@ define (
 				/*if (response.length == 1)
 					response = response[0];*/
 				
-				return response.reseller.accounts;
+				return response.reseller.plans;
 			},
 			
 			updates: function (ids)
@@ -70,6 +70,6 @@ define (
 			}
 		});
 		
-		return Accounts;
+		return Plans;
 	}
 );

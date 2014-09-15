@@ -1,8 +1,8 @@
 define (
-	['Views/Panel', 'mustache', 'backgrid', 'paginator', 'backgrid-object-cell', 'Collections/Accounts'],
-	function (Panel, Mustache, Backgrid, Paginator, ObjectCell, Accounts)
+	['Views/Panel', 'mustache', 'backgrid', 'paginator', 'backgrid-object-cell', 'Collections/Plans'],
+	function (Panel, Mustache, Backgrid, Paginator, ObjectCell, Plans)
 	{
-		var AccountsGrid = Panel.extend({
+		var PlansGrid = Panel.extend({
 			
 			limit: 20,
 			editable: true,
@@ -16,7 +16,7 @@ define (
 				this.$el.html (Mustache.render (Templates.accountsgrid, params));
 				
 				// Backgrid
-				this.collection = new Accounts([], {
+				this.collection = new Plans([], {
 					state: {
 						order: -1,
 						pageSize: this.limit,
@@ -66,12 +66,9 @@ define (
 						editable: false,
 						cell: Backgrid.IntegerCell.extend ({orderSeparator: ''})
 					},
-					{ name: "name", label: "Account", cell: "string", editable: this.editable},
-					{ name: "plan", label: "Plan", cell: PlanCell, editable: this.editable},
-					{ name: "roles", label: "Roles", cell: RolesCell, editable: this.editable},
-					{ name: "firstTime", label: "Logged", cell: "integer", editable: this.editable}
+					{ name: "name", label: "Name", cell: "string", editable: this.editable }
 				];
-				console.log(this.collection)
+				
 				// Initialize a new Grid instance
 				var grid = new Backgrid.Grid({
 				  columns: columns,
@@ -92,6 +89,6 @@ define (
 			}
 		});
 		
-		return AccountsGrid;
+		return PlansGrid;
 	}
 );
