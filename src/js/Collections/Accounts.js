@@ -10,8 +10,6 @@ define (
 			
 			url : function(a)
 			{	
-				// local
-				//if(true) return '/accounts.json';
 
 				// Get parent model
 				if(this.parentmodel && !this.parenttype) this.parenttype = this.parentmodel.get("objectType");
@@ -35,11 +33,7 @@ define (
 			},
 			
 			parse: function (response)
-			{	
-				// Hack for double array		
-				/*if (response.length == 1)
-					response = response[0];*/
-				
+			{		
 				return response.reseller.accounts;
 			},
 			
