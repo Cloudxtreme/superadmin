@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Views/Dashboard', 'Views/Accounts', 'Views/Plans', 'Views/Little'],
-	function (Backbone, DashboardView, AccountsView, PlansView, LittleView)
+	['backbone', 'Session', 'Views/Dashboard', 'Views/Accounts', 'Views/Plans', 'Views/Little'],
+	function (Backbone, Session, DashboardView, AccountsView, PlansView, LittleView)
 	{
 		var Router = Backbone.Router.extend (
 		{
@@ -108,7 +108,7 @@ define(
 			logout : function ()
 			{	
 				$.ajax({ url: Cloudwalkers.config.authurl + "revoke", headers : {
-		            'Authorization': 'Bearer ' + Cloudwalkers.Session.authenticationtoken,
+		            'Authorization': 'Bearer ' + Session.authenticationtoken,
 		            'Accept': "application/json"
 		        },
 		        success: function()
@@ -120,7 +120,7 @@ define(
 				Cloudwalkers.RootView.navigation.remove();
 				
 				window.localStorage.clear();
-			},
+			}
 		});
 		
 		return Router;
