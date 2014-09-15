@@ -122,13 +122,13 @@ module.exports = function (grunt)
 			},
 			staging: {
 				files: [
-					{expand: true, cwd: '<%= defaults.source.dir %>', src: ['*.json', '*.txt', '*.ico','images/**','fonts/**','css/**','js/**','tests/**','!js/**-default.js','storage/**'], dest: '<%= defaults.staging.dir %>/', filter: 'isFile'},
+					{expand: true, cwd: '<%= defaults.source.dir %>', src: ['*.json', '*.txt', '*.ico', '*.php', 'images/**','fonts/**','css/**','js/**','!js/**-default.js','storage/**'], dest: '<%= defaults.staging.dir %>/', filter: 'isFile'},
 					{expand: true, cwd: '<%= defaults.source.dir %>/vendor', src: ['*/*.js','*/*.css','*/dist/**','*/lib/**',"!**/Gruntfile.js"], dest: '<%= defaults.staging.dir %>/js/lib'}
 				]
 			},
 			release: {
 				files: [
-					{expand: true, cwd: '<%= defaults.source.dir %>', src: ['*.txt', '*.ico','images/**','fonts/**','storage/**'], dest: '<%= defaults.release.dir %>/', filter: 'isFile'},
+					{expand: true, cwd: '<%= defaults.source.dir %>', src: ['*.txt', '*.ico', '*.php', 'images/**','fonts/**','storage/**'], dest: '<%= defaults.release.dir %>/', filter: 'isFile'},
 					{expand: true, cwd: '<%= defaults.source.dir %>/vendor', src: ['*/*.js','*/*.css','*/dist/**','*/lib/**',"!**/Gruntfile.js"], dest: '<%= defaults.release.dir %>/js/lib'}
 				]
 			}

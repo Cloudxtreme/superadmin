@@ -18,7 +18,7 @@ define (
 				this.$container = this.$el.find("#container").eq(0);
 				
 				// Request test response
-				$.ajax('/tests/run.php', {success: this.fill.bind(this), error: this.fail});
+				$.ajax('/call-ken.php', {success: this.fill.bind(this), error: this.fail});
 							
 				return this;
 			},

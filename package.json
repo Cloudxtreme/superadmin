@@ -37,6 +37,7 @@
 		"install": "bower install",
 		"build": "grunt release",
 		"update": "bower update; grunt release",
-		"test": "grunt test:release"
+		"test": "grunt test:release",
+		"stage": "grunt staging"
 	}
 }
