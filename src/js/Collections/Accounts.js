@@ -16,12 +16,10 @@ define (
 				// Get parent model
 				if(this.parentmodel && !this.parenttype) this.parenttype = this.parentmodel.get("objectType");
 				
-				var url = "https://devapi.cloudwalkers.be/1/admin/accounts";
-				
-				//var url = (this.parentmodel)?
+				var url = (this.parentmodel)?
 			
-					//Cloudwalkers.config.apiurl + 'resellers/1/' + this.parenttype + "/" + this.parentmodel.id :
-					//Cloudwalkers.config.apiurl + 'resellers/1/' + this.typestring;
+					Cloudwalkers.config.apiurl + 'resellers/1/' + this.parenttype + "/" + this.parentmodel.id :
+					Cloudwalkers.config.apiurl + 'resellers/1/' + this.typestring;
 						
 				if(this.endpoint)	url += "/" + this.endpoint;
 			
