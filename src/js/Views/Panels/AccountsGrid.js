@@ -71,7 +71,7 @@ define (
 					{ name: "roles", label: "Roles", cell: RolesCell, editable: this.editable},
 					{ name: "firstTime", label: "Logged", cell: "integer", editable: this.editable}
 				];
-				console.log(this.collection)
+				
 				// Initialize a new Grid instance
 				var grid = new Backgrid.Grid({
 				  columns: columns,

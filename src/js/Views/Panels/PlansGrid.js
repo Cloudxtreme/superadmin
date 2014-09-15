@@ -29,34 +29,30 @@ define (
 						pageSize: "records"
 					}
 				});
-				
-				var PlanCell = Backgrid.Extension.ObjectCell.extend(
-				{
-					formatter: {
-						fromRaw: function(object) { return object.name; }
-					},
-					schema: [
-						{name: "id", label: "id"},
-						{name: "name", label: "Plan"},
-						{name: "limits", label: "Limits"}
-					]
-				});
 
-				var RolesCell = Backgrid.Extension.ArrayObjectCell.extend(
+				var LimitsCell = Backgrid.Extension.ObjectCell.extend(
 				{
 					formatter: {
 						fromRaw: function(array) {
-							return _.map(array, function(object) { return object.name; }).join(", ");
+
+							newlimit = [];
+							_.map(array, function(k,v){
+								newlimit.push({name:v, value:k});
+							});
+
+							return _.map(newlimit, function(object) {
+								return object.name + ": " + object.value;
+							}).join(", ");
+							
 						}
 					},
-					gridOptions: {
-						className: "backgrid table-bordered",
-						columns: [
-							{name: "id", label: "id", cell: "string"},
-							{name: "name", label: "Role", cell: "string"},
-							{name: "template", label: "template", cell: "string"}
-						]
-					}
+					schema: [
+						{name: "admins", label: "Admins", cell: "number"},
+						{name: "following", label: "Following", cell: "number"},
+						{name: "keywords", label: "Keywords", cell: "number"},
+						{name: "services", label: "Services", cell: "number"},
+						{name: "users", label: "Users", cell: "number"}
+					]
 				});
 		
 				var columns = [
@@ -66,7 +62,8 @@ define (
 						editable: false,
 						cell: Backgrid.IntegerCell.extend ({orderSeparator: ''})
 					},
-					{ name: "name", label: "Name", cell: "string", editable: this.editable }
+					{ name: "name", label: "Name", cell: "string", editable: this.editable },
+					{ name: "limits", label: "Limits", cell: LimitsCell, editable: this.editable}
 				];
 				
 				// Initialize a new Grid instance
