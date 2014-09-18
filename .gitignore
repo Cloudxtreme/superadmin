@@ -5,6 +5,7 @@
 node_modules
 dist/
 staging/
+src/call-ken.php
 src/js/config.js
 src/vendor
 src/tests
