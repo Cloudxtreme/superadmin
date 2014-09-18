@@ -1,6 +1,6 @@
 define (
-	['mustache', 'Views/Pageview'],
-	function (Mustache, Pageview)
+	['mustache', 'Session', 'Views/Pageview'],
+	function (Mustache, Session, Pageview)
 	{
 		var Little = Pageview.extend({
 		
@@ -18,20 +18,32 @@ define (
 				this.$container = this.$el.find("#container").eq(0);
 				
 				// Request test response
-				$.ajax('/call-ken.php', {success: this.fill.bind(this), error: this.fail});
+				$.ajax('/call-ken.php', {success: this.fill.bind(this), error: this.fail, headers: {
+		            'Authorization': 'Bearer ' + Session.authenticationtoken,
+		            'Accept': "application/json"
+		        }});
 							
 				return this;
 			},
 			
 			fill : function (response)
 			{
-				// Little Ken Results
-				this.$container.append(response);
+				// Clean out response
+				var lines = response.split("\n");
+				lines.shift();
+				lines.shift();
+				
+				// Little Ken header
+				this.$container.find('.alert-info').html(lines.shift());
+				lines.shift();
+				
+				// Little Ken output
+				this.$container.find('.highlight code').append(lines.join('<br>'));
 			},
 			
 			fail : function(err)
 			{
-				this.$container.append("Woops. Little Ken tripped.");
+				this.$container.find('.alert-info').removeClass('alert-info').addClass('alert-danger').html("Woops. Little Ken tripped.");
 			}
 		});
 		

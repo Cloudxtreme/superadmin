@@ -9,7 +9,7 @@
 2. Run ```cd path/to/local/superadmin```
 3. Run ```sudo npm install -g grunt-cli bower```
 4. Run ```bower install``` to install vendor dependencies.
-5. Run ```grunt install``` to install the required dependencies. <- Wrong
+5. Run ```npm install``` to install the required dependencies.
 6. Run ```cp src/js/config-default.js src/js/config.js``` to create your local config file.
 7. Edit config file if required.
 

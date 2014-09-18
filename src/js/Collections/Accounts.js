@@ -11,6 +11,8 @@ define (
 			url : function(a)
 			{	
 
+				// if (true) return '/accounts.json'; 
+				
 				// Get parent model
 				if(this.parentmodel && !this.parenttype) this.parenttype = this.parentmodel.get("objectType");
 				
