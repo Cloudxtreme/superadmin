@@ -21,6 +21,6 @@
 		"backgrid-moment-cell": "*",
 		"backgrid-select2-cell": "*",
 		"backgrid-text-cell": "*",
-		"backgrid-object-cell": "git@github.com:AmiliaApp/backgrid-object-cell.git#master"
+		"backgrid-object-cell": "git://github.com/AmiliaApp/backgrid-object-cell#master"
 	}
 }
