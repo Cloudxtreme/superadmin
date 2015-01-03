@@ -1,10 +1,10 @@
 define (
-	['mustache', 'Views/Pageview', 'Views/Panels/AccountsGrid'],
-	function (Mustache, Pageview, AccountsGrid)
+	['mustache', 'Views/Pageview'],
+	function (Mustache, Pageview)
 	{
 		var Dashboard = Pageview.extend(
 		{
-			title : "Accounts Overview",
+			title : "Scheduling Performance",
 				
 			render : function ()
 			{
@@ -13,9 +13,9 @@ define (
 				this.$container = this.$el.find("#container").eq(0);
 	
 				// Add recent accounts widget
-				var recent = new AccountsGrid({editable: true, limit: 20, title: false});
+				//var recent = new PlansGrid({editable: true, limit: 20, title: false});
 				
-				this.appendWidget(recent, 12);
+				//this.appendWidget(recent, 12);
 				
 				return this;
 			}

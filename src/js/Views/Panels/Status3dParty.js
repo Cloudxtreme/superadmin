@@ -11,7 +11,7 @@ define (
 				{name: "Mandrill API", api: null, callback: null},
 				{name: "Ai-Applied API", api: null, callback: null},
 				{title: "Social Content Services"},
-				{name: "Titter API", api: null, callback: null},
+				{name: "Twitter API", api: null, callback: null},
 				{name: "Facebook API", api: null/*"https://www.facebook.com/feeds/api_status.php"*/, callback: "facebookstatus"},
 				{name: "LinkedIn API", api: null, callback: null},
 				{name: "Sendible API", api: null, callback: null},

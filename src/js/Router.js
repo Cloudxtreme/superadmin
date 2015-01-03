@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Session', 'Views/Dashboard', 'Views/Accounts', 'Views/Plans', 'Views/Little'],
-	function (Backbone, Session, DashboardView, AccountsView, PlansView, LittleView)
+	['backbone', 'Session', 'Views/Dashboard', 'Views/Accounts', 'Views/Plans', 'Views/Little', 'Views/DispatchLogs'],
+	function (Backbone, Session, DashboardView, AccountsView, PlansView, LittleView, DispatchLogsView)
 	{
 		var Router = Backbone.Router.extend (
 		{
@@ -15,6 +15,7 @@ define(
 				'performance' : 'performance',
 				'performance/servers' : 'performance_servers',
 				'performance/logs' : 'performance_logs',
+				'performance/gearman' : 'performance_gearman',
 		
 				'logout' : 'logout',
 				'*path' : 'dashboard'
@@ -102,7 +103,12 @@ define(
 			
 			performance_logs : function ()
 			{	
-				this.navigate("#dashboard", true);
+				Cloudwalkers.RootView.setView (new DipatchLogsView());
+			},
+			
+			performance_gearman : function ()
+			{	
+				window.location = "http://devapi.cloudwalkers.be/gearman/index.php?action=queue";
 			},
 			
 			logout : function ()
