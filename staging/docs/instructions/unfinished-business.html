@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Cloudwalkers Team</title>
+
+	<link rel="shortcut icon" href="https://devplatform.cloudwalkers.be/favicon.ico"/>
+
+	<!-- Bootstrap -->
+	<link href="/docs/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/docs/css/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/fontawesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+
+	<link href="/docs/instructions/css/planning.css" rel="stylesheet" />
+	<link href="/docs/css/theme.css" rel="stylesheet">
+
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+	<style type="text/css">
+		table
+		{
+			width: 100%;
+		}
+
+		table tr td:first-child
+		{
+			width: 30%;
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body >
+
+<div class="container">
+
+	<h1>Unifinished business</h1>
+
+	<h2>Backend</h2>
+
+	<h3>User roles endpoints</h3>
+	<p class="priority high"></p>
+	<p class="added">8/7/2014</p>
+
+	<p>
+		Pedro started working on user roles but didn't finish the endpoints to update the groups.<br />
+		Tickets <a href="https://bmgroup.atlassian.net/browse/CLOUD-396">CLOUD-396</a> and <a href="https://bmgroup.atlassian.net/browse/CLOUD-432">CLOUD-432</a> are still open.
+	</p>
+
+	<ul class="todo">
+		<li>
+			Implement the endpoints<br />
+			<span class="estimation">1 day</span>
+			<span class="responsable">Pedro</span>
+		</li>
+	</ul>
+
+	<h3>Swagger Sandbox</h3>
+	<p class="priority medium"></p>
+	<p class="added">7/7/2014</p>
+
+	<p>Pedro has been tweaking the swagger sandbox, but was not succesful.</p>
+	<p>What needs to be done? Swagger Sandbox needs to be configured/tweaked to use oauth2 authentication.</p>
+
+	<ul class="todo">
+		<li>
+			Configure oauth2 swagger sandbox
+			<span class="estimation">?</span>
+			<span class="responsable">Pedro</span>
+		</li>
+	</ul>
+	
+	<h3>Logging</h3>
+	<p class="priority low"></p>
+	<p class="added">1/7/2014</p>
+	<p>
+		Logging has been implemented in the API and in statistics update calls. 
+		However, in API it has been implemented "rather roughly", so this will have 
+		to be improved over time. The other gearman tasks don't have logging yet and 
+		this should be added.
+	</p>
+	
+	<ul class="todo">
+		<li>
+			Implement Procedure logging in all gearman jobs<br />
+			<span class="estimation">1 day</span> <span class="responsable">Roberto</span> 
+		</li>
+		
+		<li>
+			Improve API logging<br />
+			<span class="responsable">Roberto</span>
+		</li>
+	</ul>
+	
+	<h3>Admin panel</h3>
+	<p class="priority medium"></p>
+	<p class="added">1/7/2014</p>
+	<p>
+		The current (old) admin panel is broken due to Pedro's changes in the Mappers.
+		It was, however, decided to concentrate on the new admin panel, written in javascript,
+		that uses the /admin and /resellers endpoints.
+	</p>
+	
+	<ul class="todo">
+		<li>
+			Finish Admin and Reseller endpoints (see below)
+		</li>
+		
+		<li>
+			Create new admin panel project<br />
+			<span class="responsable">Koen</span>
+		</li>
+	</ul>
+	
+	<h3>Reseller endpoints</h3>
+	<p class="added">1/7/2014</p>
+	<p class="priority high"></p>
+	<p>
+		The only endpoints that are functional for now are the ones described in
+		<a href="https://bmgroup.atlassian.net/browse/CLOUD-384">CLOUD-384</a>.
+		The other ones, that were described in the <a href="/docs/specs/reseller.html">reseller specs</a>, 
+		are not functional yet.
+	</p>
+	
+	<p>
+		The reseller endpoints might sound pointless at this stage, but these endpoints will be 
+		used by the admin panel to manage the accounts. Note that the Cloudwalkers company is threaded as 
+		a regular reseller in this area. Creation and management of accounts is done trough these endpoints.
+	</p>
+	
+	<ul class="todo">
+		<li>
+			Make the specs more watertight & create jira task<br />
+			<span class="estimation">2 hours</span>
+			<span class="responsable">Thijs</span>
+		</li>
+		
+		<li>
+			Make sure the endpoints are up and running<br />
+			<span class="estimation">2 days (ballpark figure)</span>
+			<span class="responsable">Pedro</span>
+		</li>
+	</ul>
+	
+	<h3>Admin endpoints</h3>
+	<p class="added">1/7/2014</p>
+	<p class="priority low"></p>
+	<p>
+		The admin endpoint contains a bunch of performance report calls (and currently also a bunch of administrative endpoints 
+		that should actually be moved to the reseller endpoint).
+	</p>
+	
+	<ul>
+		<li>
+			Write some proper specs for this
+			<span class="estimation">2 hours</span>
+			<span class="responsable">Thijs</span>
+		</li>
+		
+		<li>
+			Get rid of all the methods that should not be in there
+		</li>
+		
+		<li>
+			Make sure the methods that survive are well documented & are implemented in the new admin panel
+		</li>
+	</ul>
+	
+	<h3>Stream & service management</h3>
+	<p class="added">1/7/2014</p>
+	<p class="priority high"></p>
+	
+	<h4>Monitor & act</h4>
+	<p>
+		Currently halve implemented but not working perfectly: monitor api failures (third party = facebook, twitter, ...) 
+		and take the correct action when something fails. Currently streams and services are still seemingly randomly 
+		disabled or enabled. Proper monitoring & taking the correct action should fix these issues.
+	</p>
+	
+	<p>
+		In order to achieve this we should start with implementing the logging written a few lines up.
+	</p>
+	
+	<ul class="todo">
+		<li>
+			Implement logger & make sure all api requests & responses are properly logged!
+			<span class="estimation">1 day</span>
+			<span class="responsable">Gabriela</span>
+		</li>
+		
+		<li>
+			Review each service and check if the actions taken on api errors are correct. 
+			(Spoiler: they are not.)
+			<span class="estimation">1 day</span>
+			<span class="responsable">Gabriela</span>
+		</li>
+		
+		<li>
+			Make sure that an email or a log is sent out when a stream or a service is disabled.
+		</li>
+	</ul>
+	
+	<h4>Display account alerts</h4>
+	<p class="priority high"></p>
+	<p class="added">1/7/2014</p>
+	<p>
+		The endpoint /accounts/{accountId}/alerts has been implemented for ages and contains a list of all disabled 
+		services and a notice on what action must be taken to reenable the service.
+	</p>
+	
+	<ul class="todo">
+		<li>
+			Make the alerts visible (frontend)
+		</li>
+	</ul>
+	
+	<h4>Send out reconnect mails</h4>
+	<p>
+		(Not really a paused feature, but it fits here)
+	</p>
+	
+	<p>
+		When a service is disabled, and it's for a good reason, we should send an email to the administrator of the 
+		account with instructions on how to enable the service again.
+	</p>
+	
+	<ul class="todo">
+		<li>
+			Send an email with instructions when a service is disabled.
+			<span class="estimation">4 hours</span>
+			<span class="responsable">Gabriela</span>
+		</li>
+	</ul>
+	
+	<h3>Stream update scheduling</h3>
+	<p class="priority high"></p>
+	<p class="added">1/7/2014</p>
+	<p>
+		Currently there is a rudimentary system in place that tries to guess when the next message of a stream is to be 
+		expected. We've been tweaking this a bit to find the right balance between server load / api limitations and 
+		the most realistic fake real time experience for our end users.
+	</p>
+	
+	<p>
+		However, this was created rather quick and dirty and needs a review. Some streams take 6 hours before they update 
+		and especially when the twitter realtime socket is open, updates intervals get way too long.
+	</p>
+	
+	<p>
+		We need to improve this system, perhaps by moving from a cronjob to a continious running php scheduler.
+	</p>
+	
+	<ul class="todo">
+		<li>
+			Talk about how we are going to handle the stream scheduling
+		</li>
+		
+		<li>
+			Implement what we have talked about
+			<span class="estimation">about a week</span>
+			<span class="responsable">Roberto</span>
+		</li>
+	</ul>
+	
+	<h3>Laravel in engine</h3>
+	<p class="priority low"></p>
+	<p class="added">1/7/2014</p>
+	<p>Already covered in <a href="/docs/instructions/3-layer-migration.html">the 3 layer migration script</a>.</p>
+	<p>
+		<span class="estimation">1 day</span>
+		<span class="responsable">Thijs</span>
+	</p>
+	
+	<h3>images.cloudwalkers.be</h3>
+	<p>Already covered in <a href="/docs/instructions/3-layer-migration.html">the 3 layer migration script</a>.</p>
+
+	<p>
+		<span class="estimation">2,5 days</span>
+		<span class="responsable">Pedro / Roberto / Thijs</span>
+	</p>
+	
+	<h3>Oauth2 demo</h3>
+	<p class="priority low"></p>
+	<p class="added">1/7/2014</p>
+	<p>Already covered in <a href="/docs/instructions/3-layer-migration.html">the 3 layer migration script</a>.</p>
+	
+	<h3>Drupal integratie</h3>
+	<p class="priority low"></p>
+	<p class="added">1/7/2014</p>
+	<p>
+		Jill once started with the Drupal integration, but this was paused at a certain moment and never activated publicely. 
+		Shouldn't take long too activate.
+	</p>
+	
+	<h3>New statistics</h3>
+	<p class="priority medium"></p>
+	<p class="added">1/7/2014</p>
+	<p>
+		The new statistics must be rolled out. The old statistics are causing extra database load.
+	</p>
+	
+	<ul class="todo">
+		<li>
+			Remove all calls to the /reports endpoints from frontend
+		</li>
+		
+		<li>
+			Run the statistics migration script<br />
+			<span class="estimation">4 hours</span>
+			<span class="responsable">Thijs</span>
+		</li>
+
+		<li>
+			Disable / deprecate all old report endpoints<br />
+			<span class="estimation">4 hours</span>
+			<span class="responsable">Thijs</span>
+		</li>
+	</ul>
+	
+	<h3>Google+ read only implementation</h3>
+	<p class="priority medium"></p>
+	<p class="added">1/7/2014</p>
+	<p>
+		Marius wrote a read only implementation of the google+ service. Since sendible doesn't let us do what we want 
+		to do, we should reactivate development on this service and activate it. <strong>Note that for sending messages 
+		to google+, we still rely on sendible!</strong>
+	</p>
+	
+	<ul class="todo">
+		<li>
+			Implement the new streams (profiles we follow and check for others)
+		</li>
+		
+		<li>
+			Check if we can do something with keyword monitoring
+		</li>
+		
+		<li>
+			Test authentication within new structure
+		</li>
+		
+		<li>
+			Discuss if we should do something automatically / manually / email-ly to enable a write-sendible stream. 
+			Also spam google until we get what we want. (What do we want? Write access! When do we want it? Now!)
+		</li>
+	</ul>
+
+	<h3>Removal of old messages</h3>
+	<p class="priority low"></p>
+	<p class="added">1/7/2014</p>
+	<p>
+		Gabriela wrote a wonderful data retention system that only removes messages that are very unlikely to be requested 
+		ever again. However, this multi-week piece of work has never removed a single message.
+	</p>
+	
+	<ul class="todo">
+		<li>
+			Implement the cloudwalkers archive (MySQL archive? I think I live MySQL archive.)
+			<span class="estimation">1,5 days</span>
+			<span class="responsable">Thijs</span>
+		</li>
+		
+		<li>
+			Test & activate the message remover
+			<span class="estimation">1 day</span>
+			<span class="responsable">Gabriela</span>
+		</li>
+	</ul>
+	
+	<h3>GEO: country & language database</h3>
+	<p class="priority medium"></p>
+	<p class="added">1/7/2014</p>
+	<p>
+		This part is still not finished, for me. The country circles still aren't all-inclusive. Also, the country list 
+		still doesn't contain a list of languages.
+	</p>
+	
+	<p>
+		We should also implement the second tier of keyword monitoring: given lat and lng, check if that specific point 
+		is within the country borders. I propose we do this locally, since this could very well happen *a lot* of times.
+	</p>
+	
+	<ul class="todo">
+		<li>
+			Make sure that all countries have a cicle that covers the whole area<br />
+			<span class="estimation">2 hours</span>
+			<span class="responsable">Roberto</span>
+		</li>
+
+		<li>
+			Implement the language list<br />
+			<span class="estimation">4 hours</span>
+			<span class="responsable">Roberto</span>
+		</li>
+		
+		<li>
+			Implement the reverse geo lookup (tier 2 keyword monitoring)
+			<span class="estimation">2 days</span>
+			<span class="responsable">Roberto</span>
+		</li>
+	</ul>
+	
+	<h3>MessageMapper Write optimization</h3>
+	<p class="priority high"></p>
+	<p class="added">1/7/2014</p>
+	<p>
+		Touching (creating) messages is currently still a painfully slow process. Preparations have been made so that
+		optimizations can happen by just changing the Mappers. (MessageMapper::touchBulk (array $messages))
+	</p>
+	
+	<p>
+		The actual optimization, however, never happened.
+	</p>
+	
+	<p>(I expect this optimization will lower the mysql server load with at least 50%.)</p>
+	
+	<ul class="todo">
+		<li>
+			Optimize MessageMapper::touchBulk method<br />
+			<span class="estimation">2 days</span>
+			<span class="responsable">Roberto</span>
+		</li>
+	</ul>
+	
+	<h3>Markasread optimization</h3>
+	<p class="priority high"></p>
+	<p class="added">1/7/2014</p>	
+	<p>Pedro once started with optimizing the markasread method. Nothing has been heard about it since.</p>
+	<p>Drastic (simple) improvements are still possible at all message endpoints.</p>
+	
+	<ul class="todo">
+		<li>
+			Optimize markasread method<br />
+			<span class="estimation">2 days</span>
+			<span class="responsable">Roberto / Pedro</span>
+		</li>
+	</ul>
+
+	<h3>Optimize OutgoingMessages endpoints</h3>
+	<p class="priority high"></p>
+	<p class="added">1/7/2014</p>
+	<p>
+		In the message mapper, a lot of time was spent on optimizing loading incoming messages, since these are most 
+		frequently used in the site. The outgoing messages, however, are still sometimes loaded one at a time. This causes 
+		the amount of mysql queries to rise exponentially.
+	</p>
+
+	<ul class="todo">
+		<li>
+			Optimize the getObjectsFromReader methods in MessageMapper in case of OutgoingMessages.<br />
+			<span class="estimation">1 day</span>
+			<span class="responsable">Roberto</span>
+		</li>
+	</ul>
+
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>

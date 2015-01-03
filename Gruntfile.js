@@ -122,7 +122,7 @@ module.exports = function (grunt)
 			},
 			staging: {
 				files: [
-					{expand: true, cwd: '<%= defaults.source.dir %>', src: ['*.json', '*.txt', '*.ico', '*.php', 'images/**','fonts/**','css/**','js/**','!js/**-default.js','storage/**'], dest: '<%= defaults.staging.dir %>/', filter: 'isFile'},
+					{expand: true, cwd: '<%= defaults.source.dir %>', src: ['*.json', '*.txt', '*.ico', '*.php', 'images/**','fonts/**','css/**','js/**','!js/**-default.js','storage/**','docs/**'], dest: '<%= defaults.staging.dir %>/', filter: 'isFile'},
 					{expand: true, cwd: '<%= defaults.source.dir %>/vendor', src: ['*/*.js','*/*.css','*/dist/**','*/lib/**',"!**/Gruntfile.js"], dest: '<%= defaults.staging.dir %>/js/lib'}
 				]
 			},

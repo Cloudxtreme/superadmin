@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Cloudwalkers Team</title>
+		
+		<link rel="shortcut icon" href="https://devplatform.cloudwalkers.be/favicon.ico"/>
+		
+		<!-- Bootstrap -->
+		<link href="/docs/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/docs/css/bootstrap-theme.min.css" rel="stylesheet">
+		<link href="https://cdn.jsdelivr.net/fontawesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+		
+		
+		<link href="/docs/css/theme.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	<body >
+
+	<div class="container">
+
+
+<div class="wikiPage"> <div>  <h1 class="page-title header"> <span class="jQ_wikiPageTitle">What to do when things go sideways</span>  <div class="txt-sub">  Last updated: <span class="jQ_datetimeSync" rel="1394534093">2 months ago</span> by  <a href="/project/80428/members/profile/2422">Thijs V.</a>  </div>  </h1> </div><div class="auto-toc"> <h3> Table of contents </h3> <ul>  <li><a href="#h2-0db37">General</a>  </li>  <li><a href="#h2-66d19">Running the code</a>  </li>  <li><a href="#h2-32a7e">Gearman &amp; memcache</a>  </li>  <li><a href="#h2-85af7">phpunit</a>  </li>  <li><a href="#h2-c33e4">Statistics</a>  </li>  <li><a href="#h2-681fb">Testig a service output</a>  </li>  <li><a href="#h2-04e32">Additional tools</a>  </li>  </ul> </div><div class="tx_tl"> <div class="tx_tl"><h2 id="h2-0db37">General</h2>
+			<p>There are a couple of things to check when the site doesn't work as expected:</p>
+			<ul>
+				<li><a href="http://cloudwalkers-engine.local/scripts/upgrade.php">http://cloudwalkers-engine.local/scripts/upgrade.php</a>&nbsp;=&gt; will make sure you have the latest version of the database</li>
+				<li><a href="http://cloudwalkers-engine.local/scripts/validate.php">http://cloudwalkers-engine.local/scripts/validate.php</a>&nbsp;=&gt; will make sure that all your accounts contain all required streams and services in order to work with the website part.</li>
+			</ul>
+			<p>If you have trouble with streams not showing up, you can use the admin panel to check if the streams are updating as expected.</p>
+			<p>You can find the admin panel at <a href="http://cloudwalkers-engine.local/admin">http://cloudwalkers-engine.local/admin</a></p>
+			<p>&nbsp;</p>
+			<p>Also check the locks table. When nothing is going on, this table should be empty. Is something locking a script? Simply empty the locks table.</p>
+			<h2 id="h2-66d19">Running the code</h2>
+			<p>All scripts in the cron/ folder should only be called in php-cli. This is because these scripts will take a long time to execute.</p>
+			<p>All other scripts can be called from the browser.&nbsp;</p>
+			<h2 id="h2-32a7e">Gearman &amp; memcache</h2>
+			<p>We are using gearman to provide multi threading and memcache to cache some database results.</p>
+			<p>However, set&nbsp;GEARMAN_SERVER and&nbsp;MEMCACHE_IP to false, the system will gracefully fall back to ... not using these.</p>
+			<h2 id="h2-85af7">phpunit</h2>
+			<p>On every commit, a set of phpunit tests will be called against the latest version of the code. In case something goes wrong, you will be notified about this. The unit tests that are implemented right now are very basic, so do not rely on them. These will be extended in the future.</p>
+			<h2 id="h2-c33e4">Statistics</h2>
+			<p>Note that the statistics table wil stay empty until you run cron/hourly.php.</p>
+			<p>This will fill up the tables with the most recent data.</p>
+			<h2 id="h2-681fb">Testing a service output</h2>
+			<p>In <a href="http://cloudwalkers-website.local/services">http://cloudwalkers-website.local/services</a>&nbsp;you can find a list of all services linked to your account. You can also change the settings of each service in this screen. The button "load last 3 messages" will do a LIVE update of the messages in that specific stream, so it's a good place to check what data you are loading from a social network.</p>
+			<h2 id="h2-04e32">Additional tools</h2>
+			<p><a href="http://cloudwalkers-website.local/counters">http://cloudwalkers-website.local/counters</a>&nbsp;gives you a real time overview of all the streams and the amount of messages in those streams.</p>
+			<p><a href="http://cloudwalkers-website.local/status">http://cloudwalkers-website.local/status </a>gives you a list of all streams with a warning label on when they should have been updated. Note that if you do not run cron/five-minutes.php, these values will in time all become RED.</p></div> </div></div>
+
+	</div>
+
+	<!-- Bootstrap core JavaScript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	</body>
+</html>

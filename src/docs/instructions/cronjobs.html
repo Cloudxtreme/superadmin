@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Cloudwalkers Team</title>
+		
+		<link rel="shortcut icon" href="https://devplatform.cloudwalkers.be/favicon.ico"/>
+		
+		<!-- Bootstrap -->
+		<link href="/docs/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/docs/css/bootstrap-theme.min.css" rel="stylesheet">
+		<link href="https://cdn.jsdelivr.net/fontawesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+		
+		
+		<link href="/docs/css/theme.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	<body >
+
+	<div class="container">
+
+<div class="wikiPage"> <div>  <h1 class="page-title header"> <span class="jQ_wikiPageTitle">Running the cronjobs</span>  <div class="txt-sub">  Last updated: <span class="jQ_datetimeSync" rel="1394636719">2 months ago</span> by  <a href="/project/80428/members/profile/2422">Thijs V.</a>  </div>  </h1> </div><div class="tx_tl"> <div class="tx_tl"><h2 id="h2-fd5a3">cron/five-minutes.php</h2>
+			<p>This cronjob updates the streams that require updates.</p>
+			<p>A stream requires updates if it is a <b>high priority stream</b> (updates every time the cronjob is called) OR when next_refresh date is in the past.</p>
+			<p>&nbsp;</p>
+			<p>Every time a stream is updates, the system calculates the average amount of messages / hour and then estimates when a new message is to be expected. next_refresh is then set to that date.</p>
+			<h2 id="h2-e0058">cron/hourly.php</h2></div> </div></div>
+			
+	</div>
+
+	<!-- Bootstrap core JavaScript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	</body>
+</html>

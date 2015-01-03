@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Cloudwalkers Team</title>
+
+	<link rel="shortcut icon" href="https://devplatform.cloudwalkers.be/favicon.ico"/>
+
+	<!-- Bootstrap -->
+	<link href="/docs/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/docs/css/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/fontawesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+	<link href="/docs/css/theme.css" rel="stylesheet">
+
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body >
+
+<div class="container">
+
+	<h1>Registering an oauth app</h1>
+	<p>OAuth1 registration tool: (DEPRECATED) <a href="https://devapi.cloudwalkers.be/oauth1/">https://devapi.cloudwalkers.be/oauth1/</a></p>
+	<p>OAuth2 registration tool: <a href="https://devapi.cloudwalkers.be/oauth2/register">https://devapi.cloudwalkers.be/oauth2/register</a></p>
+
+	<h2>OAuth2</h2>
+	<p>In OAuth2, the redirect url of your application must always match the redirect url you send with the authorization request. So if you have multiple redirect urls (because, for example, you have a local development version and an online version), you must register a seperate oauth2 application for each environment.</p>
+	<p>More information on oauth2: <a href="http://oauth.net/2/">http://oauth.net/2/</a></p>
+
+	<h2>Auth flow</h2>
+	<pre>
+	website: hi, engine, can I please access you?
+	engine, sure, but who are you?
+	user: I'm Pedro, here is my password
+	engine: alright, let me store that in the session for you. do you want me to share that info with website?
+	user: yea, sure. That's the whole points...
+	engine: well, alright. no need to be so annoyed about it
+	user: sorry... I didn't mean it like that
+	engine: you know, I have feelings too...
+	user: ok. but can you get me back to the website now?
+	engine. Sure. Hi, website, you can access pedro's details with this access token
+	website: thanks
+	</pre>
+
+	<p>At that last point the engine doesn't care about the session anymore; website has it's access tokens.</p>
+
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>

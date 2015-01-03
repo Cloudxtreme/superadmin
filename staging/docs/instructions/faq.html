@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Cloudwalkers Team</title>
+		
+		<link rel="shortcut icon" href="https://devplatform.cloudwalkers.be/favicon.ico"/>
+		
+		<!-- Bootstrap -->
+		<link href="/docs/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/docs/css/bootstrap-theme.min.css" rel="stylesheet">
+		<link href="https://cdn.jsdelivr.net/fontawesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+		
+		
+		<link href="/docs/css/theme.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	<body >
+
+	<div class="container">
+
+		<h1>General</h1>
+		<h2>What is a service?</h2>
+		<b>Gabriela: </b><p>A service is a connection between cloudwalkers and a social network. It translates the social network data into cloudwalkers data and vice versa.</p>
+		<h2>What is a stream?</h2>
+		<b>Gabriela: </b><p>A stream is a body of information specific to each social network connection.
+			Each social network can have multiple streams in cloudwalkers (our posts, private messages, posts of connections we follow, shares, etc).
+			Through this streams we interact with that part of the social network.
+			Each of this streams contains settings, properties, actions, etc, all related info.</p>
+		<h2>What is a channel?</h2>
+		<b>Gabriela: </b><p>A channel is a combination of streams.</p>
+		<h2>What is a message?</h2>
+		<b>Gabriela: </b><p>A message is an information set sent by cloudwalkers to a social network or retrieved by cloudwalkers from a social network.</p>
+
+
+		<br />
+		<h1>Gabriela</h1>
+
+		<h3>Services</h3>
+
+		<b>What is a service? Where are they stored?</b>
+		<p>We store services in services table.</p>
+
+		<b>What is a message action?</b>
+		<p>An action that can be executed on a message by an user.</p>
+
+		<b>What happens to comments?</b>
+		<p>Comments are also messages - children of other messages.</p>
+
+		<b>What crazyness is going on in twitter inbox?</b>
+		<p>We have tweets and mentions and conversations are created based on this 2.</p>
+
+		<h3>Messages</h3>
+
+		<b>When are we fetching messages?</b>
+		<p>Every 5 minutes through the 5min cron.</p>
+
+		<b>What happens after we've fetched a message?</b>
+		<p>We update message data.</p>
+
+		<b>What are the message attributes, what do they mean, how do they work?</b>
+		<p>
+			<ul>
+				<li>Message attributes are the message properties (user, account, subject, body, attachments, etc). They create the message object.</li>
+				<li>Visibility status of a message: hidden, show, child.</li>
+				<li>When we store it, we strip tags from the body, if it's not marked as html, else we take it as it is.</li>
+				<li>When we output it we provide html and plain text (2 strings array).</li>
+					If it's marked as html, the html part of the result will be a fixed version of the body content and the plain text a trimmed version of the html stripped of tags.
+					Otherwise, plain text is the body trimmed, and html is the plain text fixed.<br />
+				<li>For outgoing messages, we update attachments which leads to storing them through the attachment mapper create() method,
+					or deleting them through the same mapper (delete()).</li>
+			</ul>
+		</p>
+
+		<b>What is a conversation? How are conversations used in outgoing messages?</b>
+		<p>A conversation is a set of messages between two participants. They are used to create the message parent.</p>
+
+		<b>What happens when you call any /messages endpoint with ?group=1</b>
+		<p>We use group=1 in /conversations and it returns the messages grouped in conversations. We get only the last received message from the conversation.</p>
+
+		<b>How do we handle message variations?</b>
+		<p>When a message is created, besides the default message, we save one variation (also a message) for each stream (network),
+			but the variations are the only ones that are also sent.</p>
+
+		<b>How does pagination work?</b>
+		<p>
+			<ul>
+				<li>Retrieves limited amount of records using given filters.</li>
+				<li>Reference: <a href="http://www.slideshare.net/Eweaver/efficient-pagination-using-mysql" target="_blank">http://www.slideshare.net/Eweaver/efficient-pagination-using-mysql</a></li>
+				<li>
+					Summary:
+					<ul>
+						<li>use WHERE and ORDER</li>
+						<li>use pre calculated count, increment/decrement vaue as insert/delete happens</li>
+						<li>use LIMIT N instead of LIMIT M,N</li>
+						<li>provide extra clue about from where to start given page</li>
+						<li>find the desired records using more restricted WHERE, given clue, ORDER BY and LIMIT N</li>
+					</ul>
+				</li>
+			</ul>
+
+		There are 2 cursors: "before" and "after".
+		A cursor is a point between 2 records in an ordered data list.
+		In order to define the cursor, the columns that are being ordered must be defined and the last parameter of the sort must always be a unique value.
+		Based on the ordering, this filters the data. For example, if ordering is on date, and "after" is provided, show only the first xx records
+		ordered on date where date > "before". In case of "before" the list must be reverted twice.
+
+		<br /><br />
+
+		Let's say we have following pages with 10 results per page:
+		<ul>
+			<li>
+				Page 1
+				<ul>
+					<li>dates from 10 june to 3 june</li>
+					<li>ids from 150 to 141</li>
+				</ul>
+			</li>
+			<li>
+				Page 2
+				<ul>
+					<li>dates from 3 june to 26 may</li>
+					<li>ids from 140 to 131</li>
+				</ul>
+			</li>
+			<li>
+				Page 3
+				<ul>
+					<li>dates from 26 may to 23 may</li>
+					<li>ids from 130 to 121</li>
+				</ul>
+			</li>
+		</ul>
+
+		Page 1 -> page 2:<br />
+		date <= 3 june AND (id < 141 OR date < 3 june)<br />
+		order DESC, limit 10
+		<br /><br />
+		Page 2 -> page 3:<br />
+		date <= 26 may AND (id < 131 OR date < 26 may)<br />
+		order DESC, limit 10
+		<br /><br />
+		Page 3 -> page 2:<br />
+		date >= 26 may AND (id > 130 OR date > 26 may)<br />
+		order ASC, limit 10
+		<br /><br />
+		Page 2 -> page 1:<br />
+		date >= 3 june AND (id > 140 OR date > 3 june)<br />
+		order ASC, limit 10
+		<br /><br />
+
+		When we go back, f.e. page 3 -> page 2, we need to reverse the order to exclude the results from page 1, so we use ASC.
+		Now we have the 10 correct records, but they are not in the order we want them, so we reverse the array of results.
+
+		<br /><br />
+
+		Steps to add pagination to an endpoint:
+		<ul>
+			<li>in controller, provide records parameter (the limit) and use it in retrieving data along with filters</li>
+			<li>in the mapper, where the data is retrieved, process filters ("after" and "before" - this one reverts order) and return "where";
+				if order was reverted, add order by clause (DESC) and before returning the output, revert the array back to original order;
+				once data retrieved, set pagination token per object</li>
+			<li>back in the controller, get pagination (Filters) and add the result to the output</li>
+		</ul>
+
+		</p>
+
+		<b>What are the various states of outgoing messages</b>
+		<p>Submitted, scheduled, sent, removed, draft.</p>
+
+
+		<h1>Pedro</h1>
+
+		<dl>
+			<h3>The great API</h3>
+
+			<dt>What's a FrontController?</dt>
+			<dd>
+				Frontcontroller is the first entry point for routing, it will choose what module to load.
+				By now we have the following modules:
+				<ul>
+					<li>Cloudwalkers</li>
+					<li>CloudwalkersAdmin</li>
+					<li>Mailer</li>
+					<li>OAuth1</li>
+					<li>OAuth2</li>
+					<li>Pusherman</li>
+					<li>Signin</li>
+				</ul>
+			</dd>
+			<dt>What are Controllers and what do they do?</dt>
+			<dd>
+				Controllers are responsible to handle all the requests from the frontend or 3rd party APPs.
+			</dd>
+			<dt>What's this SubController?</dt>
+			<dd>
+				This allow to implement submodules by extending the SubController.<br>
+				Takes a regular Controller as constructor, to pass trough data.
+			</dd>
+			<dt>What does the DispatchAPI Procedure do?</dt>
+			<dd>
+				DispatchApi is our controllers loader, it takes the controller name from the URL and tries to invoke that controller.<br>
+				It makes sure the request can be delivered.
+			</dd>
+
+			<h3>SWAGGER</h3>
+
+			<dt>What's a swagger?</dt>
+			<dd>
+				Swagger is a specification framework for describing, producing, consuming, and visualizing RESTful web services.<br>
+				The documentation of methods, parameters, and models are tightly integrated into the server code.
+			</dd>
+			<dt>Where is it stored?</dt>
+			<dd>
+				Swagger is stored at \docs\api.<br>
+				You can compile Swagger by using the files documentation.bat (windows) or documentation.sh (linux), this will generate the json files that will define the endpoints in Swagger page this files are stored under folder /schema.
+			</dd>
+			<dt>What is the swagger sandbox?</dt>
+			<dd>
+				Swagger sandbox is the designation for the area where we can test the endpoints and check the data output sent by the server. This will be very useful for frontend developers and third-party apps developers.<br>
+				In order to use Swagger sandbox users need to authenticate through OAUTH2 in a near future.
+			</dd>
+
+			<h3>"Little Ken" - TESTING</h3>
+
+			<dt>Who is Little Ken and where does he live?</dt>
+			<dd>
+				Little Ken is our API testing server.<br>
+				He runs under Node.js and Mocha testing framework.<br>
+				Little Ken lives in the newstorage server (check new relic).
+			</dd>
+
+			<h3>Users Roles</h3>
+
+			<dt>Authorization to access the endpoints</dt>
+			<dd>
+				Documentation done at <a href="../specs/user_roles.html">https://devapi.cloudwalkers.be/docs/specs/mailer.html</a>
+			</dd>
+
+			<h3>Mailer</h3>
+
+			<dt>How do we use the mailer?</dt>
+			<dd>
+				Documentation done at <a href="../specs/mailer.html">https://devapi.cloudwalkers.be/docs/specs/mailer.html</a>
+			</dd>
+			<dt>How do we use the mailer in Little Ken?</dt>
+			<dd>
+				<pre>
+	// use this to include mandrill library and methods available to send emails
+	var mandrill_wrapper = require('mandrill');
+	// use this to send an email the input string will be the body of the email
+	mandrill_wrapper.sendEmail(content_string);
+				</pre>
+			</dd>
+			<dt>How do we send SMS with a mailer?</dt>
+			<dd>
+				Exactly as the email but with instance 'sms' and no schedule but sendSms().<br>
+				<pre><p>$sms = Mailer::getInstance('sms')
+	->setService(4) // Clickatell
+	->toUser($user)
+	->setTemplate('sms/sms')
+	->setAttribute('subject', $content)
+	->setAttribute('content', $content)
+	->sendSms();</p></pre>
+			</dd>
+
+
+		</dl>
+
+
+		<h1>Roberto</h1>
+		
+		<h3>Database related</h3>
+		
+		<dl>
+		<dt>What is a Mapper?</dt>
+		<dd>
+		A Mapper is the Database interface that contains all the database queries to the Database, which provides the methods to access the information from it.<br />
+		<br />
+		This can also introduce a layer of security by hiding pieces of sensitive database information (e.g. passwords, security tokens, etc.).
+		</dd>
+
+		<dt>What is a MapperFactory and why are there multiple ones?</dt>
+		<dd>
+		The MapperFactory allows to statically define the Mappers, in this case it is a virtual database segmentation of the bits of information that we want to provide.<br />
+		To separate the information and returning different Models, we need different Mapper entities, which are the bridge between our application and Database.
+		</dd>
+
+		<dt>What is going on in the MessageMapper?</dt>
+		<dd>
+		MessageMapper is the object that centralizes all the database queries regarding the Message model.
+		</dd>
+		
+		<h3>Models</h3>
+		
+		<dt>What is a model?</dt>
+		<dd>
+		A model is the object entity that contains the data. E.g. User model is an entity that contains the user data.
+		</dd>
+		
+		<h3>Scheduling (of jobs)</h3>
+		
+		<dt>What are the bmgroup\Cloudwalkers\Procedures?</dt>
+		<dd>
+		The Procedures are the methods that are run through cronjobs and/or Gearman Workers.
+		<br />
+		</dd>
+		
+		<dt>How are the gearman jobs called?</dt>
+		<dd>
+		The client (which can be a browser, cron, endpoint, etc) does a request to Apache / PHP, a Gearman Client is instantiated and connects to Gearman Server(s) available.<br />
+		On successful a connection with the Gearman Server, the next step that the Gearman Server does is to add the task / job to the queue.<br />
+		The Gearman Server then checks on the Gearman Workers that are connected, and checks if they have the "ability" to process the task / job that is on the queue (Gearman Workers can execute different tasks if they are constructed in such way).<br />
+		When it finds a Gearman Worker that is able to execute the respective task, delegates the execution of that queue item to it.<br />
+		The Gearman Worker receives the task / job, processes it and returns the details of the task to the Gearman Server<br />
+		The Gearman Server then returns the respective details to the client that requested the tasks / job.<br /><br />
+		The request is synchronised through all the path, under the low, normal, high priorities (means that it will wait for the details).<br />
+		There is also the possibility to execute the tasks in background without waiting for the request to be finished.
+		<br /><br />
+		<img src="images/gearman_request_workflow.png" style="border:0px #fff solid;height:350px;width:auto; "/>
+		</dd>
+		
+		<dt>What is the difference between the cronjobs?</dt>
+		<dd>
+		The cronjobs are executed recurrently, usually they run at a specific amount of time, e.g. every 5 minutes.<br />
+		With a queueing / messaging system, the tasks are added to a queue to be dispatched.<br />
+		<br />
+		In our case, the Gearman Server manages the queue, delegates the tasks to the Workers and then receives the operation details.<br />
+		Doing this with a queuing mechanism, allow us to scale the infra-structure.<br />
+		<br />
+		Cronjobs are usually more suitable for recurrent tasks (e.g. backups), where Gearman is more suitable for responses that needs a "real-time" processing (e.g. generate resized image and send it to the browser).<br />
+		On difference also resides in the point, that a task when delegated to the Gearman Worker is processed immediately where thorugh a cronjob is processed in the next execution period.<br />
+		<br />
+		With cronjobs our minimum period to run tasks, is every minute. And is very difficult control odd time periods and/or a certain number of operations.<br />
+		E.g. Execute today 18x a certain task, and tomorrow 53x, with cronjobs is hard and difficult to do this and unable to execute above 1440 recurrent daily operations.
+		</dd>
+		
+		<dt>When are messages for the different services fetched?</dt>
+		<dd>
+		The messages for all different services are obtained through the cronjobs.
+		</dd>
+		
+		<dt>How does the twitter socket job work?</dt>
+		<dd>
+		It work as regular TCP socket, which only send TCP packets when they are available.<br />
+		This reduces the requests / round-trips to see if there is information available on the server.<br />
+		Under this transmission mechanism, Twitter sends information directly to the connected clients, instead of having the requests to send the information thereafter.
+		</dd>
+		
+		<h3>Authentication</h3>
+		
+		<dt>Where does authentication happen?</dt>
+		<dd>The authentication is done under the endpoint /user/login which allows the user to authenticate on the Cloudwalkers application.</dd>
+		
+		<dt>Why do we have oauth1 authentication? And where do I register an app?</dt>
+		<dd>
+		We have OAuth1 to add an layer of security between the Frontend and Backend, which allows API endpoints to be secured.<br />
+		<br />
+		We can register an application under <a href="http://cloudwalkers-engine.local/oauth1/applications" target="_blank">http://cloudwalkers-engine.local/oauth1/applications</a> which allows us to have a OAUTH_CONSUMER_KEY and OAUTH_CONSUMER_SECRET to be configured in db-local.php.
+		</dd>
+		
+		<dt>How do I register an oauth2 app?</dt>
+		<dd>
+		We can register an OAuth2 application on the following URL, <a href="http://cloudwalkers-engine.local/oauth2/register" target="_blank">http://cloudwalkers-engine.local/oauth2/register</a>
+		</dd>
+		
+		<dt>Why do I see an "authorize authentication" message when authenticating my users?</dt>
+		<dd>
+		If we use an "authorize code" grant, we are authorizing users by the "access token" that was provided through "authorize" method.<br />
+		</dd>
+		
+		<dt>What is openssl authentication and what is it good for? (Tip: resellers)</dt>
+		<dd>
+		By using an OpenSSL we are introducing methods to authenticate and/or communicate through SSL/TLS, through the use of encrypted traffic.<br />
+		In this case, we have a PPK (Public / Private Key) to authenticate the Resellers connection to our service, which replaces the OAuth authentication.<br />
+		Resellers can have a more easier way to setup RESTful connections to our API.
+		</dd>
+		
+		<h3>Logging</h3>
+		
+		<dt>What do we log?</dt>
+		<dd>
+		We log the endpoint requests and if the action was successful.<br /><br />
+		We also log the specifics when they exists, such as, userId, accountId, serviceId, streamId, messageId.<br /><br />
+		The date/time start, duration and end of the script execution.
+		</dd>
+		
+		<dt>How do we log?</dt>
+		<dd>
+		We set the the Logger on the BaseCall and invoke it on the DispatchAPI to log the endpoint request.<br />
+		Meanwhile, on the Controller we set the specifics if they exists (userId, accountId, serviceId, streamId, messageId).
+		</dd>
+
+		<h3>Keyword monitoring</h3>
+		
+		<dt>How do we handle the keyword monitoring formula?</dt>
+		<dd>
+		The procedure obtains the defined keywords per client. Each keyword defined is represented as a stream that we want to import.<br />
+		<br />
+		On the Frontend, we can then filter by the "Stream" / keyword that we defined to import.
+		</dd>
+
+		<dt>How do we translate the keyword monitoring formula from our syntax to multiple twitter api calls? (Check the Twitter service for this)</dt>
+		<dd>
+		On the Channels, the formula is built with the following parameters:<br />
+		<strong>-- include</strong><br />
+		(<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;message contains 'keyword' { OR message contains 'keyword' } <br />
+		)<br />
+		AND<br />
+		<strong>-- exclude</strong><br />
+		(<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;message !contains 'keyword' { AND message !contains 'keyword' } <br />
+		)<br />
+		AND<br />
+		<strong>-- countries</strong><br />
+		(<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;country = 'country' { OR country = 'country' } <br />
+		)<br />
+		AND<br />
+		<strong>-- language</strong><br />
+		(<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;language = 'language' { OR language = 'language' } <br />
+		)<br />
+		</dd>
+
+		<h3>Cronjob workflows</h3>
+		<dd>
+		While playing around with the crons and watching the source code, I generated an graph of the execution, which might be useful to see the workflow execution plans.
+		</dd>
+		<dd><a href="images/cron_minute_callgraph.jpg" target="_blank">Minute</a></dd>
+		<dt><a href="images/cron_hourly_callgraph.jpg" target="_blank">5 Minutes</a></dt>
+		<dt><a href="images/cron_five-minutes_callgraph.jpg" target="_blank">Hourly</a></dt>
+
+		</dl>
+
+	</div>
+
+	<!-- Bootstrap core JavaScript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	</body>
+</html>

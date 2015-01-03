@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Cloudwalkers Team</title>
+		
+		<link rel="shortcut icon" href="https://devplatform.cloudwalkers.be/favicon.ico"/>
+		
+		<!-- Bootstrap -->
+		<link href="/docs/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/docs/css/bootstrap-theme.min.css" rel="stylesheet">
+		<link href="https://cdn.jsdelivr.net/fontawesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+		
+		
+		<link href="/docs/css/theme.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	<body >
+
+	<div class="container">
+
+
+	<h1>Cloudwalkers Platform releases</h1>
+	<br><br>
+
+	<div class="row">
+			
+		<div class="col-md-4">
+			<div class="well">
+				<h3>"Silver Tongue"</h3>
+				<br>
+				<i>Released</i>
+				<br><br>
+				<small>
+					Production roles:
+					<br><i>Conversation Manager, Coworker</i>
+				</small>
+			</div>
+		</div>
+		<div class="col-md-8">
+			<h4>I8N</h4>
+			<strong>A. Deliverables</strong>
+			<ul>
+				<li>Able to change language from settings -> profile settings</li>
+				<li>'Save changes', loading time must be clear for user</li>
+				<li>Every single word must be translated.</li>
+			</ul>
+			<strong>B. Testing</strong>
+			<ul>
+				<li>Change language from profile settings</li>
+				<li>User can change his language unlimited times in the same session without a crash</li>
+				<li>Verify all translations, including warning messages.</li>
+			</ul>
+			<br>
+			
+			<h4>User Roles</h4>
+			<strong>A. Deliverables</strong>
+			<ul>
+				<li>2 user roles available; Coworker, administrator</li>
+				<li>Implement the features for each role (document)</li>
+				<li>Add user role to user in user list</li>
+				<li>Administrator user must be able to Up- /downgrade the role of a user from 'manage users'</li>
+			</ul>
+			<strong>B. Testing</strong>
+			<ul>
+				<li>Check for each role that his features are respected</li>
+				<li>Up-/ downgrade the role a user and verify if available features are correct</li>
+			</ul>
+
+		</div>			
+	</div>
+	
+	<hr>
+	
+	<div class="row">
+			
+		<div class="col-md-4">
+			<div class="well">
+				<h3>"Tin Man"</h3>
+				<br>
+				<i>Released</i>
+				<br><br>
+				<small>
+					Production roles:
+					<br><i>Conversation Manager, Coworker</i>
+				</small>
+			</div>
+		</div>
+		<div class="col-md-8">
+			<h4>Contacts</h4>
+			<strong>A. Deliverables</strong>
+			<ul>
+				<li>
+					<strong>Contact box</strong>
+					<ul>
+						<li>Contacts are clickable from inbox / accounts we follow / keyword monitoring</li>
+						<li>Information shown; Tweets / Posts (identify per network), Conversations, Contact notes</li>
+						<li>Add url of contact's profile on the social media channel</li>
+						<li>Show contact's avatar (in a correct size)</li>
+						<li>Able to add notes to the contact</li>
+						<li>Add note to content from the contact posts / tweets</li>
+						<li>When we add a note to content created by a contact, this note (+ copy of content) should also be attached to contact notes.</li>
+						<li>Post / Tweet actions available on tweets / posts from the contact on</li>
+						<li>View, edit and delete previous notes on a contact</li>
+					</ul>
+				</li>
+				<li>
+					<strong>List of contacts with notes</strong>
+					<ul>
+						<li>A list view of contacts with a note</li>
+						<li>Filter these contacts by name or network</li>
+					</ul>
+				</li>
+			</ul>
+			<strong>B. Testing</strong>
+			<ul>
+				<li>Check if latest tweets / posts from contact are up to date</li>
+				<li>When no messages available from contact, clearly identify this towards the user</li>
+				<li>Add, edit, delete notes added to contact</li>
+				<li>If notes are correctly stored after re-login</li>
+				<li>Filters on the lists of contacts.</li>
+			</ul>
+			<br>
+			
+			<h4>Notes</h4>
+			<strong>A. 3 types of Notes</strong>
+			<ul>
+				<li>
+					<strong>Contact notes</strong>
+					<br>Information available in current contact box. (latest messages, conversations, notes, tags)
+					<br>
+				</li>
+				<li>
+					<strong>Content notes</strong>
+					<br>Related to content from messages / notifications, keyword monitoring, company accounts, accounts we follow
+					<br>When we add a note to content, this content should be displayed with the note. 
+					<br>When we add a note to content, the contact box of the owner of this content needs to be updated.
+					<br>When content is webscraped, the content should be copied and added to the note.
+					<br>
+				</li>
+				<li>
+					<strong>General notes</strong>
+					<br>Notes attached to the account.
+					<br>
+				</li>
+			</ul>
+			<strong>B. Deliverables</strong>
+			<ul>
+				<li>
+					<strong>Notes Page</strong>
+					<ul>
+						<li>A list overview of all notes</li>
+						<li>Filter on; contact, creation date, word search</li>
+						<li>Possibility to see all contacts with notes </li>
+						<li>Notes should be related-grouped (like inbox messages)</li>
+						<li>Create a new note</li>
+					</ul>
+				</li>
+				<li>
+					<strong>Positioned</strong>
+					<ul>
+						<li>Add a new note from dropdown menu</li>
+						<li>Message in inbox; read, edit and add note to the content of the message.</li>
+						<li>Notification in inbox; read, edit and add note to the content of the message.</li>
+						<li>Coworkers message on wall; read, edit and add note to the content of the message.</li>
+						<li>Company accounts; read, edit and add note to the content of the message.</li>
+						<li>Accounts we follow; read, edit and add note to the content of the message.</li>
+						<li>Keyword monitoring; read, edit and add note to the content of the message.</li>
+					</ul>
+				</li>
+				<li>
+					<strong>Extra</strong>
+					<br>Add function private or share note to a new note, default is private.
+					<br>Share is between 1) Webcare group members, 2) Conversation Managers.
+				</li>
+			</ul>
+			<strong>C. Testing</strong>
+			<ul>
+				<li>Check if notes in contact box is updated</li>
+				<li>Add note to contact in contact box</li>
+				<li>Add note to content from a message/notification; check if content is updated on note page and on contact detail</li>
+				<li>Add note to content from company accounts / accounts we follow; check if content is updated on note page and on contact detail</li>
+				<li>Create a new Note from navigation and Note Page</li>
+				<li>Edit notes, check if information is correctly saved and added to contact box.</li>
+				<li>Delete note</li>
+				<li>Filter creation date results on Note Page</li>
+				<li>Search on contact name on Note Page</li>
+				<li>Filter a list of all contacts with notes on Note Page</li>
+				<li>Check if privacy mode is correctly exeuted between profiles</li>
+			</ul>
+		</div>			
+	</div>
+	
+	<hr>
+
+	<div class="row">
+			
+		<div class="col-md-4">
+			<div class="well">
+				<h3>"Copper Knot"</h3>
+				<br>
+				<i>Released</i>
+				<br><br>
+				<small>
+					Production roles:
+					<br><i>Conversation Manager, Coworker</i>
+				</small>
+			</div>
+		</div>
+		<div class="col-md-8">
+			
+			<h4>Keyword Filters</h4>
+			<strong>A. Deliverables</strong>
+			<ul>
+				<li>reset my filter</li>
+				<li>undo my latest selection / go backwards</li>
+				<li>able to edit filters</li>
+				<li>message contains; add word, hashtag or sentence</li>
+				<li>message doesn't contain; add word, hashtag or sentence</li>
+				<li>country is; able to choose from country list and able to type in list</li>
+				<li>language is; able to choose from country list and able to type in list</li>
+				<li>languages available; able to choose from language list and able to type in list</li> 
+				<li>add: country isn't // language isn't  (2 more filter options)</li>
+				<li>auto-close group</li>
+				<li>Author is / is not to be added as extra filter</li>
+			</ul>
+			
+			<strong>B. Testing</strong>
+			<ul>
+				<li>Add filter on keywords, different length, combinations and orders</li>
+				<li>Verify the keyword monitoring results of the filters</li>
+				<li>Edit filters</li>
+				<li>Re-Verify results of the edited filters</li>
+				<li>Delete filters</li>
+				<li>Information is correctly stored after new login</li>
+			</ul>
+			
+			<h4>Sent List</h4>
+			<strong>A. Deliverables</strong>
+			<ul>
+				<li>Overview of posted messages</li>
+				<li>Filter by network</li>
+				<li>Re-send (share) function on those messages</li>
+				<li>Mention reason why message is blocked </li>
+			</ul>
+			
+			<strong>B. Testing</strong>
+			<ul>
+				<li>Verify if messages are sent correctly, time and date mentioning</li>
+				<li>Filter the sent list by network</li>
+				<li>Re-send messages from the sent list</li>
+				<li>Verify the reasons of blocked messages
+					<br><em>Examples of blocked messages</em>
+					<ul>
+						<li>20 minute Facebook delay, due to a connection issue</li>
+						<li>Image size is too large</li>
+					</ul>
+				</li>
+			</ul>
+			
+		</div>			
+	</div>
+
+	<hr>
+	
+	<div class="row">
+			
+		<div class="col-md-4">
+			<div class="well">
+				<h3>"Marble Mask"</h3>
+				<br>
+				<a href="http://rc3.cloudwalkers.be">rc3.cloudwalkers.be</a>
+				<br><br>
+				<small>
+					Production roles:
+					<br><i>Conversation Manager, Editor, Publisher, Coworker</i>
+				</small>
+			</div>
+		</div>
+		<div class="col-md-8">
+			
+			<h4>Timeline UI</h4>
+			<strong>A. Deliverables</strong>
+			<ul>
+				<li>Filter on streams</li>
+				<li>Messsage includes; network, contact name, avatar, hour, date, content</li>
+				<li>Contact name is clickable for contact box</li>
+				<li>Enlarge image related to post (best size possible)</li>
+				<li>View Post/Tweets statistics (likes, comments, favourites, retweets) </li>
+				<li>Able to read and like comments from others related to a post</li>
+				<li>Messages includes link to the original post, open in new tab</li>
+				<li>Add notes to messages</li>
+				<li>Upload link, when a link is shared by an account we follow </li>
+				<li>Company accounts message actions:
+				<ul>
+					<li>FB: Like Post / Delete Post / Share Post / Add Comment / Like Comment / Delete Comment / Share Comment</li>
+					<li>TW: Favorite / Reply / Retweet / Share / Delete Tweet</li>
+					<li>LI: Add Comment / Delete Post / Delete Comment / Share</li>
+					<li>G+: Add Comment / Delete Post / Delete comment / Share</li>
+				</ul></li>
+				<li>Accounts we follow message actions: 
+				<ul>
+					<li>FB: Like / Comment / Share</li>
+					<li>TW: Favorite / Reply / Retweet / Share</li>	
+				</ul>	
+				</li>
+			</ul>
+			
+			<strong>B. Testing</strong>
+			<ul>
+				<li>Messages are correctly displayed</li>
+				<li>Verify if the actions on posts/tweets are correctly integrated</li>
+				<li>Able to enlarge image</li>
+				<li>Able to read the comments related to a post</li>
+				<li>Able to react on the comments from others </li>
+				<li>Verify if shared link is correctly displayed </li>
+			</ul>
+			
+		</div>			
+	</div>
+	
+	<hr>
+
+	<div class="row">
+			
+		<div class="col-md-4">
+			<div class="well">
+				<h3>"Iron Nanny"</h3>
+				<br>
+				<a href="http://rc2.cloudwalkers.be">rc2.cloudwalkers.be</a>
+				<br><br>
+				<small>
+					Production roles:
+					<br><i>Conversation Manager, Webcare, Editor, Publisher, Coworker</i>
+				</small>
+			</div>
+		</div>
+		<div class="col-md-8">
+			
+			<h4>Auto Responders (basic)</h4>
+			<strong>A. Deliverables</strong>
+			<ul>
+				<i>Use current version</i>
+			</ul>
+			
+			<h4>Calendar</h4>
+			<strong>A. Deliverables</strong>
+			<ul>
+				<li>Calendar overview of the messages to the different networks</li>
+				<li>Filter date range (last month, 2 months ago, ...)</li>
+				<li>Filter by network</li>
+				<li>Able to see the details of a message posted on the calendar (preview modal)</li>
+				<li>Able to edit scheduled messages (edit button in preview modal)</li>
+				<li>Able to re-schedule a message from the past calendar (share)</li>
+				<li>Print the calendar (print css file)</li>
+			</ul>
+			<strong>B. Testing</strong>
+			<ul>
+				<li>Use the date range to consult past months</li>
+				<li>Filter the messages by network</li>
+				<li>Read the details of old messages / Edit the details of planned messages</li>
+				<li>Re-schedule old messages</li>
+				<li>Print the Calendar</li>
+			</ul>
+			
+		</div>			
+	</div>
+	
+	<hr>
+	
+	<div class="row">
+			
+		<div class="col-md-4">
+			<div class="well">
+				<h3>"Clay Pie"</h3>
+				<br>
+				<a href="http://rc1.cloudwalkers.be">rc1.cloudwalkers.be</a>
+				<br><br>
+				<small>
+					Production roles:
+					<br><i>Conversation Manager, Webcare, Editor, Publisher, Coworker</i>
+				</small>
+			</div>
+		</div>
+		<div class="col-md-8">
+			
+			<h4>Statistics</h4>
+			<strong>A. Deliverables</strong>
+			<ul>
+				<i>Please eprovide final deliverables</i>
+			</ul>
+			
+			<h4>Chromewalkers</h4>
+			<strong>A. Deliverables</strong>
+			<ul>
+				<li>Install Chromewalkers in Chrome from Google Play Store</li>
+				<li>Able to share a webpage and/or message to the coworkers wall</li>
+				<li>Share an article: Title, Picture, intro text are shown, coworker is able to add a description to message</li>
+				<li>Share a note; Title, text and file upload is available</li>
+				<li>Settings: possible to sign out and change account (if connected to more CW accounts)</li>
+				<li>Settings: link to coworkers platform</li>
+				<li>Messages sent through Chromewalkers are shown on the coworkers wall</li>
+			</ul>
+			
+			<strong>B. Testing</strong>
+			<ul>
+				<li>Installation of Chromewalkers from the store (multiple times)</li>
+				<li>Share articles and notes to the coworkers wall</li>
+				<li>Verify if added notes are clearly mentioned in the message when we share a link</li>
+				<li>Check if the links open correctly</li>
+				<li>Change account and verify if messages are sent to the right account</li>
+				<li>Sign off / Sign on </li>
+				<li>If browser remembers the login</li>
+			</ul>
+			
+		</div>			
+	</div>
+	
+	<hr>
+	
+	<div class="row">
+			
+		<div class="col-md-4">
+			<div class="well">
+				<h3>"Iced Prairy Oyster"</h3>
+				<br>
+				<a href="http://devplatform.cloudwalkers.be">Frozen Releases</a>
+				<br><br>
+			</div>
+		</div>
+		<div class="col-md-8">
+			
+			<h4>Klout</h4>
+			<strong>A. Deliverables</strong>
+			<ul>
+				<li>Add current Klout score to the contact box </li>
+				<li>Add current Klout score to the inbox on the list view & message</li>
+				<li>In inbox; be able to filter from high to low / low to high</li>
+			</ul>
+			
+			<strong>B. Testing</strong>
+			<ul>
+				<li>Verify that Klout scores are correctly mentioned and implemented</li> 
+			</ul>
+			
+			<h4>Settings improvements</h4>
+			<strong>A. Deliverables</strong>
+			<ul>
+				<i>Please eprovide final deliverables</i>
+			</ul>
+			
+			<h4>Mailchain</h4>
+			<strong>A. Deliverables</strong>
+			<ul>
+				<li>
+				<strong>Start-account</strong> mails:
+				<ul>
+					<li>Start date of account / Welcome Mail</li>
+					<li>7 days later / First week on CW (some SoMe tips & tricks)</li>
+					<li>21 days later / Cloudwalkers tips</li>
+					<li>Last day of the first complete month / Your first month on Cloudwalkers + report</li>
+				</ul>
+				</li>
+				<li>
+				<strong>We miss you</strong> mails:
+				<ul>
+					<li>after a period of 5 days</li>
+					<li>after a period of 12 days</li>
+					<li>21 days later / Cloudwalkers tips</li>
+					<li>after a period of 20 days</li>
+				</ul>
+				</li>
+			</ul>
+			
+			<strong>B. Testing</strong>
+			<ul>
+				<li>New accounts will be created to follow up the time sequence of the start-account mails</li>
+				<li>Accounts will not be used for a while, to verify the ‘we miss you’ mails</li>
+			</ul>
+			
+			<h4>Dashboard Chooser</h4>
+			<strong>A. Deliverables</strong>
+			<ul>
+				<li>Each user role = own dashboard</li>
+				<li>Implement the correct functionalities per user role</li>
+				<li>Change user role, current dashboard changes</li>
+			</ul>
+			<strong>B. Testing</strong>
+			<ul>
+				<li>Check the functionalities of the user role related dashboard</li>
+				<li>Change user role, check if dashboard is updated</li>
+				<li>Log off / log in verify if settings are saved</li>
+			</ul>
+			
+			<h4>Tags</h4>
+			<strong>A. 2 types of tags</strong>
+			<ul>
+				<li>
+					<strong>Tags on content</strong>
+					<br>Tags added to notes, messages, notifications, posts/tweets company accounts (CA) & accounts we follow (AWF) and keyword monitoring (KM).
+					<br><br>
+				</li>
+				<li>
+					<strong>Tags on contact</strong>
+					<br>Tags added to a contact.
+				</li>
+			</ul>
+			<strong>B. Deliverables</strong>
+			<ul>
+				<li>Able to add content tag to; Messages/notifications inbox, post/tweets company accounts & accounts we follow, keyword monitoring.</li>
+				<li>Able to add contact tag to contact in Contactbox</li>
+				<li>Able to add multiple tags to an item</li>
+				<li>Delete, add new tags of an item</li>
+				<li>Filter and sort tags on 'Notes Page'</li>
+				<li>Overview of contacts that are related to a tag.</li>
+				<li>Ability to set tags editable for certain user roles</li>
+			</ul>
+			<strong>C. Testing</strong>
+			<ul>
+				<li>Tags added to content and contacts</li>
+				<li>If tags are correctly stored after re-login</li>
+				<li>Edit, Delete tags from content and contacts</li>
+				<li>Check if filters on tagging are working correctly from ‘Notes Page’</li>
+			</ul>
+			<br>
+			
+			<h4>Webcare</h4>
+			<strong>A. Deliverables</strong>
+			<ul>
+				<i>Please eprovide final deliverables</i>
+			</ul>
+			
+			<h4>User Groups</h4>
+			<strong>A. Deliverables</strong>
+			<ul>
+				<i>Please eprovide final deliverables</i>
+			</ul>
+			
+			<h4>Extended Filters</h4>
+			<strong>A. Deliverables</strong>
+			<ul>
+				<i>Please eprovide final deliverables</i>
+			</ul>
+			
+			<h4>Sentiment</h4>
+			<strong>A. Deliverables</strong>
+			<ul>
+				<i>Please eprovide final deliverables</i>
+			</ul>
+			
+			<h4>RSS + Feedly</h4>
+			<strong>A. Deliverables</strong>
+			<ul>
+				<li>Feed manager
+				<ul>
+					<li>Add / Remove RSS feeds</li>
+					<li>Organise RSS feeds in categories</li>
+					<li>Add limits on the quantity of RSS feeds for the different plans</li>				
+				</ul>
+				</li>
+				
+				<li>NEWS page
+				<ul>
+- A chronological overview of the last articles on the RSS feeds
+- View source and Title of article
+- Add share button to articles in the overview
+- Click on article, new browser tab opens with that article
+
+Testing
+- Add and delete RSS feeds from feed manager
+- Verify if articles from sources are correctly loaded
+- Verify if articles update correctly 
+- Click on article, opens in new browser tab
+- Share article from list, ‘compose message’ opens
+			</ul>
+			
+			<h4>Auto Responders (extended)</h4>
+			<strong>A. Deliverables</strong>
+			<ul>
+				<li>Select channel + Message Type + Content + Actions + Timing
+				<ul>
+					<li>Select channel: choose from the connected Twitter accounts
+					<li>Message type: Direct message or Mention
+					<li>Actions: New follower, on a new direct message, on a new mention
+					<li>Timing: example: x hours after receiving the message
+				</ul>
+				</li>
+				<li>Edit the auto responder</li>
+				<li>Delete the auto responder</li>
+			</ul>
+			
+			<strong>B. Testing</strong>
+			<ul>
+				<li>Create new auto-responder</li>
+				<li>Verify if responders and conditions work correctly</li>
+				<li>Edit the auto responder</li>
+				<li>Delete the auto responder</li>
+			</ul>
+		
+		</div>			
+	</div>
+
+		
+	</div>
+
+	<!-- Bootstrap core JavaScript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	</body>
+</html>
+

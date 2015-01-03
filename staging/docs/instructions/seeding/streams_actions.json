@@ -1,0 +1,35 @@
+{
+	"internal":
+	{
+		"{{token}}": [ ]
+	},
+
+	"facebook":
+	{
+		"/page/inbox" : [ "dm" ],
+		"/page/posts": ["like", "unlike", "delete", "comment", "message" ],
+		"/page/following" : ["like", "unlike", "delete", "comment", "message" ]
+	},
+
+	"twitter" :
+	{
+		"/me" : [ "favorite", "unfavorite", "retweet", "delete", "reply", "dm" ],
+		"/me/dms" : [ "favorite", "unfavorite", "retweet", "delete", "reply", "dm" ],
+		"/inbox" : [ "favorite", "unfavorite", "retweet", "delete", "reply", "dm" ],
+		"/following" : [ "favorite", "unfavorite", "retweet", "delete", "reply", "dm" ]
+	},
+
+	"linkedin" :
+	{
+		"/company/posts" : [ "like", "unlike", "comment" ]
+	},
+
+	"youtube" :
+	{
+		"/me/posts" : [ "comment", "like", "unlike" ]
+	},
+
+	"sendible" : {
+		"any" : [ "based on actions that sendible sends us" ]
+	}
+}

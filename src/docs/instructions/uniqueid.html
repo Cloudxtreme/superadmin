@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Cloudwalkers Team - Editing a country midpoint and radius</title>
+
+	<link rel="shortcut icon" href="https://devplatform.cloudwalkers.be/favicon.ico"/>
+
+	<!-- Bootstrap -->
+	<link href="/docs/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/docs/css/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/fontawesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+	<link href="/docs/css/theme.css" rel="stylesheet">
+
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body >
+
+<div class="container">
+
+	<h1>Unique IDs</h1>
+
+	<p>In order to determine if two contacts or two messages are the same message, we use uniqueID fields in combination with grouping & groups.</p>
+	<p>Both contacts as messages have 3 fields: uniqueId, grouping & group. All 3 values must match for two entities to be considered equal.</p>
+
+	<h2>Determine grouping & groupid</h2>
+
+	<p>grouping can have 3 values: GLOBAL, SERVICE and STREAM.</p>
+
+	<h3>GLOBAL</h3>
+	<p>This option is used for all big networks.</p>
+	<p>In case of GLOBAL: ct_group contains the service_id (so 0-15). Example usage: all facebook contacts have a unique id, so for the service "facebook" all contacts have service_id = 3 and unique_id = xxx.</p>
+
+	<h3>SERVICE</h3>
+	<p>In case of service, ct_group contains the service id (so the id of the row in "services"). Example usage: drupal connections. For each drupal blog, user_id = 1 will contain a different contact. Multiple blogs can be connected to cloudwalkers, so a drupal connection with user 1 will have multiple values.</p>
+
+	<h3>STREAM</h3>
+	<p>In case of stream, ct_group contains the stream id the contact is in. This is mostly for backwards compatability from a time when messages and contacts were stored multiple times. At the moment I don't see any use of this one anymore./p>
+
+
+
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Cloudwalkers Team</title>
+		
+		<link rel="shortcut icon" href="https://devplatform.cloudwalkers.be/favicon.ico"/>
+		
+		<!-- Bootstrap -->
+		<link href="/docs/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/docs/css/bootstrap-theme.min.css" rel="stylesheet">
+		<link href="https://cdn.jsdelivr.net/fontawesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+		
+		
+		<link href="/docs/css/theme.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	<body >
+
+	<div class="container">
+
+		<h1>Gearman</h1>
+
+		<h2>Gearman Servers</h2>
+		<p>The locations and ports of the gearman servers are described in the <a href="servers.html">server list</a>.</p>
+		<p>Gearman servers themselves can easily be restarted by calling <code>/etc/init.d/gearmand<i>-environment</i> restart</code></p>
+
+		<h2>Gearman Manager</h2>
+		<p>We are using the (php) framework <a href="https://github.com/brianlmoon/GearmanManager">GearmanManager</a>. This framework uses gearmanmanager.ini as a basis the start instances of the workers/jobs/ scripts.</p>
+
+		<p>To define how many instances of any given method should be run, we use the gearmanmanager.ini files that are stored in the laravel configuration environments. The gearman server hostname is also stored in these files. The current system does <strong>not allow us</strong> to define the amount of workers for one specific server (to make a distinction between heavy servers and weak servers for example). For these cases, a new environment should be created. At the moment, however, all servers run the same amount of workers.</p>
+
+		<p>GearmanManager is started in init.d, in following files:</p>
+		<ul>
+			<li>
+				newstorage
+				<ul>
+					<li>/etc/init.d/gearman-manager-development</li>
+					<li>/etc/init.d/gearman-manager-staging</li>
+					<li>/etc/init.d/gearman-manager-stable</li>
+				</ul>
+			</li>
+
+			<li>
+				workers001.cloudwalkers.be
+				<ul>
+					<li>/etc/init.d/gearman-manager</li>
+				</ul>
+			</li>
+		</ul>
+
+		<p>These init.d files contain the path to the worker directory + the config file that should be loaded (= the environment).</p>
+
+<pre><code>##PATH##
+DAEMON=/usr/local/bin/gearman-manager
+PIDDIR=/var/run/gearman
+PIDFILE=${PIDDIR}/manager<strong>-stable</strong>.pid <i>Change if multiple instances run on same server</i>
+LOGFILE=/var/log/gearman-manager.log
+CONFIGDIR=/var/www/workers/stable
+GEARMANUSER="cloudwalkers" <i>Must be existing unix user</i>
+PARAMS="-c app/config/stable/gearmanmanager.ini"</code></pre>
+
+		<p>To restart the gearman workers, I personally do the following:</p>
+		<p><code>/etc/init.d/gearman-manager-development stop</code></p>
+		<p>I do this a couple of times, with a short interval between each try, until the return text is "failed".</p>
+		<p>(Failed means that there were no more instances to kill.)</p>
+		<p>Afterwards, restart by running <code>/etc/init.d/gearman-manager-development start</code></p>
+
+		<h2>Worker locations</h2>
+		<p>The worker code is always stored in the workers/jobs/ files. Each file contains a function with the same name as the file itself. Gearman manager and worker.php handles the rest.</p>
+
+		<ul>
+			<li>
+				newstorage
+				<ul>
+					<li>/var/www/workers/development</li>
+					<li>/var/www/workers/staging</li>
+					<li>/var/www/workers/stable</li>
+				</ul>
+			</li>
+
+			<li>
+				workers001.cloudwalkers.be
+				<ul>
+					<li>
+						/var/www/html/workers.serverpark.be/
+					</li>
+				</ul>
+			</li>
+		</ul>
+
+		<h2>Checking for errors</h2>
+		<p>The easiest way to check for errors, is by running a single worker manually:</p>
+		<p><code>cd /var/www/workers/development/<br />
+			php workers/worker.php</code>
+		</p>
+
+		<p><strong>This worker.php script takes over the role of gearman manager. Gearman manager itself does not use this script!</strong></p>
+
+		<p>In case or rare errors, first stop the gearman manager so that only this one instance will do all the work.</p>
+
+	</div>
+
+	<!-- Bootstrap core JavaScript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	</body>
+</html>

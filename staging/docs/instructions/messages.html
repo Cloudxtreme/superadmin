@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Cloudwalkers Team</title>
+		
+		<link rel="shortcut icon" href="https://devplatform.cloudwalkers.be/favicon.ico"/>
+		
+		<!-- Bootstrap -->
+		<link href="../css/bootstrap.min.css" rel="stylesheet">
+		<link href="../css/bootstrap-theme.min.css" rel="stylesheet">
+		<link href="https://cdn.jsdelivr.net/fontawesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+		
+		<link href="/docs/css/theme.css" rel="stylesheet">
+
+		<style>
+			body	{ margin-top: 60px; }
+			
+			#nav	{
+				position:fixed;
+				background: rgba(0,0,0, 0.5);
+				right: 10px;
+				top: 10px;
+				font-size: 11px;
+				z-index: 20;
+			}
+
+			#nav a	{
+				color: white;
+			}
+			
+			em	{ color: #2bbedc; font-weight: bold; }
+			
+			h4	{
+				line-height: 2.2em; color: #999; font-size: 16px; font-weight: normal;
+			}
+
+            .row {
+                margin-bottom: 5px;
+            }
+
+            .col-xs-3, .col-xs-4 {
+                text-align: center;
+            }
+		</style>
+	</head>
+	<body>
+
+	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/">Cloudwalkers</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					
+					<li class=""><a href="#database">Database</a></li>
+					<li class=""><a href="#endpoints">Endpoints</a></li>
+					<li class=""><a href="#schemas">Schemas</a></li>
+					<!--<li class="dropdown">-->
+						<!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">Account types <b class="caret"></b></a>-->
+						<!--<ul class="dropdown-menu">-->
+							<!--<li><a href="#accounts">Accounts</a></li>-->
+							<!--<li><a href="#reseller">Resellers</a></li>-->
+							<!--<li><a href="#reseller">Plans</a></li>-->
+							<!--<li><a href="#license">Licences</a></li>-->
+							<!--<li><a href="#campaigns">Campaigns</a></li>-->
+						<!--</ul>-->
+					<!--</li>-->
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+
+
+		<div class="row">
+
+			<h1>v1.1 Messages and their variations</h1>
+		
+		</div>		
+
+        <br>
+		<div class="row" id="database">
+			<div class="col-md-6">
+			
+				<h3>Database <small>(messages definition in database)</small></h3>
+
+				<h4>Entity</h4>
+                <div class="row">
+                    <div class="col-xs-3">
+                        <li class="list-group-item">
+                            Message
+                        </li>
+                    </div>
+                    <div class="col-xs-3">
+                        <li class="list-group-item">
+                            Notification
+                        </li>
+                    </div>
+                    <div class="col-xs-3">
+                        <li class="list-group-item">
+                            Activity
+                        </li>
+                    </div>
+                </div>
+
+				<h4>Grouping</h4>
+                <div class="row">
+                    <div class="col-xs-3">
+                        <li class="list-group-item">
+                            Account
+                        </li>
+                    </div>
+                    <div class="col-xs-3">
+                        <li class="list-group-item">
+                            Stream
+                        </li>
+                    </div>
+                    <div class="col-xs-3">
+                        <li class="list-group-item">
+                            Service
+                        </li>
+                    </div>
+                    <div class="col-xs-3">
+                        <li class="list-group-item">
+                            Global
+                        </li>
+                    </div>
+                </div>
+
+				<h4>Direction</h4>
+                <div class="row">
+                    <div class="col-xs-3">
+                        <li class="list-group-item">
+                            Incoming
+                        </li>
+                    </div>
+                    <div class="col-xs-3">
+                        <li class="list-group-item">
+                            Outgoing
+                        </li>
+                    </div>
+                    <div class="col-xs-3">
+                        <li class="list-group-item">
+                            Internal
+                        </li>
+                    </div>
+                </div>
+
+				<h4>Type</h4>
+                <div class="row">
+                    <div class="col-xs-3">
+                        <li class="list-group-item">
+                            Post
+                        </li>
+                    </div>
+                    <div class="col-xs-3">
+                        <li class="list-group-item">
+                            Share
+                        </li>
+                    </div>
+                    <div class="col-xs-3">
+                        <li class="list-group-item">
+                            Like
+                        </li>
+                    </div>
+                    <div class="col-xs-3">
+                        <li class="list-group-item">
+                            Comment
+                        </li>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-3">
+                        <li class="list-group-item">
+                            Delete
+                        </li>
+                    </div>
+                    <div class="col-xs-3">
+                        <li class="list-group-item">
+                            DM
+                        </li>
+                    </div>
+                    <div class="col-xs-3">
+                        <li class="list-group-item">
+                            Unlike
+                        </li>
+                    </div>
+                </div>
+
+
+				<h4>Status</h4>
+                <div class="row">
+                    <div class="col-xs-3">
+                        <li class="list-group-item">
+                            Submitted
+                        </li>
+                    </div>
+                    <div class="col-xs-3">
+                        <li class="list-group-item">
+                            Scheduled
+                        </li>
+                    </div>
+                    <div class="col-xs-3">
+                        <li class="list-group-item">
+                            Sent
+                        </li>
+                    </div>
+                    <div class="col-xs-3">
+                        <li class="list-group-item">
+                            Removed
+                        </li>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-3">
+                        <li class="list-group-item">
+                            Draft
+                        </li>
+                    </div>
+                    <div class="col-xs-3">
+                        <li class="list-group-item">
+                            Cancelled
+                        </li>
+                    </div>
+                    <div class="col-xs-3">
+                        <li class="list-group-item">
+                            Canned
+                        </li>
+                    </div>
+                </div>
+
+				<h4>Relationships and identifiers</h4>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <li class="list-group-item">
+                            Unique id
+                        </li>
+                    </div>
+                    <div class="col-xs-4">
+                        <li class="list-group-item">
+                            Conversation id
+                        </li>
+                    </div>
+                    <div class="col-xs-4">
+                        <li class="list-group-item">
+                            User id
+                        </li>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <li class="list-group-item">
+                            Parent message id
+                        </li>
+                    </div>
+                    <div class="col-xs-4">
+                        <li class="list-group-item">
+                            Children (?)
+                        </li>
+                    </div>
+                    <div class="col-xs-4">
+                        <li class="list-group-item">
+                            Original message id
+                        </li>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <li class="list-group-item">
+                            Cancelled
+                        </li>
+                    </div>
+                    <div class="col-xs-4">
+                        <li class="list-group-item">
+                            Canned
+                        </li>
+                    </div>
+                </div>
+
+
+			</div>
+		</div>
+
+        <br>
+		<div class="row" id="endpoints">
+
+            <h3>Endpoint groups available for each type <small>(messages, notifications and notes)</small></h3>
+
+            <div class="col-md-6">
+				<h4>Messages</h4>
+				<ul class="list-group">
+					<li class="list-group-item">
+                        /1.1/messages
+                    </li>
+                    <li class="list-group-item">
+                        /1.1/accounts/<em>id</em>/messages
+					</li>
+                    <li class="list-group-item">
+                        /1.1/channels/<em>id</em>/messages
+					</li>
+                    <li class="list-group-item">
+                        /1.1/streams/<em>id</em>/messages
+					</li>
+                    <li class="list-group-item">
+                        /1.1/contacts/<em>id</em>/messages
+					</li>
+                    <li class="list-group-item">
+                        /1.1/accounts/<em>id</em>/contacts/<em>id</em>/conversations
+                    </li>
+                    <div class="bs-callout bs-callout-info">
+                        <h4>Messages</h4>
+                        <p>Messages are called within the context of accounts, channels, streams and contacts.</p>
+                    </div>
+				</ul>
+
+				<h4>Notifications</h4>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        /1.1/notifications
+                    </li>
+                    <li class="list-group-item">
+                        /1.1/channels/<em>id</em>/notifications
+                    </li>
+                    <div class="bs-callout bs-callout-info">
+                        <h4>Inbox notifications</h4>
+                        <p>Parent message id is sent and message fetched if not exists locally.</p>
+                    </div>
+                </ul>
+
+				<h4>Notes</h4>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        /1.1/notes
+                    </li>
+                    <li class="list-group-item">
+                        /1.1/accounts/<em>id</em>/notes
+                    </li>
+                    <li class="list-group-item">
+                        /1.1/messages/<em>id</em>/notes
+                    </li>
+                    <li class="list-group-item">
+                        /1.1/accounts/<em>id</em>/contacts/<em>id</em>/notes
+                    </li>
+                    <div class="bs-callout bs-callout-info">
+                        <h4>Notes</h4>
+                        <p>Notes can be added to messages, contacts and accounts.</p>
+                    </div>
+                </ul>
+
+
+			</div>
+		</div>
+
+
+        <br>
+		<div class="row" id="schemas">
+
+            <h3>Message Schemas <small>(messages, notifications and notes)</small></h3>
+
+            <div class="col-md-12">
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default" aria-expanded="false">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Messages json schema - /channel/id/messages?ids=
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="panel-body">
+                                <pre>
+{
+   "channel":{
+      "id":527,
+      "messages":[
+         {
+            "id":30501375,
+            "objectType":"message",
+            "url":null,
+            "body":{
+               "html":"What's up?",
+               "plaintext":"What's up?"
+            },
+            "from":[
+               {
+                  "id":7366794,
+                  "uniqueId":"100007194613161",
+                  "objectType":"contact",
+                  "name":"Karel Talbot",
+                  "firstname":null,
+                  "displayname":"Karel Talbot",
+                  "username":null,
+                  "avatar":"https:\/\/graph.facebook.com\/100007194613161\/picture",
+                  "url":"https:\/\/www.facebook.com\/100007194613161",
+                  "network":{
+                     "token":"facebook",
+                     "name":"Facebook",
+                     "icon":"facebook"
+                  },
+                  "following":false,
+                  "statistics":{
+                     "klout":null
+                  }
+               }
+            ],
+            "to":[
+               {
+                  "id":2639470,
+                  "uniqueId":"1441517176093484",
+                  "objectType":"contact",
+                  "name":"WlkrsSports",
+                  "firstname":null,
+                  "displayname":"WlkrsSports",
+                  "username":null,
+                  "avatar":"https:\/\/graph.facebook.com\/1441517176093484\/picture?width=720&height=720",
+                  "url":"https:\/\/www.facebook.com\/1441517176093484",
+                  "network":{
+                     "token":"facebook",
+                     "name":"Facebook",
+                     "icon":"facebook"
+                  },
+                  "following":false,
+                  "statistics":{
+                     "klout":null
+                  }
+               },
+               {
+                  "id":7366794,
+                  "uniqueId":"100007194613161",
+                  "objectType":"contact",
+                  "name":"Karel Talbot",
+                  "firstname":null,
+                  "displayname":"Karel Talbot",
+                  "username":null,
+                  "avatar":"https:\/\/graph.facebook.com\/100007194613161\/picture",
+                  "url":"https:\/\/www.facebook.com\/100007194613161",
+                  "network":{
+                     "token":"facebook",
+                     "name":"Facebook",
+                     "icon":"facebook"
+                  },
+                  "following":false,
+                  "statistics":{
+                     "klout":null
+                  }
+               }
+            ],
+            "attachments":[
+
+            ],
+            "date":"2014-07-17T15:55:42+00:00",
+            "actions":[
+               {
+                  "objectType":"action",
+                  "token":"dm",
+                  "name":"Reply",
+                  "type":"dialog",
+                  "parameters":[
+                     {
+                        "objectType":"parameter",
+                        "token":"message",
+                        "name":"Message",
+                        "type":"string",
+                        "required":false,
+                        "value":""
+                     }
+                  ],
+                  "userroles":[
+
+                  ]
+               },
+               {
+                  "objectType":"action",
+                  "token":"share",
+                  "name":"Share",
+                  "type":"internal",
+                  "parameters":[
+
+                  ],
+                  "userroles":[
+
+                  ]
+               },
+               {
+                  "objectType":"action",
+                  "token":"note_manage",
+                  "name":"Manage notes",
+                  "type":"internal",
+                  "parameters":[
+
+                  ],
+                  "userroles":[
+                     "ACCOUNT_NOTES_MANAGE"
+                  ]
+               },
+               {
+                  "objectType":"action",
+                  "token":"note_view",
+                  "name":"View notes",
+                  "type":"internal",
+                  "parameters":[
+
+                  ],
+                  "userroles":[
+                     "ACCOUNT_NOTES_VIEW"
+                  ]
+               }
+            ],
+            "actiontokens":[
+               "dm",
+               "share",
+               "note_manage",
+               "note_view"
+            ],
+            "children_count":0,
+            "childrenCount":0,
+            "relatedCount":0,
+            "stream":4899,
+            "type":"INCOMING",
+            "canHaveChildren":true,
+            "engagement":0,
+            "stats":{
+               "notes":0,
+               "comments":0
+            },
+            "statistics":[
+
+            ],
+            "read":1,
+            "lang":"en_US",
+            "visible":1
+         }
+      ]
+   }
+}
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default" aria-expanded="false">
+                        <div class="panel-heading" role="tab" id="headingTwo">
+                            <h4 class="panel-title">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Notifications json schema - /message/id/notifications?ids=
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                            <div class="panel-body">
+                                <pre>
+{
+   "message":{
+      "id":36178110,
+      "notifications":[
+         {
+            "id":36178111,
+            "objectType":"comment",
+            "url":null,
+            "body":{
+               "html":"Yes indeed, my doubts on some points...",
+               "plaintext":"Yes indeed, my doubts on some points..."
+            },
+            "from":[
+               {
+                  "id":8483654,
+                  "uniqueId":"K5j-7ao4T8",
+                  "objectType":"contact",
+                  "name":"McDam",
+                  "firstname":"Bert",
+                  "displayname":"Bert McDam",
+                  "username":null,
+                  "url":"https:\/\/www.linkedin.com\/profile\/view?id=287268552&authType=name&authToken=kxE2&trk=api*a306288*s313792*",
+                  "network":{
+                     "token":"linkedin",
+                     "name":"LinkedIn",
+                     "icon":"linkedin"
+                  },
+                  "following":false,
+                  "statistics":{
+                     "klout":null
+                  }
+               }
+            ],
+            "attachments":[
+
+            ],
+            "date":"2014-09-22T09:25:49+00:00",
+            "actions":[
+               {
+                  "objectType":"action",
+                  "token":"note_view",
+                  "name":"View notes",
+                  "type":"internal",
+                  "parameters":[
+
+                  ],
+                  "userroles":[
+                     "ACCOUNT_NOTES_VIEW"
+                  ]
+               },
+               {
+                  "objectType":"action",
+                  "token":"note_manage",
+                  "name":"Manage notes",
+                  "type":"internal",
+                  "parameters":[
+
+                  ],
+                  "userroles":[
+                     "ACCOUNT_NOTES_MANAGE"
+                  ]
+               }
+            ],
+            "actiontokens":[
+               "note_view",
+               "note_manage"
+            ],
+            "children_count":0,
+            "childrenCount":0,
+            "relatedCount":0,
+            "stream":4914,
+            "type":"INCOMING",
+            "canHaveChildren":false,
+            "parent":{
+               "id":36178110,
+               "objectType":"message"
+            },
+            "engagement":0,
+            "stats":{
+               "notes":0,
+               "comments":0
+            },
+            "statistics":[
+
+            ],
+            "read":1,
+            "lang":null,
+            "visible":1
+         }
+      ]
+   }
+}
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default" aria-expanded="false">
+                        <div class="panel-heading" role="tab" id="headingThree">
+                            <h4 class="panel-title">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Notes json schema - /accounts/id/notes?ids=
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                            <div class="panel-body">
+                                <pre>
+{
+   "account":{
+      "id":23,
+      "notes":[
+         {
+            "id":2,
+            "objectType":"note",
+            "text":"hi",
+            "date":"2014-09-01T19:12:51+02:00",
+            "model":{
+               "objectType":"MESSAGE",
+               "id":34113667
+            },
+            "user":{
+               "id":77,
+               "objectType":"user",
+               "name":"Molefas",
+               "firstname":"Mr",
+               "displayname":"Mr Molefas",
+               "avatar":"http:\/\/images.cloudwalkers.be\/uploads\/60\/c9\/60c95cb5c57bb00711d6dd6084fb6aeb07258bf8b4a28370c317c14e98171c7c_original.jpg",
+               "email":"rmolefas@agap2.pt",
+               "locale":"en_EN"
+            }
+         },
+         {
+            "id":4,
+            "objectType":"note",
+            "text":"account note",
+            "date":"2014-09-01T19:23:20+02:00",
+            "model":{
+               "objectType":"ACCOUNT",
+               "id":23
+            },
+            "user":{
+               "id":77,
+               "objectType":"user",
+               "name":"Molefas",
+               "firstname":"Mr",
+               "displayname":"Mr Molefas",
+               "avatar":"http:\/\/images.cloudwalkers.be\/uploads\/60\/c9\/60c95cb5c57bb00711d6dd6084fb6aeb07258bf8b4a28370c317c14e98171c7c_original.jpg",
+               "email":"rmolefas@agap2.pt",
+               "locale":"en_EN"
+            }
+         }
+      ]
+   }
+}
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default" aria-expanded="false">
+                        <div class="panel-heading" role="tab" id="headingFour">
+                            <h4 class="panel-title">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    Notes json schema - /accounts/id/contacts/id/notes?ids=
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                            <div class="panel-body">
+                                <pre>
+{
+   "contact":{
+      "id":8366557,
+      "notes":[
+         {
+            "id":106,
+            "objectType":"note",
+            "text":"testing note endpoint",
+            "date":"2014-11-06T11:06:29+01:00",
+            "model":{
+               "objectType":"CONTACT",
+               "id":8366557
+            },
+            "user":{
+               "id":40,
+               "objectType":"user",
+               "name":"Silva",
+               "firstname":"Pedro",
+               "displayname":"Pedro Silva",
+               "avatar":"http:\/\/images.cloudwalkers.be\/uploads\/da\/37\/da379ccbbaea60ea6ed1e15854378004e33c4990f95a1de1ae1e4f0eb4026902_original.png",
+               "email":"psilva@agap2.pt",
+               "locale":"en_EN"
+            }
+         }
+      ]
+   }
+}
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+			</div>
+		</div>
+
+
+			
+
+	</div>
+
+
+	<!--
+	Route::get		('accounts/{id}/services/{token}/auth', 			'ServiceController@store')->where ('token', '[a-z]+');
+	Route::post		('accounts/{id}/services/{token}', 					'ServiceController@authurl')->where ('token', '[a-z]+');
+
+    Route::resource	('accounts', 				'AccountController',	array ('except' => array('create', 'edit')));
+    Route::resource	('accounts.services',		'ServiceController',	array ('except' => array('store', 'create', 'edit')));
+    Route::resource	('accounts.users',		    'UserController',	    array ('except' => array('create', 'edit')));
+	--!>
+			
+
+	</div>
+
+	<!-- Bootstrap core JavaScript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	</body>
+</html>

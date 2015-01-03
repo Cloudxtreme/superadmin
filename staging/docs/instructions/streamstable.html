@@ -1,0 +1,42 @@
+<pre>
+st_id
+parent_st_id
+st_model	Always static; dynamic streams are used for keyword monitoring.
+a_id
+s_id
+stream_id	A unique id based on the service. Can be null.
+st_name		Stream name
+st_settings	JSON settings boject
+st_lastRefresh	Last stream refresh (= fetch messages)
+st_active	bool
+st_type		social, web, coworker, etc. mostly social for non internal streams
+st_priority	deprecated. was used to sort streams
+st_includeChildren	deprecated & not used anymore
+st_incoming	Does stream contain incoming entities?
+st_outgoing	Can the stream be used to send messages?
+st_statistics	Does the stream contain statistics?
+st_messages	If this is an incoming stream, can the stream contain messages?
+st_notifications	If this is an incoming stream, can the stream contain notifications?
+st_canHaveChildren	Deprecated
+st_canHaveChildstreams	Deprecated
+st_requiredForStatistics	In case this is set to 1, this stream will even be processed if it is not enabled. That's because certain statistics from another stream
+st_messageStatistics	Deprecated
+st_realtime	0: refresh predicted, 1: refresh always when account is online. 2: refresh all the time
+st_nextrefresh	Date of next calculated refresh date
+st_avgMessagesDay	Average amount of messages received through this stream / day
+st_events	JSON object with events that are executed when a message is received on this stream.
+st_textfields	Deprecated
+st_actions	JSON object. All actions that are possible on this stream.
+st_icon		deprecated
+st_network	ID of the network
+st_messageStatisticsData	List of statistics that are shown in mesages in this stream
+st_unread_interval	deprecated
+st_hash		hash of the object, currently no logical way.
+retention_type	how long are messages supposed to be stored. not in use at the moment in v1
+st_profile	profile id
+st_throttle_timeout	amount of seconds that should be between two refreshes. handled by throtthling the stream based on api limits
+st_last_throttle_change	date, last time the stream was throttled
+st_besttimetopost	json array, percentages of best time to post (24 records = 24 hours)
+updated_at	date
+created_at	date
+</pre>

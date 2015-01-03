@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Cloudwalkers Team</title>
+
+	<link rel="shortcut icon" href="https://devplatform.cloudwalkers.be/favicon.ico"/>
+
+	<!-- Bootstrap -->
+	<link href="/docs/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/docs/css/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/fontawesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+	<link href="/docs/css/theme.css" rel="stylesheet">
+
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+	<style type="text/css">
+		.op
+		{
+			color: orange;
+			font-variant:small-caps;
+		}
+
+		.field
+		{
+			color: green;
+			font-variant:small-caps;
+		}
+
+		.brackets
+		{
+			color: black;
+			font-variant:small-caps;
+		}
+	</style>
+</head>
+<body >
+
+<div class="container">
+
+
+
+	<h1>Keyword filters</h1>
+	<p>All keywords are defined by a formula. This formula is processed and translated to the various social network api's so that we can get results that are as accurate as possible.</p>
+
+	<p>To create a keyword, POST to a category channel:</p>
+	<pre>{ "name" : "Keyword Name", "settings" : { "formula" : "message contains keyword" } } </pre>
+
+	<h2>Quick help</h2>
+	<p>Define the keyword rules in human readable text:</p>
+	<ul>
+		<li><strong><span class="field">message</span> <span class="op">contains</span></strong> "cloudwalkers"</li>
+		<li><span class="field">message</span> <span class="op">contains</span> "cloudwalkers" <strong><span class="op">and</span></strong> <span class="field">message</span> <span class="op">contains</span> "social media"</li>
+		<li><span class="field">message</span> <span class="op">contains</span> "cloudwalkers" <span class="op">and</span> <span class="field">message</span> <strong><span class="op">not</span> <span class="op">contains</span></strong> "shoes"</li>
+		<li><span class="field">message</span> <span class="op">contains</span> "cloudwalkers" <strong><span class="op">or</span></strong> <span class="field">message</span> contains "bmgroup"</li>
+		<li><span class="field">message</span> <span class="op">contains</span> "cloudwalkers" <span class="op">and</span> <strong><span class="field">language</span> <span class="op">=</span></strong> "nl"</li>
+		<li><span class="field">message</span> <span class="op">contains</span> "cloudwalkers" <span class="op">and</span> <strong><span class="field">country</span> <span class="op">=</span></strong> "be"</li>
+		<li><span class="brackets">(</span><span class="field">message</span> <span class="op">contains</span> "cloudwalkers" <span class="op">or</span> <span class="field">message</span> <span class="op">contains</span> "bmgroup"<span class="brackets">)</span> <span class="op">and</span> <span class="field">country</span> <span class="op">=</span> "be"</li>
+	</ul>
+
+	<h2>Formula</h2>
+	<p>The formula consists of:</p>
+	<ul>
+		<li>
+			Operators
+			<ul>
+				<li>=</li>
+				<li>CONTAINS</li>
+				<li>! (NOT)</li>
+				<li>AND</li>
+				<li>OR</li>
+			</ul>
+		</li>
+
+		<li>
+			Fields
+			<ul>
+				<li>message (can only be used with contains)</li>
+				<li>country (can only be used with =; always use 2-letter notation)</li>
+				<li>language (can only be used with =; use 2 or 5 letter notation)</li>
+			</ul>
+		</li>
+
+		<li>
+			Backets
+		</li>
+	</ul>
+
+	<h2>Examples</h2>
+	<p>To get all messages that contain "catlab" or "dolumar":</p>
+	<pre>message contains catlab or message contains dolumar</pre>
+
+	<p>To get all messages that contain "catlab" and "quizted":</p>
+	<pre>message contains catlab and message contains quizted</pre>
+
+	<p>To get all messages that contain "catlab" and "quizted" and are written in belgium</p>
+	<pre>message contains catlab and message contains quizted and country = be</pre>
+
+	<p>To get all messages that contain "catlab" or "quizted" and are written in belgium</p>
+	<pre>(message contains catlab or message contains quizted) and country = be</pre>
+
+	<p>To get all messages that contain "catlab" or "quizted" and are written in belgium or the netherlands</p>
+	<pre>(message contains catlab or message contains quizted) and (country = be or country = nl)</pre>
+
+	<p>To get all messages that contain "catlab", but not "dog" and are written in dutch</p>
+	<pre>message contains catlab and message !contains dog and language = nl</pre>
+	<p>(or)</p>
+	<pre>message contains catlab and !(message contains dog) and language = nl</pre>
+
+	<p>To get all messages that contain an exact sentence</p>
+	<pre>message contains 'This is a multiple word sentence'</pre>
+
+	<p>To completely lose your mind</p>
+	<pre>(((message contains catlab or message contains dolumar) and message !contains quizted) or (message contains bmgroup and (message contains ken or message contains dominique or message contains evert))) and (country = be or message contains 'belgium') and (language = nl or language = en)</pre>
+
+	<p>... and I guess you get the picture by now.</p>
+
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>

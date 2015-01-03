@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Cloudwalkers Team</title>
+
+	<link rel="shortcut icon" href="https://devplatform.cloudwalkers.be/favicon.ico"/>
+
+	<!-- Bootstrap -->
+	<link href="/docs/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/docs/css/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/fontawesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+	<link href="/docs/css/theme.css" rel="stylesheet">
+
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body >
+
+<div class="container">
+
+	<h1>Testing environment</h1>
+
+	<h2>Ground Zero</h2>
+	<p>Manual testing of api endpoints (will be) can easily be done by using the swagger doc interface.</p>
+	<p><a href="https://devapi.cloudwalkers.be/docs/api/">Swagger API documentation</a></p>
+	<p>More information on how to get an oauth2 flow will be provided later.</p>
+
+	<h2>First tier</h2>
+	<p>First layer of testing happens on php unit testing. Each module has it's own testing suite that tests basic input/output operations. Unit tests should be written were applicable.</p>
+	<p>Unit tests are placed in the Tests folder of the Module being tested.</p>
+	<p>Whenever a "complex" procedure is written, and if php unit tests make sense, a php unit test should be written.</p>
+	<p>Unit tests should definitely be written for <strong>all regular expressions</strong>.</p>
+	<p>Database queries are currently not tested by unit tests, but we could improve this in the future.</p>
+	<p>
+		Unit tests are run automatically after each commit, but can be run manually by executing:<br>
+		(phpunit must be installed. check the <a href="http://phpunit.de/">documentation</a> for install instructions.)
+	</p>
+	<p><code>phpunit -c phpunit.xml</code></p>
+
+	<h3>Responsabilities</h3>
+	<p>In charge of testing certain php procedures. Everything that can easily be tested must be tested here.</p>
+
+	<h3>When?</h3>
+	<p>The developer should consider writing a unit test in case an error keeps reappearing OR when a certain piece of code is unusually complex.</p>
+
+	<h3>Existing tests</h3>
+	<ul>
+		<li>
+			Cloudwalkers tests
+			<ul>
+				<li><strong>ChannelModelTest</strong> is testing the child / parent relationship between channels.</li>
+				<li><strong>ContactParserTest</strong> currently mainly tests the URL to UniqueID translation of contacts (for contacts we follow management)</li>
+				<li><strong>FilterParserTest</strong> is testing the keyword monitoring formula parser</li>
+				<li><strong>IdsCollectionTest</strong> checks the IdsCollection: max & min methods</li>
+				<li><strong>LanguageDetectionTest</strong> is testing some basic sentences to see if they result the correct language</li>
+				<li><strong>MessageModelTest</strong> is testing the update methods for Message models and Attachmentable models. Checks if after a merge the correct values are set</li>
+				<li><strong>SyntaxTest</strong> runs a high level php syntax check on all files in the module</li>
+				<li><strong>TextToolsTest</strong> is testing some basic url replacement scenario's <strong>(to be extended)</strong></li>
+				<li><strong>UpdateServiceStreamsTest</strong> checks if service stream updates (when calling Procedures\UpdateServiceStreams) return the correct models after merge</li>
+				<li><strong>URLSHortenerTest</strong> is testing some urlshortener fucntionality, mainly in replacing message bodies</li>
+				<li><strong>UserModelTest</strong> checks if the User Model that we get from UserMapper is actually a \bmgroup\Cloudwalkers\Models\User object.</li>
+			</ul>
+		</li>
+
+		<li>
+			Neuron tests
+			<ul>
+				<li><strong>DbQueryTest</strong> is testing the sql query generator</li>
+				<li><strong>FilterTest</strong> is testing the Filter models (used as base for the keyword monitoring filters)</li>
+				<li><strong>SyntaxTest</strong> runs a high level php syntax check on the module</li>
+				<li><strong>ToolsTest</strong> is testing the i/o filters for input. URL validator is here as well.</li>
+			</ul>
+		</li>
+	</ul>
+
+	<h2>Second tier</h2>
+
+	<p>The second tier testing consist of checking all API calls and checks it's output against the swagger json schema's.</p>
+	<p>This procedure will make sure that:</p>
+	<ol>
+		<li>All endpoints work as expected</li>
+		<li>All api documentation is always 100% up to date</li>
+	</ol>
+
+	<p>Gabriela has made a <a href="https://docs.google.com/document/d/1wBTacNugsJsKk5Zjltyj7kD2feeC67-rxjHCuSaTT2A/edit#">a nice list</a> with all tests that should be implemented.</p>
+
+	<h3>Responsabilities</h3>
+	<p>To check each single api endpoint against it's documentation.</p>
+
+	<h3>When?</h3>
+	<p>Whenever a new endpoint is created, a new test should be written.</p>
+
+	<h3>Existing tests</h3>
+	<p>None.</p>
+
+	<h2>Third tier</h2>
+	<p>Third tier testing doesn't just validate the output of the API, but it actually tests "sessions". This tier will consist of a separate nodejs application that also does api requests, but instead of validating the output against the json schemas, we will define flows that test the basic features of the cloudwalkers engine.</p>
+	<p>Flows will be added here, but an example flow would be:</p>
+
+	<h3>Responsabilities</h3>
+	<p>Test the consistency of data.</p>
+
+	<h3>When?</h3>
+	<p>These are planned by lead.</p>
+
+	<h3>Example flow: test message delivery</h3>
+	<p>Only for illustration purposes!</p>
+	<ol>
+		<li><strong>POST /accounts/{accountId}/messages {"body":{"plaintext":"This is a test"}}</strong> -> store message ID</li>
+		<li><strong>GET /accounts/{accountId}/streams/draft</strong> -> store draft stream id</li>
+		<li><strong>GET /streams/{streamId}/messages</strong> -> check if previous messsage id is in this list</li>
+		<li><strong>PUT /messages/{messageId} {"status":"scheduled"}</strong> -> check result</li>
+		<li><strong>GET /accounts/{accountId}/streams/scheduled</strong> -> store schedule stream id</li>
+		<li><strong>GET /streams/{streamId}/messages</strong> -> check if previous messsage id is in this list</li>
+		<li><strong>DELETE /messages/{messageId}</strong> -> check if deletion worked.</li>
+	</ol>
+
+	<h2>Authentication (second & third tier)</h2>
+	<p>A special account for testing should be created with an oauth2 token that lasts a lifetime.</p>
+	<p>This account should be linked to social network accounts that are only used for this purpose.</p>
+
+	<h2>Logging</h2>
+	<p>Logger::getInstance ()->log ("a string here") should be used to notify the logs of certain events. These logs will automatically be included in the procedure logs.</p>
+
+	<h2>Procedures</h2>
+	<p>A set of instructions is grouped in a Procedure. A procedure can be an api request, a gearman job, ... These are timed and stored in database. They contain the mysql queries, the logs and can be linked to accounts, messages, streams, users, ...</p>
+	<p>These procedures are then stored in the database and can be accessed trough the /admins/procedures endpoint.</p>
+	<p>Procedures are initiated in their /bmgroup/Cloudwalkers/Procedures/ class. A Procedure must always have as much information as possible. If a procedure concerns a message, for example, the Message must be set in the Procedure object. This way we can always easily identify where something went wrong.</p>
+
+	<h2>Exceptions</h2>
+	<p>In general, exceptions are always caught before the api response is returned by the gearman worker. When an exception is not catched before this stage, a generic error message will be returned. This generic error is considered an api error and should never happen.</p>
+
+	<h2>Little Ken</h2>
+	<p>Little Ken is our little tester robot that is in charge of testing the api endpoints. It implements the second and third tier of the testing environment.</p>
+	<p>Little Ken is written in nodejs (javascript) and uses the Mocha framework to run its tests in parallel. It also shows a Nyancat during it's testing.</p>
+	<p>Little Ken does it's magic every hour.</p>
+	<p>Little Ken has two folders:</p>
+	<ul>
+		<li>
+			<strong>endpoints</strong><br />
+			Contains basic tests that checks all endpoints and checks if the returned output matches the expected output.
+		</li>
+
+		<li>
+			<strong>scenarios</strong><br />
+			Contains scenarios. These are a bit more complicated because they test a bit deeper. They simulate real user activity and also check if third party providers do what they promise to do. These tests could, for example, post a message to a facebook stream, wait until it arrives in a "company accounts" stream, like it, edit it and finally remove it. In case one of these steps fail, the test will show a warning.
+		</li>
+	</ul>
+
+	<p>Little Ken uses the swagger json schema's to validate the api output. These schema's contain the complex models that describe the api output. At it's lowest level, it describes the basic types (string, integer, etc.), and Little Ken validates all the way down.</p>
+
+	<p>Since Little Ken relies on the swagger documentation, it is of vital importance that the swagger docs are kept up to date at all times.</p>
+
+	<p>More information on how to run Little Ken can be found in the little ken project in the file README.md.</p>
+
+	<h2>Test accounts</h2>
+
+	<h3>Cloudwalkers accounts</h3>
+	<ul>
+		<li>John Doe (developer@cloudwalkers.be, johndoe)</li>
+		<li>Jane Doe (jane.doe@cloudwalkers.be, janedoe)</li>
+	</ul>
+
+	<h3>Social media</h3>
+	<ul>
+		<li>Facebook thijs+johndoe@catlab.be, johndoecloudwalkers</li>
+		<li>Twitter developer@cloudwalkers.be, johnintheclouds, pass johndoe</li>
+	</ul>
+
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+.estimation::before
+{
+	content: "Estimation: ";
+}
+
+.estimation
+{
+	font-variant: small-caps;
+	color: red;
+}
+
+p.status::before
+{
+	content: "Current status:";
+	display: block;
+	font-weight: bold;
+}
+
+p.status
+{
+	padding: 10px;
+	border: 1px solid green;
+	background-color: rgba(0, 128, 0, 0.14);
+}
+
+p.status[data-completion^="8"],
+p.status[data-completion^="9"]
+{
+	border: 1px solid #807600;
+	background-color: rgb(255, 242, 169);
+}
+
+p.status[data-completion^="0"],
+p.status[data-completion^="1"],
+p.status[data-completion^="2"],
+p.status[data-completion^="3"],
+p.status[data-completion^="4"],
+p.status[data-completion^="5"]
+{
+	border: 1px solid #001e80;
+	background-color: rgb(206, 255, 253);
+}
+
+p.status[data-completion^="6"],
+p.status[data-completion^="7"]
+{
+	border: 1px solid #621080;
+	background-color: rgb(246, 207, 255);
+}
+
+p.status[data-completion^="10"]
+{
+	border: 1px solid green;
+	background-color: rgba(0, 128, 0, 0.14);
+}
+
+p.note
+{
+	border: 1px solid gray;
+	padding: 10px;
+	background: #eee;
+}
+
+p.note::before
+{
+	content: "!";
+	font-size: 30px;
+	float: left;
+	margin-right: 20px;
+	font-weight: bold;
+	margin-left: 10px;
+}
+
+p.note::after
+{
+	clear: both;
+	content: "";
+	display: block;
+}
+
+ul.todo::before
+{
+	font-weight: bold;
+	content: "TODO";
+}
+
+ul.todo
+{
+	padding: 10px;
+	border: 1px solid red;
+	background: rgba(255, 0, 0, 0.10);
+}
+
+ul.todo li
+{
+	margin-left: 25px;
+}
+
+.responsable::before
+{
+	content: "Proposed assignee: ";
+	font-variant: small-caps;
+}
+
+.added::before
+{
+	content: "Date added: ";
+}
+
+.priority
+{
+	color: blue;
+}
+
+.priority.low::before
+{
+	content: "Priority: low";
+	color: green;
+	text-align: right;
+}
+
+.priority.medium::before
+{
+	content: "Priority: normal";
+	font-size: 120%;
+	color: blue;
+	text-align: right;
+}
+
+.priority.high::before
+{
+	content: "Priority: high";
+	font-size: 140%;
+	color: red;
+	text-align: right;
+}

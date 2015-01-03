@@ -1,0 +1,243 @@
+{
+	"internal": [
+		{
+			"token": "draft",
+			"name": "Draft messages",
+			"channels" : [ "internal" ]
+		},
+		{
+			"token": "scheduled",
+			"name": "Scheduled messages",
+			"channels" : [ "internal" ]
+		},
+		{
+			"token": "updates",
+			"name": "Push notifications",
+			"channels" : [ "internal" ]
+		},
+		{
+			"token": "coworkers",
+			"name": "Coworkers Wall",
+			"channels" : [ "internal" ]
+		},
+		{
+			"token": "sent",
+			"name": "Sent messages",
+			"channels" : [ "internal" ]
+		},
+		{
+			"token": "submitted",
+			"name": "Submitted messages",
+			"channels" : [ "internal" ]
+		},
+		{
+			"token": "removed",
+			"name": "Removed messages",
+			"channels" : [ "internal" ]
+		},
+		{
+			"token": "canned",
+			"name": "Canned messages",
+			"channels" : [ "internal" ]
+		}
+	],
+
+	"facebook" : [
+
+		{
+			"name" : "{Pagename}",
+			"description" : "All posts from your {Pagename} page",
+			"comment" : "One for each page you manage",
+			"channels" : [ "profiles" ],
+			"settings" : {
+				"type" : "/page/posts",
+				"objectid" : "facebook page id",
+				"pagename" : "name of the facebook page",
+				"access_token" : "fb access token specific for this page"
+			},
+			"outgoing" : true,
+			"statistics" : true,
+			"retention_type" : "own_msg",
+			"profile" : { "id" : "contact id of the page" },
+			"type" : "PROFILE",
+			"refreshpriority" : 1
+		},
+
+		{
+			"name" : "{Pagename} comments",
+			"description" : "All comments on your posts",
+			"comment" : "One for each page you manage",
+			"parent" : "/page/posts ID",
+			"profile" : { "id" : "contact id of the page" },
+			"retention_type" : "own_msg",
+			"type" : "COMMENTS",
+			"channels" : [ "inbox" ]
+		},
+
+		{
+			"name" : "{Pagename} DMs",
+			"description" : "All private conversations with your {Pagename} page",
+			"comment" : "One for each page you manage",
+			"channels" : [ "inbox" ],
+			"settings" : {
+				"type" : "/page/inbox",
+				"objectid" : "facebook page id",
+				"pagename" : "name of the facebook page"
+			},
+			"access_token" : "fb access token specific for this page",
+			"profile" : { "id" : "contact id of the page" },
+			"retention_type" : "direct_msg",
+			"type" : "DM",
+			"refreshpriority" : 1
+		},
+
+		{
+			"name" : "{Pagename}",
+			"description" : "All posts from people we follow in Cloudwalkers",
+			"comment" : "One for each page you manage",
+			"channels" : [ "news" ],
+			"settings" : {
+				"type" : "/page/following",
+				"objectid" : "facebook page id",
+				"pagename" : "name of the facebook page",
+				"access_token" : "fb access token specific for this page"
+			},
+			"profile" : { "id" : "contact id of the page" },
+			"retention_type" : "third_party_msg",
+			"type" : "PROFILE",
+			"refreshpriority" : 0
+		}
+
+	],
+
+	"twitter" : [
+
+		{
+			"name" : "{Twitteraccount}",
+			"description" : "All tweets you have sent",
+			"setting" : {
+				"type" : "/me",
+				"min-timeout" : 300
+			},
+			"channels" : [ "profiles" ],
+			"outgoing" : true,
+			"statistics" : true,
+			"profile" : { "id" : "contact id of your twitter profile" },
+			"type" : "PROFILE",
+			"refreshpriority" : 1
+		},
+
+		{
+			"name" : "{Twitteraccount} DMs",
+			"description" : "All direct messages you have sent and received",
+			"settings" : {
+				"type" : "/me/dms"
+			},
+			"channels" : [ "inbox" ],
+			"profile" : { "id" : "contact id of your twitter profile" },
+			"type" : "DM",
+			"refreshpriority" : 1
+		},
+
+		{
+			"name" : "{Twitteraccount} Mentions",
+			"description" : "All mentions of me on twitter + replies",
+			"comment" : "This one is a real bitch. Twitter only offers us messages, but in Cloudwalkers they need to be grouped in conversations. This stream does just that. Own messages are set to invisible, but should still be loaded for related messages.",
+			"settings" : {
+				"type" : "/inbox",
+				"min-timeout" : 300
+			},
+			"channels" : [ "inbox" ],
+			"profile" : { "id" : "contact id of your twitter profile" },
+			"type" : "COMMENTS",
+			"refreshpriority" : 1
+		},
+
+		{
+			"name" : "{Twitteraccount}",
+			"description" : "All people I follow in cloudwalkers on twitter",
+			"settings" : {
+				"type" : "/following",
+				"min-timeout" : 300
+			},
+			"channels" : [ "news" ],
+			"profile" : { "id" : "contact id of your twitter profile" },
+			"type" : "FOLLOWING",
+			"refreshpriority" : 0
+		}
+
+	],
+
+	"linkedin" : [
+
+		{
+			"name" : "{{Company name}}",
+			"description" : "All your company linkedin updates",
+			"comment" : "One for each company you manage",
+			"settings" : {
+				"type" : "/company/posts",
+				"objectid" : "company id",
+				"companyname" : "company name"
+			},
+			"channels" : [ "profiles" ],
+			"outgoing" : true,
+			"statistics" : true,
+			"profile" : { "id" : "contact id of your company profile" },
+			"retention_type" : "own_msg",
+			"type" : "PROFILE",
+			"refreshpriority" : 1
+		},
+
+		{
+			"name" : "{Company name} comments",
+			"description" : "All comments on your posts",
+			"comment" : "One for each page you manage",
+			"parent" : "/company/posts",
+			"channels" : [ "inbox" ],
+			"profile" : { "id" : "contact id of your company profile" },
+			"retention_type" : "third_party_msg",
+			"type" : "COMMENTS"
+		}
+
+	],
+
+	"youtube" : [
+
+		{
+			"name" : "{{channel name}}",
+			"description" : "All youtube uploads for channel {{channel name}}",
+			"settings" : {
+				"type" : "/me/posts",
+				"channelid" : "Youtube channel id"
+			},
+			"channels" : [ "profiles" ],
+			"outgoing" : false,
+			"statistics" : true,
+			"profile" : { "id" : "contact id of your youtube channel" },
+			"type" : "PROFILE",
+			"refreshpriority" : 1
+		},
+
+		{
+			"name" : "{Company name} comments",
+			"description" : "All comments on your posts",
+			"comment" : "One for each page you manage",
+			"parent" : "/company/posts",
+			"channels" : [ "inbox" ],
+			"profile" : { "id" : "contact id of your youtube channel" },
+			"type" : "COMMENTS"
+		}
+
+	],
+
+	"sendible" : [
+
+		{
+			"name" : "{{Sendible stream name}}",
+			"channels" : [ "depends on the sendible stream" ],
+			"outgoing" : "depends on sendible stream",
+			"incoming" : "depends on sendible stream"
+		}
+
+	]
+}

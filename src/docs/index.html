@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Cloudwalkers Team</title>
+	
+	<link rel="shortcut icon" href="https://devplatform.cloudwalkers.be/favicon.ico"/>
+	
+	<!-- Bootstrap -->
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	
+	
+	<link href="https://api.cloudwalkers.be/assets/css/theme.css" rel="stylesheet">
+
+</head>
+<body >
+
+	<!-- Fixed navbar -->
+	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Cloudwalkers Teamlog</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Home</a></li>
+					<li><a href="#team">Team Info</a></li>
+					<li><a href="/admin">Superadmin</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">More <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a target="_blank" href="https://bmgroup.atlassian.net/secure/Dashboard.jspa">Jira</a></li>
+							<li><a target="_blank" href="https://www.teamleader.be/login">Teamleader</a></li>
+							<li><a target="_blank" href="http://www.cloudwalkers.be/">About Cloudwalkers</a></li>
+							<li class="divider"></li>
+							<li><a target="_blank" href="http://gettingreal.37signals.com/3705222012-getting_real.pdf">Getting Real (read this)</a></li>
+							<li><a target="_blank" href="http://bmgroup.be">bmgroup</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container theme-showcase" role="main">
+	
+		<div class="jumbotron">
+			<h1>Hello, team</h1>
+			<p>Cloudwalkers is getting bigger. Let's get to know eachother, and our code.
+			For starters, head over to the Support Pages, to see how Cloudwalkers is presented to our users.</p>
+			<p><a href="https://cloudwalkers.zendesk.com/" target="_blank" class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>
+		</div>
+	
+		<div class="page-header">
+			<h1>Engine Documentation</h1>
+			<div class="row">
+				<div class="col-lg-6">
+		
+					<!--<a href="/docs/php" class="btn btn-lg btn-primary">View</a>-->
+					<a href="/docs/instructions/installation.html" class="btn btn-default btn-lg">Installation Guide</a>
+					<br><br>
+					<label>Error logging:</label> <a href="https://docs.newrelic.com/docs/php/new-relic-for-php" target="_blank">New Relic</a>
+					<br><label>Project tickets:</label> <a href="/docs/instructions/jira.html">Jira</a>
+					<br><br>
+					
+					<h4>Laravel information:</h4>
+					<ul>
+						<li>Eloquent ORM bears tut - <a href='http://scotch.io/tutorials/php/a-guide-to-using-eloquent-orm-in-laravel'>http://scotch.io/tutorials/php/a-guide-to-using-eloquent-orm-in-laravel</a></li>
+						<li>CRUD with resource controllers tut - <a href='http://scotch.io/tutorials/simple-laravel-crud-with-resource-controllers'>http://scotch.io/tutorials/simple-laravel-crud-with-resource-controllers</a></li>
+						<li>Setting up your first Laravel model tut - <a href='http://culttt.com/2013/05/13/setting-up-your-first-laravel-4-model/'>http://culttt.com/2013/05/13/setting-up-your-first-laravel-4-model/</a></li>
+						<li>Code Bright for Laravel - <a href='http://daylerees.com/codebright'>http://daylerees.com/codebright</a></li>
+						<li>Laravel Book - <a href='http://laravelbook.com/'>http://laravelbook.com/</a></li>
+					</ul>
+
+					<h4>Seeding information</h4>
+					<ul>
+						<li><a href="/docs/instructions/seeding/streams.json">Streams</a></li>
+						<li><a href="/docs/instructions/seeding/streams_actions.json">Streams actions</a></li>
+						<li><a href="/docs/instructions/seeding/streams_events.json">Stream events</a></li>
+					</ul>
+				</div>
+				
+				<div class="col-lg-6">
+		
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Instructions (RTFM)</h3>
+					</div>
+					<div class="panel-body">
+						<a href="/docs/instructions/deploy.php">Deploy</a>
+						<br><a href="/docs/instructions/gearman.html">Gearman management</a>
+						<br><a href="/docs/instructions/branches.php">Platform & engine branches</a>
+						<br><a href="/docs/instructions/logicblocks.html">Logic blocks</a>
+						<br><a href="/docs/instructions/cronjobs.html">Cronjobs</a>
+						<br><a href="/docs/instructions/transactions.html">Transactions</a>
+						<br><a href="/docs/specs/mailer.html">Mailer</a>
+						<br><a href="/docs/specs/user_roles.html">User Roles</a>
+						<br>
+						<br><a href="/docs/instructions/3-layer.html">3 layer structure: overview</a>
+						<br><a href="/docs/instructions/3-layer-migration.html">Roadmap 3 layer structure</a>
+						<br>
+                        <br>
+                        <a href="/docs/instructions/messages.html">V1.1 Messages definition</a>
+                        <br><a href="/docs/instructions/events.html">Events</a>
+						<br><br><a href="/docs/instructions/sideways.html">Don't Panic</a>
+					</div>
+					<div class="panel-footer">
+						<label>DB upgrade:</label> <a href="http://cloudwalkers-engine.local/scripts/upgrade.php">upgrade.php</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br><br>
+	
+		<div class="page-header">
+			<h1>API Documentation</h1>
+			<div class="row">
+				<div class="col-lg-6">
+		
+					<a href="/docs/api" class="btn btn-lg btn-primary">View</a>
+	
+					<a href="http://zircote.com/swagger-php/" class="btn btn-default btn-lg" target="_blank">Documentation howto</a>
+					
+				</div>
+				<div class="col-lg-6">
+		
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Instructions (RTFM)</h3>
+					</div>
+					<div class="panel-body">
+						<a href="/docs/instructions/oauth.html">Oauth2</a>
+						<br>
+						<a href="/docs/instructions/endpoints.html">V1.1 Endpoints roadmap</a>
+						<br>
+						<a href="/docs/instructions/templates.html">Templates Migrated</a>
+						
+					</div>
+					<div class="panel-footer">
+	
+						<a href="https://helloreverb.com/developers/swagger" target="_blank">Swagger</a> is our friend.
+	
+					</div>
+				</div>
+			</div>
+		</div>
+		<br><br>
+		
+		<div class="page-header">
+			<h2>Wlk.rs URL Shortener</h2>
+			<label>UI based:</label> <a href="http://wlk.rs/submit">wlk.rs/submit</a>
+			<br><label>API based:</label> <a href="http://wlk.rs/api/shorten">wlk.rs/api/shorten</a>
+			
+			<br><br>
+			<label>Instructions:</label> <a href="/docs/instructions/campaigns.html">Campaigns</a>
+			
+			<br><br>
+		</div>
+		<br><br>
+				
+		<div class="page-header">
+			<h1>Front-end Documentation</h1>
+			
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="col-lg-10">
+						<h3>Platform</h3>
+						<a href="http://backbonejs.org/" class="btn btn-primary" target="_blank">Backbone.js</a>
+						<a href="http://getbootstrap.com/2.3.2/" class="btn btn-default" target="_blank">Bootstrap</a>
+						<a href="http://nodejs.org/api/" class="btn btn-default" target="_blank">Node.js</a>
+					</div>
+					<div class="col-lg-10">
+						<h3>Mobile App</h3>
+						<a href="http://ionicframework.com/" class="btn btn-primary" target="_blank">Ionic</a>
+						<a href="http://docs.phonegap.com/en/3.4.0/index.html" class="btn btn-default" target="_blank">Phonegap</a>
+						<a href="https://docs.angularjs.org/api" class="btn btn-default" target="_blank">Angular.js</a>
+					</div>
+					<div class="col-lg-10">
+						<h3>Chrome extension</h3>
+						<a href="https://developer.chrome.com/extensions/overview" class="btn btn-default" target="_blank">Google Chrome</a>
+					</div>
+				</div>
+				
+				<div class="col-lg-6">
+				
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">Instructions (RTFM)</h3>
+						</div>
+						<div class="panel-body">
+							<a href="/docs/instructions/platform-versions.html">Version Releases</a><br>
+							<a href="/docs/instructions/i18n.html">I18n instructions</a>
+							<br>
+						</div>
+						<div class="panel-footer">
+		
+							<strong>Hotfixes </strong> we really, maniacally have to test the implications of the update on:
+							<br>
+							<br>1) other parts of the platform
+							<br>2) the different networks (if post-related)
+							<br>3) the 3 major browsers
+							<br>
+							<br>There is no staging (testing) for hotfixes. If we fail on any of the 3 checks, our users notice it immediatly - that's disastrous.
+		
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br><br>
+	
+		<h1 id="team">Team</h1>
+		<br>
+		
+		<div class="row team">
+		<div class="col-lg-3 center-content">
+		<img class="img-circle" src="https://pbs.twimg.com/profile_images/73288356/msn.jpg">
+		<h3>Thijs</h3>
+		<p>Thijs is the main Engine developer. He's our go-to guy for backend knowledge.<br>Based in Belgium</p>
+		
+		<address>
+		<a href="mailto:thijs@bmgroup.be" class="btn btn-default">E-mail</a>
+		<br>
+		<br><label>Starts</label> 10.00 (CET)
+		<br><label>Ends</label> ...
+		<br>
+		<a href="skype:daedeloth"><i class="fa fa-skype fa-lg"></i></a>
+		<a href="http://twitter.com/daedeloth" target="_blank"><i class="fa fa-twitter fa-lg"></i></a>
+		</address>
+		</div>
+		
+		<!--
+		<div class="col-lg-3 center-content">
+		<img class="img-circle" src="https://pbs.twimg.com/profile_images/482066466246631425/qW5gHQbX_400x400.jpeg">
+		<h3>Gabriela</h3>
+		<p>Gabriela is one of the Engine developers and a senior team-member.<br>Based in Romenia</p>
+		
+		<address>
+		<a href="mailto:gabriela@bmgroup.be" class="btn btn-default">E-mail</a>
+		<br>
+		<br><label>Starts</label> 8.30 (CET)
+		<br><label>Ends</label> 17.30 (CET)
+		<br>
+		<a href="skype:gabrielapavel"><i class="fa fa-skype fa-lg"></i></a>
+		<a href="http://twitter.com/gabrielaraducan" target="_blank"><i class="fa fa-twitter fa-lg"></i></a>
+		</address>
+		</div>
+		-->
+		
+		<div class="col-lg-3 center-content">
+		<img class="img-circle" src="https://pbs.twimg.com/profile_images/464704265307422721/3SmghRZw.jpeg">
+		<h3>Pedro</h3>
+		<p>Pedro is one of the Engine developers and a senior team-member.<br>Based in Portugal</p>
+		
+		<address>
+		<a href="mailto:pedro@bmgroup.be" class="btn btn-default">E-mail</a>
+		<br>
+		<br><label>Starts</label> 10.00 (CET)
+		<br><label>Ends</label> 19.00 (CET)
+		<br>
+		
+		<a href="skype:pedro.silva_agap2"><i class="fa fa-skype fa-lg"></i></a>
+		<a href="http://twitter.com/pedromnssilva" target="_blank"><i class="fa fa-twitter fa-lg"></i></a>
+		
+		</address>
+		</div>
+		
+		<div class="col-lg-3 center-content">
+		<img class="img-circle" src="https://pbs.twimg.com/profile_images/464777010682667009/oh8ESTW_.jpeg">
+		<h3>Rui</h3>
+		<p>Rui is the front-end developer, tinkering with all kinds of new libraries.<br>Based in Portugal</p>
+		
+		<address>
+		<a href="mailto:rui@bmgroup.be" class="btn btn-default">E-mail</a>
+		<br>
+		<br><label>Starts</label> 10.00 (CET)
+		<br><label>Ends</label> 19.00 (CET)
+		<br>
+		<a href="skype:rui.molefas1"><i class="fa fa-skype fa-lg"></i></a>
+		<a href="https://twitter.com/RuiMolefas" target="_blank"><i class="fa fa-twitter fa-lg"></i></a>
+		
+		</address>
+		</div>
+		
+		<div class="col-lg-3 center-content">
+		<img class="img-circle" src="https://pbs.twimg.com/profile_images/460710408500695041/eZGWaSPZ.png">
+		<h3>Koen</h3>
+		<p>Koen is the main Front-end developer. Your contact for both front-end and planning. Based in Belgium</p>
+		
+		<address>
+		<a href="mailto:koen@bmgroup.be" class="btn btn-default">E-mail</a>
+		<br>
+		<br><label>Starts</label> 8.30 (CET)
+		<br><label>Ends</label> 18.00 (CET)
+		<br>
+		<a href="skype:koenbetsens"><i class="fa fa-skype fa-lg"></i></a>
+		<a href="http://twitter.com/koenbetsens" target="_blank"><i class="fa fa-twitter fa-lg"></i></a>
+		</address>
+		</div>
+		
+		<!--
+		<div class="col-lg-3 center-content">
+		<img class="img-circle" src="https://pbs.twimg.com/profile_images/3645647334/5c892165a9e1dd47ca70faca029bd017.jpeg">
+		<h3>Marco</h3>
+		<p>Marco is the new kid on the block and front-end developer. Looking for challenges.<br>Based in Portugal</p>
+		
+		<address>
+		<a href="mailto:marco@bmgroup.be" class="btn btn-default">E-mail</a>
+		<br>
+		<br><label>Starts</label> 10.00 (CET)
+		<br><label>Ends</label> 19.00 (CET)
+		<br>
+		<a href="skype:marco.jacinto.agap2"><i class="fa fa-skype fa-lg"></i></a>
+		<a href="https://twitter.com/flun1tr4z3p4m" target="_blank"><i class="fa fa-twitter fa-lg"></i></a>
+		
+		</address>
+		</div>
+		-->
+				
+		</div>
+		<div class="row team">
+		
+		<div class="col-lg-3 center-content">
+		<img class="img-circle" src="https://pbs.twimg.com/profile_images/378800000414860949/2cda17dea9799d32a7710bf4d911b986.jpeg">
+		<h3>Ken</h3>
+		<p>Ken is our direct line with the client. He defends them to us, and protects us against them. Based in Belgium</p>
+		
+		<address>
+		<a href="mailto:ken@bmgroup.be" class="btn btn-default">E-mail</a>
+		<br>
+		<br>
+		<a href="skype:ken.borteel"><i class="fa fa-skype fa-lg"></i></a>
+		<a href="https://twitter.com/kenborteel" target="_blank"><i class="fa fa-twitter fa-lg"></i></a>
+		
+		</address>
+		</div>
+		
+		<div class="col-lg-3 center-content">
+		<img class="img-circle" src="/docs/css/moi.jpg">
+		<h3>Dominique</h3>
+		<p>Dominique is reffered to as D'. You should always talk about him behind his back, he likes that. Based in Belgium</p>
+		
+		<address>
+		<a href="mailto:dominique@bmgroup.be" class="btn btn-default">E-mail</a>
+		<br>
+		<br>
+		<a href="skype:bmgroup"><i class="fa fa-skype fa-lg"></i></a>
+		<a href="http://twitter.com/bmgroup" target="_blank"><i class="fa fa-twitter fa-lg"></i></a>
+		</address>
+		</div>
+		
+		
+		
+		</div>
+		
+		<div class="row team">
+		
+		
+		
+		</div>
+	
+		
+		
+		
+	
+	
+	</div> <!-- /container -->
+	
+	
+	<!-- Bootstrap core JavaScript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

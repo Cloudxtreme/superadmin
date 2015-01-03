@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Cloudwalkers Team</title>
+
+	<link rel="shortcut icon" href="https://devplatform.cloudwalkers.be/favicon.ico"/>
+
+	<!-- Bootstrap -->
+	<link href="/docs/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/docs/css/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/fontawesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+	<link href="/docs/css/theme.css" rel="stylesheet">
+
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+	<style type="text/css">
+		td, th {
+			padding: 0 15px;
+		}
+
+		tr.stable
+		{
+			color: green;
+		}
+
+		tr.staging
+		{
+			color: orange;
+		}
+
+		tr.development
+		{
+			color: blue;
+		}
+
+		tr.todo td
+		{
+			background: #ddd;
+		}
+	</style>
+</head>
+<body >
+
+<div class="container">
+
+	<h1>Server structure</h1>
+
+	<h2>Gearman servers</h2>
+	<p>The gearman servers (gearmand) handle the job distribution. Multiple servers for one platform are possible, but not active at this point.</p>
+	<table>
+		<tr>
+			<th>S</th>
+			<th>Domain</th>
+			<th>Server</th>
+			<th>IP</th>
+			<th>Port</th>
+			<th>Description</th>
+		</tr>
+
+		<tr class="stable">
+			<td>X</td>
+			<td>gearman.cloudwalkers.be</td>
+			<td>-</td>
+			<td>176.9.80.247</td>
+			<td>4730</td>
+			<td>8-core</td>
+		</tr>
+
+		<tr class="stable">
+			<td>X</td>
+			<td>backupgearman.cloudwalkers.be</td>
+			<td>-</td>
+			<td>newstorage.serverpark.be</td>
+			<td>4730</td>
+			<td>8-core</td>
+		</tr>
+
+		<tr class="staging">
+			<td>X</td>
+			<td>staginggearman.cloudwalkers.be</td>
+			<td>vps601</td>
+			<td>83.96.195.192</td>
+			<td>4740</td>
+			<td>1-core virtual</td>
+		</tr>
+
+		<tr class="development">
+			<td>X</td>
+			<td>devgearman.cloudwalkers.be</td>
+			<td>vps601</td>
+			<td>83.96.195.192</td>
+			<td>4730</td>
+			<td>1-core virtual</td>
+		</tr>
+	</table>
+
+	<h2>Workers</h2>
+	<table>
+		<tr>
+			<th>S</th>
+			<th>Domain</th>
+			<th>Server</th>
+			<th>IP</th>
+			<th>Port (listening)</th>
+			<th>Description</th>
+		</tr>
+
+		<tr class="stable">
+			<td>X</td>
+			<td>workers001.cloudwalkers.be</td>
+			<td>workers.cloudwalkers.be</td>
+			<td>176.9.37.200</td>
+			<td>4730</td>
+			<td>8-core</td>
+		</tr>
+
+		<tr class="stable">
+			<td>X</td>
+			<td>workers002.cloudwalkers.be</td>
+			<td>newstorage.serverpark.be</td>
+			<td>213.239.213.121	</td>
+			<td>4730</td>
+			<td>8-core</td>
+		</tr>
+
+		<tr class="staging">
+			<td>X</td>
+			<td>stagingworkers.cloudwalkers.be</td>
+			<td>newstorage.serverpark.be</td>
+			<td>213.239.213.121</td>
+			<td>4730</td>
+			<td>8-core</td>
+		</tr>
+
+		<tr class="development">
+			<td>X</td>
+			<td>devworkers.cloudwalkers.be</td>
+			<td>newstorage.serverpark.be</td>
+			<td>213.239.213.121</td>
+			<td>4740</td>
+			<td>8-core</td>
+		</tr>
+
+	</table>
+
+	<h2>APIs</h2>
+	<table>
+		<tr>
+			<th>S</th>
+			<th>Domain</th>
+			<th>Server</th>
+			<th>IP</th>
+			<th>Port</th>
+			<th>Description</th>
+		</tr>
+
+		<tr class="stable">
+			<td>X</td>
+			<td>api.cloudwalkers.be</td>
+			<td>-</td>
+			<td>176.9.80.247</td>
+			<td>80</td>
+			<td>8-core</td>
+		</tr>
+
+		<tr class="staging">
+			<td>X</td>
+			<td>stagingapi.cloudwalkers.be</td>
+			<td>vps601</td>
+			<td>83.96.195.192</td>
+			<td>80</td>
+			<td>1-core virtual</td>
+		</tr>
+
+		<tr class="development">
+			<td>X</td>
+			<td>devapi.cloudwalkers.be</td>
+			<td>vps601</td>
+			<td>83.96.195.192</td>
+			<td>80</td>
+			<td>1-core virtual</td>
+		</tr>
+
+	</table>
+
+	<h2>External services & clients</h2>
+	<table>
+		<tr>
+			<th>S</th>
+			<th>Domain</th>
+			<th>What?</th>
+			<th>Server</th>
+			<th>IP</th>
+			<th>Port</th>
+			<th>Description</th>
+		</tr>
+
+		<tr class="stable">
+			<td>X</td>
+			<td>wlk.rs</td>
+			<td>URL shortener</td>
+			<td>newstorage.serverpark.be</td>
+			<td>213.239.213.121</td>
+			<td>80</td>
+			<td>?</td>
+		</tr>
+
+		<tr class="stable">
+			<td>O</td>
+			<td>images.cloudwalkers.be</td>
+			<td>All uploads</td>
+			<td>newstorage.serverpark.be</td>
+			<td>213.239.213.121</td>
+			<td>80</td>
+			<td>?</td>
+		</tr>
+
+		<tr class="stable">
+			<td>O</td>
+			<td>release.cloudwalkers.be</td>
+			<td>CDN root for platform</td>
+			<td>newstorage.serverpark.be</td>
+			<td>213.239.213.121</td>
+			<td>80</td>
+			<td>?</td>
+		</tr>
+
+		<tr class="stable">
+			<td>O</td>
+			<td>superadmin.cloudwalkers.be</td>
+			<td>Super admin panel</td>
+			<td>newstorage.serverpark.be</td>
+			<td>213.239.213.121</td>
+			<td>80</td>
+			<td>?</td>
+		</tr>
+
+		<tr class="stable">
+			<td>O</td>
+			<td>app.cloudwalkers.be</td>
+			<td>Mobile app cloudwalkers</td>
+			<td>newstorage.serverpark.be</td>
+			<td>213.239.213.121</td>
+			<td>80</td>
+			<td>?</td>
+		</tr>
+
+		<tr class="staging">
+			<td>X</td>
+			<td>rc0.cloudwalkers.be</td>
+			<td>staging for platform (w-4 release)</td>
+			<td>newstorage.serverpark.be</td>
+			<td>213.239.213.121</td>
+			<td>80</td>
+			<td>?</td>
+		</tr>
+
+		<tr class="staging">
+			<td>X</td>
+			<td>rc1.cloudwalkers.be</td>
+			<td>staging for platform (w-3 release)</td>
+			<td>newstorage.serverpark.be</td>
+			<td>213.239.213.121</td>
+			<td>80</td>
+			<td>?</td>
+		</tr>
+
+		<tr class="staging">
+			<td>X</td>
+			<td>rc2.cloudwalkers.be</td>
+			<td>staging for platform (w-2 release)</td>
+			<td>newstorage.serverpark.be</td>
+			<td>213.239.213.121</td>
+			<td>80</td>
+			<td>?</td>
+		</tr>
+
+		<tr class="staging">
+			<td>X</td>
+			<td>rc3.cloudwalkers.be</td>
+			<td>staging for platform (w-1 release)</td>
+			<td>newstorage.serverpark.be</td>
+			<td>213.239.213.121</td>
+			<td>80</td>
+			<td>?</td>
+		</tr>
+
+		<tr class="development">
+			<td>X</td>
+			<td>devplatform.cloudwalkers.be</td>
+			<td>development platform</td>
+			<td>vps601</td>
+			<td>83.96.195.192</td>
+			<td>80</td>
+			<td>?</td>
+		</tr>
+
+	</table>
+
+	<h2>Databases</h2>
+	<table>
+		<tr>
+			<th>S</th>
+			<th>Domain</th>
+			<th>Server</th>
+			<th>IP</th>
+			<th>Port</th>
+			<th>Description</th>
+		</tr>
+
+		<tr class="stable">
+			<td>X</td>
+			<td>db.cloudwalkers.be</td>
+			<td>db.cloudwalkers.be</td>
+			<td>144.76.196.71</td>
+			<td>80</td>
+			<td>8-core</td>
+		</tr>
+
+		<tr class="staging">
+			<td>X</td>
+			<td>stagingdb.cloudwalkers.be</td>
+			<td>db.cloudwalkers.be</td>
+			<td>144.76.196.71</td>
+			<td>80</td>
+			<td>8-core</td>
+		</tr>
+
+		<tr class="development">
+			<td>X</td>
+			<td>devdb.cloudwalkers.be</td>
+			<td>db.cloudwalkers.be</td>
+			<td>144.76.196.71</td>
+			<td>80</td>
+			<td>8-core</td>
+		</tr>
+	</table>
+
+	<h2>Memcache (need to check security)</h2>
+	<table>
+		<tr>
+			<th>S</th>
+			<th>Domain</th>
+			<th>Server</th>
+			<th>IP</th>
+			<th>Port</th>
+			<th>Description</th>
+		</tr>
+
+		<tr class="stable">
+			<td>X</td>
+			<td>memcache.cloudwalkers.be</td>
+			<td>newstorage.serverpark.be</td>
+			<td>213.239.213.121</td>
+			<td>11311</td>
+			<td>8-core</td>
+		</tr>
+	</table>
+
+</div>
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Cloudwalkers Team</title>
+
+	<link rel="shortcut icon" href="https://devplatform.cloudwalkers.be/favicon.ico"/>
+
+	<!-- Bootstrap -->
+	<link href="/docs/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/docs/css/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/fontawesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+	<link href="/docs/css/theme.css" rel="stylesheet">
+
+	<link href="/docs/instructions/css/planning.css" rel="stylesheet" />
+
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body >
+
+<div class="container">
+
+<h1>2 to 3 layer migration</h1>
+
+<!--
+
+<h2>Current status</h2>
+<ul>
+	<li>
+		Step one: 80% finished<br />
+		Still to do: check if there are any places left that do not use the Request and Response classes. However, the base is implemented.<br />
+		Estimate: 1 day<br />
+		Responsable: Thijs or Roberto
+	</li>
+
+	<li>
+		Step one-and-a-half: 90% finished<br />
+		Stored in branch "laravel".<br />
+		This was implemented two weeks ago, so I'm not sure if it will be easy to branch back in the master repository
+	</li>
+
+	<li>
+		Step two: 0% finished<br />
+		Estimate: 4 hours<br />
+		Responsable: Thijs
+	</li>
+
+	<li>
+		Step three: 50% finished<br />
+		Estimate to finish: 1 day<br />
+		Responsable: Roberto
+	</li>
+
+	<li>
+		Step four: 50% finished<br />
+		Estimate to finish: 1 day<br />
+		Responsable: Roberto
+	</li>
+
+	<li>
+		Step five: 0% finished<br />
+		Estimate to finish: 3 days? depends on Roberto<br />
+		Responsable: Roberto
+	</li>
+
+	<li>
+		Step six: ongoing process
+	</li>
+</ul>
+-->
+
+<h2>The battle plan</h2>
+
+<p>
+	Following steps will be taken to move from the current 2 layer version to a full fletched 3 layer version.
+</p>
+
+<h3>Step 1: the DispatchAPI1 Procedure</h3>
+<p>
+	Up until now, the API has always been a <i>regular</i> php web application. Input is fetched from the superglobals (or php://input) and output is sent directly to the output buffer.<br>
+	Since this part of the website is the part that will soon only run on worker servers, we must first make sure that none of the controllers rely on the default i/o.<br>
+	Output could be catched in the output buffer and sent back to the workers; sure. But headers are a bit more troublesome, so instead of hacking away we've decided to go for a clean solution.
+</p>
+
+<h4>Featuring: the Request and Response classes</h4>
+<p>
+	Instead of hacking away at core php functionality, I have introduced 2 classes: Request and Response. The Request object contains all input (including any headers, post bodies, etc) and also has methods to get data from json and all that. The Response object is almost identical and contains all data that will be sent back to the user.
+</p>
+
+<p>To avoid forcing new developers to install the whole gearman setup just to get the engine up and running, the engine will also always function as a complete API. That means that in the non_cli.php bootstrap file, the request and response objects will be created and dispatched by the engine's own (simplified) routing system. This will also allow us to slowely roll out the old system without losing functionality.</p>
+<p>So the first task is to make sure all controllers (even the third party ones like oauth1 and oauth2) use the Request and Response models instead of the core php functionality.</p>
+
+<h4>Featuring: MySQL stored sessions</h4>
+<p>
+	Since there are multiple workers and it is not predictable which worker server will handle which request, the php session must be centralized as well.
+	However, note that the php session is only used for a fraction of the requests (mostly only the ones that do with the oauth authentication and the session
+	will only be initialized for those specific pages.<br />
+	None of the API requests rely on the php session.
+</p>
+
+<h4>Estimation</h4>
+
+<p class="status" data-completion="100">
+	Most of the code is already using the Request and the Response classes. There are still a few
+	places where headers, content or input is being passed around, mostly in the third party libraries
+	(oauth1 and oauth2). In order to replace these last parts with, we have to do a final sweep
+	trough the code and replace these parts. We will not really be changing third party libraries,
+	since the i/o is mostly handled by customizable controllers. <br />
+	The reason why we are also replacing the oauth1 and oauth2 controllers is to provide backwards compatability and
+	to not force developers to use the 3 layer setup.<br />
+	The Session handler is prepared, but has to be activated and tested.<br />
+</p>
+
+<h3>Step 1,5: laravel in engine logic</h3>
+<p>
+	Not really related to any of this, but in order to move to a single framework for all projects, we will implementing the laravel
+	framework in the engine at this stage as well. We will do this in a non-destructive way, so that new functionality will become available
+	while old functionality will stay functional.
+</p>
+
+<p>
+	The move to Laravel offers a couple of benefits, but the biggest one is obviously the fact that there
+	is a huge community working in Laravel. The internet is full of documentation on how to code laravel
+	projects, while the Neuron framework only has one active user... me.
+</p>
+
+<p class="status" data-completion="100">
+	The laravel framework was implemented in the engine over the weekend of 20th. The project was left in a working state after this, but
+	the framework was pushed to a new branch called "laravel". However, due to more pressing issues, the actual merge into master branch was
+	put on pause. <br />
+	Since other development kept going, the laravel branch is now rather outdated and I am unsure if merging the laravel branch
+	into the master branch will be an easy process. Therefor, I estimate an extra day to merge the laravel branch back into the master branch.<br />
+</p>
+
+<h3>Step 2: the all-catching gearman job</h3>
+<p>
+	The second step is to create a very simple gearman job that takes a Request model as input and returns a Response.
+	Note that in this stage the routing is still done at the Engine level. The routing that happens in the business logic will
+	need to be kept (and be updated) to not force all developers to do the complete gearman install.
+</p>
+
+<p>
+	This step will allow us to integrate new api routing and input validation gradually. By default, this all-catching gearman job will do all the work,
+	but for all new endpoints we can go for a more model/method oriented approach.
+</p>
+
+<p class="note">
+	Note that the complete request handling will happen on gearman workers at this stage. This means that <strong>all</strong> requests,
+	even the requests that return html (oauth1 and oauth2 authorization, login form, registration form, ...) will be handled by the worker servers.
+</p>
+
+<p class="status" data-completion="100">
+	Done
+</p>
+
+<h3>Step 3: The Almighty API</h3>
+<p>
+	Third step is to create a laravel project that talks to the gearman server to handle requests.
+	This rather simple piece of code generates a Request object from input, sends it to the gearman
+	worker, waits for a Response and outputs the Response to the user.
+</p>
+
+<p>
+	All this project does is take all the input, create a Request object (or something compatible), call the gearman
+	workers with the Request object, wait until one of the workers has processed the Request and then print
+	out the resulting Response object.
+</p>
+
+<p>
+	Additionally, this project will also be in charge of the scheduling of stream updates.
+	This is handled in the cronjobs. The cronjobs themselves must be put in gearman jobs as well,
+	and must not be executed more than once at a time. <br />
+	The only thing that the cronjob has to do is to call the gearman job corresponding to the
+	cronjob and wait until it is finished. The API is in charge of not running each cron more than
+	once at the same time.
+</p>
+
+<p class="status" data-completion="80">
+	Working, albeit not approved
+</p>
+
+<ul class="todo">
+
+	<li>
+		Find a new home for little Ken => newstorage => requires nodejs install<br />
+		<span class="estimation">2 hours</span>
+		<span class="responsable">Thijs</span>
+	</li>
+
+	<li>
+		Refactor Neuron models to Laravel namespace<br />
+		<span class="estimation">1 day</span>
+		<span class="responsable">Thijs</span>
+	</li>
+</ul>
+
+
+<h3>Step 4: local oauth2 validation</h3>
+<img src="images/gearman_request_workflow.png">
+<p>At step 2 and 3, oauth2 authentication still happened on the worker server. In the fourth step we take this authentication and put it in the API level. Access tokens are stored in sqlite, which is stored only in the memory. This should allow for even quicker oauth2 authentication.</p>
+<p>Instead of getting an access header, the gearman job will now use the User object that is sent trough the Request model.</p>
+<p>
+	In order to achieve this, a UserLogin gearman job must be created. This job takes 2 parameters: a login (email address) and a password.
+	In order to maintain a minimal amount of security, the password must be encrypted with a shared key that is stored at the api and at the
+	worker server. This security will not uphold when the source code of one of the two projects and the gearman queue is
+	compromised, but since the data in the gearman job only lives for a very short time and the source code is generally well protected,
+	I think this is a fair deal. An example implementation of this shared key security is available in the PayPal reseller client.
+	(Contact Thijs for this.)
+</p>
+
+<p>
+	In order to completely stop calling gearman workers that return html, this is also the moment to move the
+	registration and lost-password pages from the old system to the new system (where they belong). 2 additional gearman jobs
+	will have to be created in order to achieve this (ForgotPassword, CreateAccount). The actual changing of the password
+	can be handled by regular api requests.
+</p>
+
+<p>Routing still happens at Engine level in this stage, so the all catching gearman job will always be called.</p>
+<p class="status" data-completion="95">
+	Problem with reseller endpoint (for /order on website) discovered
+</p>
+
+<ul class="todo">
+	<li>
+		Reseller endpoint (openssl signed requests)<br />
+		<span class="estimation">4 hours</span>
+		<span class="responsable">Thijs</span>
+	</li>
+</ul>
+
+<h3>Step 5: Simplify/normalize engine routing</h3>
+
+<p>
+	The routing in the engine has to be replaced in preperation for step six.
+	Instead of selecting a controller and giving that controller all power, the power must be taken in the
+	FrontController and a specific Controller method must be called.
+	This will require some controllers to be drastically refactored.
+</p>
+
+<p>
+	Since the Laravel framework will be integrated in the backend by now, this is also the moment to
+	make the backend router fully compatible with the router in the api project. This way, we can keep
+	both up to date by copying the single file router from one project to the other.
+</p>
+
+<p class="status" data-completion="80">
+	Working, but needs documentation
+</p>
+
+<ul class="todo">
+	<li>
+		Local beschikbaarheid router inwerken
+		<span class="estimation">4(?) hours</span>
+		<span class="responsable">Thijs</span>
+	</li>
+
+	<li>
+		Activate sqlite store
+		<span class="estimation">2</span>
+		<span class="responsable">Thijs</span>
+	</li>
+	
+	<li>
+		Creëren instruction file voor installatie & gebruik local <br />
+		<span class="estimation">2 hours</span>
+		<span class="responsable">Thijs</span>
+	</li>
+
+	<li>
+		Creëren instruction file voor gebruik & maintenance (bv herstart) serverside <br />
+		<span class="estimation">2 hours</span>
+		<span class="responsable">Thijs</span>
+	</li>
+</ul>
+
+<h3>Step 6: gradually implement routing & data validation in API</h3>
+<p>Note that trough the whole upgrade, we have had a working system.</p>
+<p>
+	In the sixed step we implement the routing & data validation on API level. This will require to create a
+	gearman job that calls controller methods straight away, without going trough the Engine's routing. <br />
+	Since we have prepared the controllers in step 5, it is now possible to create a gearman job that listens
+	to an event liked ControllerName@action and returns the output of that request.
+</p>
+<p>
+	(Note that the Engine will still need a simple router to allow for easy development. The single file router will have to be made
+	compatible with the one in the engine.)
+</p>
+<p>Extensive data validation (based on swagger documentation) can be implemented at this stage as well.</p>
+<p>
+	Note that the old gearman job stays available and all "non catched routing" can still happen trough this fallback job.
+	This way we can do this part gradually.
+</p>
+
+<p class="status" data-completion="0">
+	No work has been started on this.
+</p>
+
+<ul class="todo">
+	<li>
+		Create the gearman job that listens to ControllerName@method.<br />
+		<span class="estimation">1 day</span>
+		<span class="responsable">Thijs</span>
+	</li>
+
+	<li>
+		Implement routing in the api project for one "root endpoint" (for example /accounts), including data validation<br />
+		<span class="estimation">1 day</span>
+		<span class="responsable">Pedro</span>
+	</li>
+
+	<li>
+		Implement routing for the other endpoints ... <br />
+		<span class="estimation">Ongoing process</span>
+	</li>
+</ul>
+
+<h3>About API versioning</h3>
+<p>
+	In order to provide an easy to use and non confusing / overheading way of doing api versioning,
+	I propose to register a seperate gearman job for the second version of the api.
+	When we roll out a second version of the api, we will have two codebases and two sets of workers running.
+	The new system will catch the jobs sent to the corresponding api endpoint,
+	while the old workers will still catch the "old" jobs. However, as long as api endpionts
+	are clearly described and the provided structure is followed carefully,
+	I do not foresee an api version change in the near future.
+</p>
+
+<p class="status" data-completion="0">
+	No work has been done on this.
+</p>
+
+<ul class="todo">
+	<li>
+		For now: nothing. The router catches the /1 and sends everything to the gearman pool that
+		is running the api version 1.
+	</li>
+
+	<li>
+		When drastic changes (that do not fall under the deprecation system described below) happen,
+		a new worker pool is set up with a new DispatchAPI2 job. We log what worker is used most, and
+		when we see the Dispatch1 usage go under a certain treshold, we shut it down and put all
+		our resources on DispatchAPI2.
+	</li>
+</ul>
+
+<h3>Deprecation</h3>
+<p>
+	Solid planning and API versioning should make deprecation a thing of the past, but in
+	the current system there are still a few unused pieces of code. Most of these are now (after all these changes)
+	ready to be pulled out, so I propose we take some time during this migration to get rid of these deprecated
+	pieces of code.
+</p>
+
+<p>
+	However, it is unavoidable that code deprecation will happen, so the procedure below (in TODO) will make sure
+	that we will never remove any code that is still in use.
+</p>
+
+<p>
+	All deprecated code is marked by by the @deprecated phpdoc entity.
+</p>
+
+<p class="status" data-completion="0">
+	No work has been done on this yet.
+</p>
+
+<ul class="todo">
+	<li>
+		Two steps, with at least 2 weeks in between:
+	</li>
+
+	<li>
+		Go trough the list of all @deprecated pieces of code and add a Mailer notification.
+	</li>
+
+	<li>
+		After two weeks:
+		<ul>
+			<li>
+				For all deprecated parts that did <strong>not generate</strong> any warning emails,
+				remove them.
+			</li>
+
+			<li>
+				For all of the deprecated parts <strong>that are still used</strong>, contact frontend team and see what needs
+				to be done in order to get rid of it. The two week period starts again.
+			</li>
+		</ul>
+	</li>
+</ul>
+
+<h3>External tools</h3>
+<p>
+	Currently there are a few things that are still hosted in the engine
+	and that will become unavailable when the engine loses http access.
+</p>
+<ul>
+	<li>
+		The <strong>/docs page</strong> will be moved to the new API project.
+	</li>
+
+	<li>
+		The <strong>API schema</strong> files will also be moved to the new API project.
+	</li>
+
+	<li>
+		Same for the <strong>memcache</strong> and <strong>gearman monitor</strong> scripts.
+		These scripts do not require any access to the database, so they can perfectly be
+		seperated from the backend.
+	</li>
+
+	<li>
+		The current <strong>/admin panel</strong>, however, will stay in the engine project (until they are
+		deprecated by Koen's new admin panel). Since Request and Response don't really
+		care what kind of output is requested, these requests will simply return
+		plain HTML and stay available trough the process. Until they are deprecated.
+	</li>
+
+	<li>
+		As described in step 4, the login form, registration form and
+		lost password form will be moved to the api project.
+	</li>
+
+	<li>
+		Also goes for the <strong>service callbacks</strong> (in /callbacks), the oauth flows, the oauth application
+		managers and the login/register form. In these cases the workers will return html instead
+		of serialized data.
+	</li>
+
+	<li>
+		The current <strong>superadmin panel</strong>, which is heavily broken, yet still available at /admin,
+		will not be ported to the new system. It will, however, stay available trough the
+		fallback gearman job, as described above. The new admin panel will use the endpoints
+		available at /reseller and /admin. These endpoints are only available to users that
+		have a user admin status of 20.</li>
+</ul>
+
+<h3>Backup strategy</h3>
+<p>The backup strategy is described in <a href="3-layer.html">the 3-layer instruction file</a>.</p>
+
+<h2>External services</h2>
+<p>In order to keep the system clean we're moving a few parts of the project to external api's.</p>
+
+<h3>URL Shortener</h3>
+<p>The URL Shortener is hosted at wlk.rs and is accessable trough a rest api.</p>
+<p class="status" data-completion="100">Completed</p>
+
+<h3>Cloudwalkers storage</h3>
+<p>
+	All file uploads should be hosted on a central machine that is accessable trough a rest interface. All uploaded files
+	should return a token and an URL that is then used throughout the cloudwalkers system. This way cloudwalkers
+	itself doesn't have to care about where the files are stored.
+</p>
+<p class="status" data-completion="100">Done</p>
+<!--
+<ul class="todo">
+	<li>
+		Create a new laravel project that provides a rest interface for file storage.<br />
+		<span class="estimation">2 days</span>
+		<span class="responsable">Pedro / Roberto</span>
+	</li>
+	
+	<li>
+		Change the current file based upload system in the current engine to use the centralized file server<br />
+		<span class="estimation">4 hours</span>
+		<span class="responsable">Thijs / Pedro</span>
+	</li>
+</ul>
+-->
+
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>

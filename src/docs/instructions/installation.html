@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Cloudwalkers Team</title>
+		
+		<link rel="shortcut icon" href="https://devplatform.cloudwalkers.be/favicon.ico"/>
+		
+		<!-- Bootstrap -->
+		<link href="/docs/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/docs/css/bootstrap-theme.min.css" rel="stylesheet">
+		<link href="https://cdn.jsdelivr.net/fontawesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+		
+		
+		<link href="/docs/css/theme.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	<body >
+
+	<div class="container"><h1>Introduction</h1>
+
+		<p>Cloudwalkers is built with 3 seperate sides: the api, the engine and the front end. Backend developers will have to install all 3 of these, while frontend developers can connect to the online api and engine.</p>
+
+		<p>To learn more about these 3 layers, take a look at the <a href="/docs/instructions/3-layer.html">3 layer instruction doc</a>.</p>
+
+		<h2>Setup local websites</h2>
+
+		<p>First set up 2 seperate websites.</p>
+
+		<p>The websites should be reachable trough a local domain name (for example: cloudwalkers-api.local and cloudwalkers-website.local are two of my favourites. If you use these, you won't have to change anything in the config files). For more information on how to set up a local virtualhost, visit http://sawmac.com/xampp/virtualhosts/ or google "set up virtual host". Seriously, there are tons of tutorials for any environment (linux, windows, that apple thing), so take a few minutes to google.</p>
+
+		<p><strong>Do not use folders in the default apache site to seperate the websites</strong> (ie. localhost/cloudwalkers-api) as this will disturb the html assets folder. You must set the DNS for cloudwalkers-website.local to point to your local machine (in /etc/hosts for example) and configure apache to open the correct virtualhost on requests from this domain. Again, if you don't know how, there are tons of tutorials available on google.</p>
+
+		<h2>Requirements</h2>
+		
+		<h3>Basic stuff</h3>
+		<p>Basically any webserver will do, but it's best to use apache2. Both engine and api require MySQL, cURL and mcrypt. Also make sure that all requirements for laravel are met: take a look at the <a href="http://laravel.com/docs/installation">laravel installation guide</a>. </p>
+
+
+		<h3>Composer</h3>
+		<p>Cloudwalkers utilizes Composer to manage its dependencies. First, download a copy of the composer.phar. Once you have the PHAR archive, you can either keep it in your local project directory or move to usr/local/bin to use it globally on your system. On Windows, you can use the Composer Windows installer. Please follow the <a href="https://getcomposer.org/doc/00-intro.md">installation instructions</a>.</p>
+		<p>Composer is a very powerful tool, but it's also very easy to use. There's basically only one command you need to use: composer install. Take a look at the <a href="https://getcomposer.org/doc/01-basic-usage.md">basic usage documentation</a> before we proceed.</p>
+
+		<p><strong>The vendor folder should not be pushed to git.</strong> Our deploy scripts automatically call <code>composer install</code> on all our servers after each commit. That's why the complete vendor folder is placed in .gitignore.</p>
+		<p>We're not expecting the vendor folder to change often, but in certain cases you will have to call <code>composer install</code> again to keep your vendor folder up to date.</p>
+		<p>Fun question: what is the difference between <code>composer install</code> and <code>composer update</code>? Answer: if you don't know, <strong>don't</strong> use <code>composer update</code>.</p>
+
+		
+		<h2>Set up engine</h2>
+		<p>The engine, also called "the workers chain" needs to be installed outside of any of the websites paths. This project will not actually be reachable trough apache, it will only listen to commands from the api.</p>
+
+		<code>git clone git@github.com:Cloudwalkers/engine.git</code>
+
+		<p>You will have to configure the engine to connect to your database. Please first read what <a href="http://laravel.com/docs/configuration">the laravel documentation</a> says about configuration and then make sure that your cloudwalkers.php and database.php files return the correct information. If I see a /config file committed that is not specific to your environment, it will show me that you didn't read the laravel documentation. Please read the laravel documentation.</p>
+
+		<p>Now go to your database and import the dump.sql file, which you can find in the www-folder.</p>
+
+		<p>Now run composer install to make sure that all vendor packages are installed.</p>
+		
+		<h2>Set up api</h2>
+		<p>The api should be reachable trough a webserver.</p>
+		<code>git clone git@github.com:Cloudwalkers/engine.git</code>
+		<p>The /public folder is the one that should be exposed to the outside world. All other should not be reachable.</p>
+
+		<p>Similar to engine, api also needs it's set of documentation.</p>
+
+		<p>... documentation about the sync link here ...</p>
+
+		<h2>Set up website</h2>
+		<p>In your www-folder for cloudwalkers-website.local, GIT CLONE:</p>
+		<code>git@github.com:Cloudwalkers/engine.git</code>
+
+		<p>... documentation about config website ...</p>
+
+		<p>To communicate with the website, you'll need an OAUTH consumer key and secret.</p>
+		<p>Go to http://cloudwalkers-api.local/register and create an account.</p>
+		<p>After registration, you will be redirected to cloudwalkers-website.local and an oauth1 error will be thrown. Ignore this.</p>
+		<p>When finished, go to <a href="http://cloudwalkers-api.local/oauth2/applications">http://cloudwalkers-api.local/oauth2/applications</a></p>
+		<p>Click "register application", fill in some names. Your redirect_url should be http://cloudwalkers-website.local/auth.html</p>
+		<p>Copy the consumer key and consumer secret to the cloudwalkers website config file.</p>
+
+		<p>Done!</p>
+
+		<p>If you now go to http://cloudwalkers-website.local/, you should be redirected to http://cloudwalkers-api.local/ for login, and then back to http://cloudwalkers-website.local/.</p>
+
+		<p>This version of the website will NOT load, because you do not have an account yet.</p>
+
+		<h2>Super admin level</h2>
+		<p>... to be updated with new admin panel ...</p>
+
+		<p>In your database, go to table “users” and set u_admin_status to 20 for your account.</p>
+
+		<h3>Set up account</h3>
+		<p>Go to http://cloudwalkers-api.local/admin</p>
+
+		<p>Go to “account management” and click “Add users”.</p>
+
+		<p>In "Account information", enter a name in “Create New Account Name” and select a plan.</p>
+
+		<p>On the "User information" part, fill in your details with the email address you've used for registering. This will cause the account to be associated with you.</p>
+
+		<p>In cloudwalkers-website.local, you might have to clear the localstorage to avoid javascript errors. (This will be fixed soon, but for now we have a bit of a problem when invalid data appears in the localstorage.)</p>
+
+		<p>Note 1: Sometimes the account creation messes up. To make sure your account is set up correctly, navigate to http://cloudwalkers-api.local/scripts/validate.php, this will make sure all accounts in the project are valid and up to date.</p>
+
+		<p>Note 2: the website heavily relies on localStorage. Sometimes the fallback methods fail when loading a "dirty account". To make sure you have the latest data, please clean local storage by typing localStorage.clear(); in the javascript console on the cloudwalkers-website.local site.</p>
+
+		<h3>Set up services</h3>
+		<p>Can be done in the Settings tab or in http://cloudwalkers-website.local/services</p>
+		<p>If you didn't use cloudwalkers-api.local, you might have to register new facebook apps.</p>
+		<p>You can put these in config/constants/mutable-local.php, but again, don't ever commit this file!</p>
+
+		<p>And that should be it!</p>
+		<p>If you encounter any issues, please ask or notify us! :-)</p>
+
+		<p>Good luck!</p>
+
+		<h2>Ubuntu installation instructions (14.04)</h2>
+		<p>Last updated on 21.05.2014 by Gabriela R.</p>
+
+		<p>Update Ubuntu:</p>
+		<pre><code>
+sudo apt-get update
+Install apache:
+sudo apt-get install apache2
+Install php and related:
+sudo apt-get install php5 php5-json php5-gd php5-sqlite curl libcurl3 libcurl3-dev php5-curl php5-common php-xml-parser
+Install mysql:
+sudo apt-get install mysql-server
+This might be missing, so:
+sudo apt-get install php5 libapache2-mod-php5 php5-mcrypt
+Some more php goodies:
+sudo apt-get install php5-mysql php5-curl php5-gd php5-intl php-pear php5-imagick php5-imap php5-mcrypt php5-memcache php5-ming php5-ps php5-pspell php5-recode php5-snmp php5-sqlite php5-tidy php5-xmlrpc php5-xsl
+If we work with phpmyadmin:
+sudo apt-get install phpmyadmin
+and add
+Include /etc/phpmyadmin/apache.conf to /etc/apache2/apache2.conf (sudo gedit /etc/apache2/apache2.conf)
+Run:
+sudo apt-get install php5-mcrypt
+and restart apache: sudo service apache2 restart
+Then:
+sudo php5enmod mcrypt and sudo service apache2 restart
+Install git:
+sudo apt-get install git²
+Follow this steps to set up the virtual hosts:
+https://www.digitalocean.com/community/articles/how-to-set-up-apache-virtual-hosts-on-ubuntu-14-04-lts
+Clone engine in /var/www/cloudwalkers-api.local/public_html/ and platform in /var/www/cloudwalkers-website.local/public_html/
+We also need:
+sudo apt-get install php5-dev
+Xdebug:
+sudo pecl install xdebug
+find / -name 'xdebug.so' 2> /dev/null (to find where xdebug.so went) and add this path to php.ini
+If php -v returns a bunch of errors/notices/warnings:
+sudo apt-get install snmp-mibs-downloader
+If mibs are not automatically downloaded: sudo download-mibs
+and last, make sure you run sudo sed -i 's/^mibs/#mibs/g' /etc/snmp/snmp.conf
+From /etc/apache2/sites-available run: sudo gedit 000-default.conf
+and add
+<Directory "/var/www/"> AllowOverride All </Directory>
+Create the cloudwalkers db and import dump.sql from engine root folder
+Next: follow the previous steps starting from Set up engine - "When done, go to php/config/constants/mutable.php"
+			</code></pre></div>
+
+	<!-- Bootstrap core JavaScript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	</body>
+</html>

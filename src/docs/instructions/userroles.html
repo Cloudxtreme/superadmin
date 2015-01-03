@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Cloudwalkers Team</title>
+		
+		<link rel="shortcut icon" href="https://devplatform.cloudwalkers.be/favicon.ico"/>
+		
+		<!-- Bootstrap -->
+		<link href="/docs/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/docs/css/bootstrap-theme.min.css" rel="stylesheet">
+		<link href="https://cdn.jsdelivr.net/fontawesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+		
+		
+		<link href="/docs/css/theme.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		
+		<style type="text/css">
+			table 
+			{
+				width: 100%;
+			}
+			
+			table tr td:first-child
+			{
+				width: 30%;
+				font-weight: bold;
+			}
+		</style>
+	</head>
+	<body >
+
+	<div class="container">
+
+		<h1>The User Roles</h1>
+		
+		<h2>Resellers (outside of this scope)</h2>
+		<ul>
+			<li>Create new Cloudwalkers account (SoMe limit auto minus 3 accounts)</li>
+			<li>Delete Cloudwalkers account</li>
+			<li>Rename Cloudwalkers account</li>
+		</ul>
+		
+		<h2>Settings</h2>
+		<table>
+
+			<tr>
+				<td>CAMPAIGN_CREATE</td>
+				<td>Create campaigns</td>
+			</tr>
+			
+			<tr>
+				<td>CAMPAIGN_DELETE</td>
+				<td>Delete campaigns</td>
+			</tr>
+			
+			<tr>
+				<td>SERVICE_CONNECT</td>
+				<td>Connect new Social Media account (reduce limit by 1 if amount > 3)</td>
+			</tr>
+			
+			<tr>
+				<td>SERVICE_DELETE</td>
+				<td>Delete connected Social Media Account (add 1 to limit if new amount >= 3)</td>
+			</tr>
+			
+			<tr>
+				<td>USER_INVITE</td>
+				<td>Add user / invite user (to accout!)</td>
+			</tr>
+			
+			<tr>
+				<td>USER_CREATE</td>
+				<td>Add user (to account!)</td>
+			</tr>
+			
+			<tr>
+				<td>USER_DELETE</td>
+				<td>Delete user (from account!)</td>
+			</tr>
+			
+			<tr>
+				<td>ACCOUNT_SETTINGS</td>
+				<td>Change profile settings (incl change image)</td>
+			</tr>
+			
+			<tr>
+				<td>USER_GRANT</td>
+				<td>Edit the group of a user</td>
+			</tr>
+			
+			<tr>
+				<td>GROUP_MANAGE</td>
+				<td>Create or edit a user group.</td>
+			</tr>
+			
+		</table>
+	
+		<h2>Dashboard</h2>
+		
+		<table>
+			<tr>
+				<td>DASHBOARD_VIEW</td>
+				<td>View dashboard (foresee dashboard per user-role) For next dashboard - modules will have to be listed here</td>
+			</tr>
+		</table>
+
+		<h2>Messages (outgoing)</h2>
+		<table>
+
+			<tr>
+				<td>MESSAGE_SEND_COWORKERS</td>
+				<td>User can create & send coworker messages</td>
+			</tr>
+
+
+			<tr>
+				<td>MESSAGE_SEND_INTERNAL</td>
+				<td>User can send messages to the internal streams (push notifications)</td>
+			</tr>
+
+			<tr>
+				<td>MESSAGE_SEND_EXTERNAL</td>
+				<td>User can send messages to social networks</td>
+			</tr>
+
+			<tr>
+				<td>MESSAGE_OUT_ATTACHMENTS</td>
+				<td>User can add images to any messages</td>
+			</tr>
+
+			<tr>
+				<td>MESSAGE_OUT_ATTACHMENTS_INTERNAL</td>
+				<td>User can add images to internal messages</td>
+			</tr>
+
+			<tr>
+				<td>MESSAGE_OUT_ATTACHMENTS_EXTERNAL</td>
+				<td>User can add images to external messages</td>
+			</tr>
+
+			<tr>
+				<td>MESSAGE_OUT_ATTACHMENTS_COWORKERS</td>
+				<td>User can add images to coworker messages messages</td>
+			</tr>
+
+			<tr>
+				<td>MESSAGE_OUT_SCHEDULE</td>
+				<td>User can schedule messages</td>
+			</tr>
+
+			<tr>
+				<td>MESSAGE_OUT_REPEAT</td>
+				<td>User can repeat a message</td>
+			</tr>
+
+			<tr>
+				<td>MESSAGE_OUT_EDIT</td>
+				<td>User can edit all outgoing messages (as long as they are not sent yet, of course)</td>
+			</tr>
+
+			<tr>
+				<td>MESSAGE_OUT_EDIT_OWN</td>
+				<td>User can only edit his own messages</td>
+			</tr>
+
+			<tr>
+				<td>MESSAGE_OUT_DRAFT</td>
+				<td>User can create draft messages.</td>
+			</tr>
+		</table>
+
+		<h2>Messages (incoming)</h2>
+		<table>
+			<tr>
+				<td>MESSAGE_READ</td>
+				<td>User can read all messages in the account</td>
+			</tr>
+
+			<tr>
+				<td>MESSAGE_ACTIONS</td>
+				<td>User can execute any message actions</td>
+			</tr>
+		</table>
+		
+		<h2>Inbox</h2>
+		<table>
+			<tr>
+				<td>MESSAGE_READ_INBOX</td>
+				<td>User can read the inbox channel (everything = messages & notifications)</td>
+			</tr>
+			
+			<tr>
+				<td>MESSAGE_READ_INBOX_MESSAGES</td>
+				<td>User can read inbox messages.</td>
+			</tr>
+			
+			<tr>
+				<td>MESSAGE_READ_INBOX_NOTIFICATIONS</td>
+				<td>User can read inbox notifications</td>
+			</tr>
+			
+			<tr>
+				<td>MESSAGE_READ_DRAFTS</td>
+				<td>User can read drafts</td>
+			</tr>
+			
+			<tr>
+				<td>MESSAGE_READ_SCHEDULE</td>
+				<td>User can read scheduled messages.</td>
+			</tr>
+
+			<tr>
+				<td>MESSAGE_READ_SENT</td>
+				<td>User can read sent messages.</td>
+			</tr>
+
+			<tr>
+				<td>MESSAGE_READ_FAILED</td>
+				<td>User can read failed messages.</td>
+			</tr>
+			
+			<tr>
+				<td>MESSAGE_READ_COWORKER</td>
+				<td>User can read coworker messages</td>
+			</tr>
+		</table>
+		
+		<h2>Company accounts</h2>
+		
+		<table>
+			<tr>
+				<td>MESSAGE_READ_COMPANY</td>
+				<td>Read messages from company account channel</td>
+			</tr>
+			
+			<tr>
+				<td>MESSAGE_ACTIONS_COMPANY</td>
+				<td>Act on messages in company account channel (note, if MESSAGE_ACTIONS is provided, this is always possible)</td>
+			</tr>
+		</table>
+
+		<h2>Accounts we follow</h2>
+		<table>
+			<tr>
+				<td>MESSAGE_READ_THIRDPARTY</td>
+				<td>User can read messages from "accounts we follow" stream</td>
+			</tr>
+			
+			<tr>
+				<td>MESSAGE_ACTIONS_THIRDPARTY</td>
+				<td>Act on messages from "accounts we follow" (note, if MESSAGE_ACTIONS is provided, this is always possible)</td>
+			</tr>
+		</table>
+		
+		<h2>Keyword monitoring</h2>
+		<table>
+			<tr>
+				<td>MESSAGE_READ_MONITORING</td>
+				<td>Read messages from keyword monitoring channel</td>
+			</tr>
+			
+			<tr>
+				<td>MESSAGE_ACTIONS_MONITORING</td>
+				<td>Act on messages from "keyword monitoring" (note, if MESSAGE_ACTIONS is provided, this is always possible)</td>
+			</tr>
+			
+			<tr>
+				<td>CHANNEL_MANAGE_ADD_MONITORING</td>
+				<td>User can create keyword monitoring channels (categories & keywords)</td>
+			</tr>
+			
+			<tr>
+				<td>CHANNEL_MANAGE_EDIT_MONITORING</td>
+				<td>User can edit keyword monitoring channels</td>
+			</tr>
+			
+			<tr>
+				<td>CHANNEL_MANAGE_DELETE_MONITORING</td>
+				<td>User can delete keyword mointoring channels.</td>
+			</tr>
+		</table>
+		
+		<h2>
+			Statistics
+		</h2>
+		<table>
+			<tr>
+				<td>STATISTICS_VIEW</td>
+				<td>User can view statistics</td>
+			</tr>
+		</table>
+
+
+	</div>
+
+	<!-- Bootstrap core JavaScript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	</body>
+</html>

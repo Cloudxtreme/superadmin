@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Cloudwalkers Team</title>
+		
+		<link rel="shortcut icon" href="https://devplatform.cloudwalkers.be/favicon.ico"/>
+		
+		<!-- Bootstrap -->
+		<link href="/docs/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/docs/css/bootstrap-theme.min.css" rel="stylesheet">
+		<link href="https://cdn.jsdelivr.net/fontawesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+		
+		
+		<link href="/docs/css/theme.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	<body >
+
+	<div class="container">
+
+		<h1>Logic blocks</h1>
+		<p>The Engine, split into code chunks</p>
+
+		<h1>API</h1>
+		<h3>Routing</h3>
+		<p><i>Responsible: Pedro</i></p>
+		<p>Setting up gearman jobs based on urls.</p>
+
+		<h3>Authentication</h3>
+		<p><i>Responsible: Roberto</i></p>
+		<p>Check if a request has valid authentication (and if requires authentication => based on routing)</p>
+		<ul>
+			<li>OAuth1 (to be deprecated?)</li>
+			<li>OAuth2</li>
+		</ul>
+
+		<h3>Validation</h3>
+		<p><i>Responsible: Pedro</i></p>
+		<p>Input AND output validation.</p>
+
+		<h3>Exception handling</h3>
+		<p><i>Responsible: Roberto / Pedro</i></p>
+		<p>Translate exceptions from backend to http status codes.</p>
+
+		<h1>Scheduling</h1>
+		<p><i>Responsible: Roberto</i></p>
+		<p>Anything related to fetching messages, updating statistics, etc.</p>
+
+		<h2>Exception handling</h2>
+		<p><i>Responsible: Roberto / Pedro</i></p>
+		<p>Throwing the correct exceptions</p>
+
+		<h1>Backend (running in gearman jobs)</h1>
+
+		<h2>Current API</h2>
+		<p><i>Responsible: Pedro</i></p>
+		<p>The current API, without gearman, still needs to be maintained. The developers that do not use gearman (all of them), will use this setup.</p>
+
+		<ul>
+			<li>Authentication form, login, register, lost password (bmgroup/Signin package) (Pedro)</li>
+			<li>Old oauth1, oauth2 and openssl verifiers (Roberto)</li>
+			<li>Old routing system (Pedro, together with API)</li>
+		</ul>
+
+		<h2>Services</h2>
+		<p><i>Responsible: Gabriela</i></p>
+		<p>Handles the communication with the social networks.</p>
+		<p>All services must implement the service bmgroup\Cloudwalkers\Interfaces\Service.php</p>
+		<ul>
+			<li>facebook</li>
+			<li>twitter</li>
+			<li>linkedin</li>
+			<li>google+</li>
+			<li>YouTube</li>
+			<li>Sendible (to be deprecated asap)</li>
+			<li>Google News</li>
+			<li>RSS Feeds</li>
+		</ul>
+		<p>
+			This includes message actions, posting messages, fetching messages, account management, ...
+		</p>
+
+		<h2>Mappers / Models</h2>
+
+		<h3>Mappers</h3>
+		<p><i>Responsible: Roberto</i></p>
+		<p>Everything related to storing and fetching models. Probably contains a lot of optimisation.</p>
+
+		<h3>Models</h3>
+		<p><i>Responsible: Roberto</i></p>
+		<p>Management of the models and their attributes.</p>
+
+		<h2>Jobs</h2>
+
+		<h3>Procedures</h3>
+		<p><i>Responsible: Roberto</i></p>
+		<p>All gearman jobs that are not api requests.</p>
+
+		<h3>API Request handling</h3>
+		<p><i>Responsible: Pedro</i></p>
+		<p>All jobs processing input and preparing output for all api requests.</p>
+
+		<h2>Utilities</h2>
+		<p>Helper classes / methods</p>
+		<p><i>Responsible: Pedro</i></p>
+		<ul>
+			<li>Neuron\Tracking: encapsulating newrelic</li>
+			<li>Neuron\Filters: infix filtering and processing</li>
+			<li>bmgroup\Cloudwalkers\Tools\ContactParser: contact search / profile url parsing</li>
+			<li>bmgroup\Cloudwalkers\Tools\ImageUpload: handling image uploads</li>
+			<li>bmgroup\Cloudwalkers\Tools\KeywordFilter: encapsulating Neuron\Filters to filter out Message objects</li>
+			<li>bmgroup\Cloudwalkers\Tools\URLShortener: interface to the url-shortener api</li>
+
+			<li>bmgroup\Base\Utilities\Email: Interface to phpmailer</li>
+			<li>bmgroup\Base\Redirect: Redirect</li>
+			<li>bmgroup\Base\TokenGenerator: Generate random tokens</li>
+		</ul>
+		
+		<h2>Exception handling</h2>
+		<p><i>Responsible: Pedro</i></p>
+		<p>Throwing the correct exceptions</p>
+
+		<h2>ORM</h2>
+		<p>Future: Laravel</p>
+		
+		<!--
+		<h2>Responsabilities</h2>
+		<ul>
+			<li>Pedro: API, swagger, test tools</li>
+			<li>Gabriela: Services, statistics</li>
+			<li>Roberto: Logger, database, oauth2, routing</li>
+		</ul>
+		-->
+		
+	</div>
+
+	<!-- Bootstrap core JavaScript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	</body>
+</html>
+

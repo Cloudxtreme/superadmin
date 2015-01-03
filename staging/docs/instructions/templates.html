@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Cloudwalkers Team</title>
+
+	<link rel="shortcut icon" href="https://devapi.cloudwalkers.be/favicon.ico"/>
+
+	<!-- Bootstrap -->
+	<link href="/docs/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/docs/css/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/fontawesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+	<link href="/docs/css/theme.css" rel="stylesheet">
+
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body >
+
+<div class="container">
+
+	<h1>Templates Available in new Laravel System</h1>
+	<p>We use Laravel the default template system, <a href="http://laravel.com/docs/templates" target="_blank">Blade</a>.</p>
+	<p>This is standard, documented and have some nice features. We also can "widgetize" the templates.</p>
+
+	<h2>Ancient Modules</h2>
+	<h4>Login</h4>
+	<p>Login page <a href="https://devapi.cloudwalkers.be/login-e">here</a>.</p>
+	<p>Mobile login page <a href="https://devapi.cloudwalkers.be/login-e?view=mobile">here</a>.</p>
+
+	<h4>Lost Password</h4>
+	<p>Lost password form page <a href="https://devapi.cloudwalkers.be/forgotpassword">here</a>.</p>
+
+	<h4>Change Password</h4>
+	<p>Change password page with token (link received by email) <a href="https://devapi.cloudwalkers.be/changepassword/token">here</a>.</p>
+
+	<h4>Register</h4>
+	<p>Registration in Cloudwalkers page only available by invitation (link received by email) <a href="https://devapi.cloudwalkers.be/invitation/5/token">here</a>.</p>
+
+	<h2>Emails</h2>
+	<h4>Reset Password</h4>
+	<p>The email body structure is in engine under /app/views/emails/recover_password.blade.php</p>
+	<p>The email body is translated under folder /app/lang/en/emails/recover_password.php in variable "content" and the variables are passed as shown below.<br>
+		This way is easier to change the text structure by language.</p>
+	<pre>trans('emails/recover_password.content', array('firstname' => $firstname, 'codeurl' => $codeurl))</pre>
+
+	<h2>Default pages</h2>
+	<h4>404</h4>
+	<p>This is the default "Something went wrong".</p>
+	<p>Most of incorrect endpoint input end's up here.</p>
+
+	<h2>SMS's</h2>
+	<pre>
+	$message = new Clickatell;
+	$status = $message->to(351966479598)->message('Hi there!')->send();
+	</pre>
+
+	<h2>Translations</h2>
+	<h4>Engine</h4>
+	<p>The translation files in engine are set by controller for easy management and inside the are separated by function name.</p>
+	<h4>API</h4>
+	<p>All forms and static pages and first validations are translated in the API.</p>
+
+	<h2>Events</h2>
+	<h4>API events controller</h4>
+	<p>When some actions are made we may wanna create other actions associated to event like:
+		<ul>
+			<li>
+				cleaning multiple things on delete and alert someone
+			</li>
+			<li>
+				on user register alert account managers
+			</li>
+			<li>
+				create background worker jobs like sending emails, generate user statistics, etc...
+			</li>
+			<li>
+				many others and must be applied to engine too
+			</li>
+		</ul>
+	</p>
+	<pre>
+		1. we register the listeners in app/events.php
+		2. events and their actions are processed in app/controllers/EventsController.php
+		3. trigger events anywhere with ex:
+		   Event::fire('user.registration', array('msg', 'one more user registered in cloudwalkers'));
+	</pre>
+
+
+	<small>The translations for error validations are available @ /lang/en/validations.php</small><br><br>
+	<small>The variables is templates can be sanitized using {{{ $var }}}.</small><br><br>
+
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>

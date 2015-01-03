@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Cloudwalkers Team</title>
+		
+		<link rel="shortcut icon" href="https://devplatform.cloudwalkers.be/favicon.ico"/>
+		
+		<!-- Bootstrap -->
+		<link href="/docs/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/docs/css/bootstrap-theme.min.css" rel="stylesheet">
+		<link href="https://cdn.jsdelivr.net/fontawesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+		
+		
+		<link href="/docs/css/theme.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	<body >
+
+	<div class="container">
+
+		<div class="jumbotron">
+			<h1>Cloudwalkers 3 Layered Structure</h1>
+			<p>The Cloudwalkers Logic consists of 3 levels. The API server, the Workers chain and DB. The structure is modular and stored in independent Git repo's.</p>
+			<p><a href="https://github.com/Cloudwalkers" target"_blank" class="btn btn-primary btn-lg" role="button">Github &raquo;</a></p>
+			<br>
+			Notice how front-end is no longer considered part of this.
+		</div>
+		
+		<br>
+		
+		<h1>Front-end.</h1>
+		<p>The front-end is mostly a collection of html/js based projects. They are static, collecting data through the Rest API. All apps, plugins and GUI's are considered front-end.</p>
+		<p>Front-end distributions are treated like any other 3d party API-connected application.</p>
+		<br>
+		<p>The authentication is exlusive <a href="http://oauth.net/2/" target="_blank">Oauth2</a>.</p>
+		
+		<p>Where possible, the projects should be stored in CDN or other static sandboxes like the <a href="https://itunes.apple.com/be/app/cloudwalkers/id702922845?mt=8" target="_blank">App Store</a> or <a href="https://play.google.com/store/apps/details?id=be.bmgroup.cloudwalkers" target="_blank">Google Play</a>. A Cloudwalkers-tailored Nodejs local cli provides the required <a href="http://gruntjs.com/" target="_blank">compression</a> and <a href="http://bower.io/" target="_blank">dependencies</a>.</p>
+		<br>
+		<div class="row">
+			
+			<div class="col-md-3">
+				<div class="well">
+					<h3>Superadmin</h3>
+					Used for account, user and app management.
+					<br>Logging and mailer-approvals also should be integrated.
+					<br>Has special (user-based) rights for /resellers and /logs calls
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="well">
+					<h3>Platform</h3>
+					The client monitoring and admin application
+					<br>Right now the dominant life form. Will stay that way in the near future.
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="well">
+					<h3>Co-workers app</h3>
+					A basic, low-level posting and monitoring app.
+					Mobile/Android/iOS versions of the same logic.
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="well">
+					<h3>Chromewalkers</h3>
+					A basic, low-level posting Chrome extension.
+					<br>Should serve as example app for 3d-party developers.
+				</div>
+			</div>
+			
+		</div>
+		
+		<br>
+		
+		<h1>The API Server.</h1>
+		<p>The API Server is the only public entry point. The authentication is exlusive <a href="http://oauth.net/2/" target="_blank">Oauth2</a> (and an openssl public/private authentication model to handle reseller endpoints).
+		<p>We are working towards a complete seperation of Engine logic and API, to provide a higher level of security. Ideally, the Workers and Engine logic should only be accessible by Gearman.</p>
+		<br>
+		<p>In contrast with the Workers, the API should be single server as long as possible. The maintain this, all processes possible should run on the Workers.</p>
+		<p>The API consists of:</p>
+		
+		<br>
+		
+		<div class="row">
+			
+			<div class="col-md-3">
+				<div class="well">
+					<h3>API Router</h3>
+					The laravel Based endpoint manager. Should be kept as lightweight as possible.
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="well">
+					<h3>Oauth2 server</h3>
+					Token based. Read more about <a href="http://oauth.net/2/" target="_blank">Oauth2</a>.
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="well">
+					<h3>Cronjob</h3>
+					The background task manager. 
+					<br>Cronjob assigns low-priority jobs to Gearman.
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="well">
+					<h3>Gearman</h3>
+					A message-qeue server. <a href="http://gearman.org/" target="_blank">Gearman</a> assigns (load balance) the incoming requests and cron tasks to the chain of workers.
+				</div>
+			</div>
+			
+		</div>
+		
+		<br>
+		
+		<h1>The Workers chain.</h1>
+		<p>The Workers run the actual Engine Logic (BLM).<br>This server is extensible and is basicly a series of sandboxed worker nodes or "dynos".</p>
+		<br>
+		<p>At this point, the Engine logic mainly stays the same, and will be upgraded per "Logic Block".</p>
+		<p>Laravel, after API usage validation, might be integrated gradually in the near future.</p>
+		
+		<br>
+		
+		<div class="row">
+			
+			<div class="col-md-4">
+				<div class="well">
+					<h3>Services</h3>
+					Handles the communication with the social networks.
+					<br>All services must implement the service bmgroup\Cloudwalkers\Interfaces\Service.php
+					<ul>
+					<li>facebook</li>
+					<li>twitter</li>
+					<li>linkedin</li>
+					<li>google+</li>
+					<li>YouTube</li>
+					<li>Sendible (to be deprecated asap)</li>
+					<li>Google News</li>
+					<li>RSS Feeds</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="well">
+					<h3>Mappers / Models</h3>
+					<strong>Mappers</strong>
+					<br>Everything related to storing and fetching models. Probably contains a lot of optimisation.
+					<br><br>
+					<strong>Models</strong>
+					<br>Management of the models and their attributes.
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="well">
+					<h3>Jobs</h3>
+					<strong>Procedures</strong>
+					<br>All gearman jobs that are not api requests.
+					<br><br>
+					<strong>API Request handling</strong>
+					<br>All jobs processing input and preparing output for all api requests.
+				</div>
+			</div>
+			
+		</div>
+		<div class="row">
+			
+			<div class="col-md-4">
+				<div class="well">
+					<h3>Utilities</h3>
+					Helper classes / methods
+					<ul>
+					<li>Neuron\Tracking: encapsulating newrelic</li>
+					<li>Neuron\Filters: infix filtering and processing</li>
+					<li>bmgroup\Cloudwalkers\Tools\ContactParser: contact search / profile url parsing</li>
+					<li>bmgroup\Cloudwalkers\Tools\ImageUpload: handling image uploads</li>
+					<li>bmgroup\Cloudwalkers\Tools\KeywordFilter: encapsulating Neuron\Filters to filter out Message objects</li>
+					<li>bmgroup\Cloudwalkers\Tools\URLShortener: interface to the url-shortener api</li>
+					<li>bmgroup\Base\Utilities\Email: Interface to phpmailer</li>
+					<li>bmgroup\Base\Redirect: Redirect</li>
+					<li>bmgroup\Base\TokenGenerator: Generate random tokens</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="well">
+					<h3>Exception handling</h3>
+					Throwing the correct exceptions. Related to Engine/Errors
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="well">
+					<h3>ORM</h3>
+					To research
+				</div>
+			</div>
+			
+		</div>
+		
+		<br>
+		
+		<h1>The DB server.</h1>
+		<p>The MySQL DB server will be completely sealed off, except for a single admin account and a single Workers channel.</p>
+		<br>
+		<p>All table alterations are executed by the Senior Developer only, and should only be requested after local testing.</p>
+		<p>More on this soon.</p>
+		
+		<h1 id="backup">Backup</h1>
+		<ul>
+			<li>
+				There are <strong>2 gearman servers</strong> for stable. One running on gearman.cloudwalkers.be, the other one 
+				running on backupgearman.cloudwalkers.be. Both are running on port 4730. All workers and the api project must 
+				connect to both of these servers. This way, if one goes down, the other one will take over.
+			</li>
+			
+			<li>
+				There are at least two sets of gearman workers running on seperate servers. If one of the server goes down,
+				the second server will automatically take over all remaining work.
+			</li>
+		</ul>
+	
+		<h1>Emergency recovery</h1>
+		<p>
+			A daily database dump is taken and stored on a second database server. These servers are not syncronised, but having 
+			a database that is maximum a day old will allow us to at least temporary switch to the backup database in case something
+			goes horribly wrong.
+		</p>
+	
+	</div>
+
+	<!-- Bootstrap core JavaScript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	</body>
+</html>

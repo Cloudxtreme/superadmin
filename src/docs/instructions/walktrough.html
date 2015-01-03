@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Cloudwalkers Team</title>
+		
+		<link rel="shortcut icon" href="https://devplatform.cloudwalkers.be/favicon.ico"/>
+		
+		<!-- Bootstrap -->
+		<link href="/docs/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/docs/css/bootstrap-theme.min.css" rel="stylesheet">
+		<link href="https://cdn.jsdelivr.net/fontawesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+		
+		
+		<link href="/docs/css/theme.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	<body >
+
+	<div class="container">
+		<h1>Walktrough</h1>
+
+		<h2>API</h2>
+
+		<h3>Config</h3>
+		<p>All configuration should be stored in mutable-local.php. When loading, the application will look for mutable-local.php. If this is not found, it loads the default mutable.php. Do not change mutable.php (unless you know what you're doing); all user specific configuration (like your database credentials etc) should be stored in mutable-local.php.</p>
+
+		<h3>Front controllers</h3>
+		<p>So, let's start at index.php. There are 2 files that are included: php/bootstrap.php, that loads the config and prepares the environment, and php/non_cli.php, that does the API dispatching. bootstrap.php should be loaded for each script in the project, while non_cli.php is only loaded for dispatching API calls.</p>
+		<p>In non_cli.php, a FrontController is constructed. This FrontController is then filled with Module FrontControllers.</p>
+		<p>Then, FrontController::dispatch is called. This method goes trough all Module FrontControllers and asks if it would like to take control. For the first FrontController that takes control, the FrontControllers method "dispatch" is called </p>
+		<p>The module front controller can then choose to do whatever it wants, but in the Cloudwalkers module it loads one of bmgroup\Cloudwalkers\Controllers classes and calls dispatch on that.</p>
+
+		<h3>Controllers</h3>
+		<p>At this point, one of the bmgroup\Cloudwalkers\Controllers is in charge. The method dispatch of the specific controller is called, and the controller can do it's job.</p>
+		<p>The logic of the controller is specified by the controller itself, so it's a bit hard to explain what is going on in there. Each controller has it's own functionality and is mapped to an API endpoint. The Accounts controller, for example, is triggered when loading /1/accounts.</p>
+		<p>However, let's take a look at the Accounts controller, as an example.</p>
+
+		<h3>The Account controller</h3>
+		<p>The account controller is hidden behind the /1/accounts endpoint and handles everything related to accounts. The account controller extends the BaseCall controller (stands for "basic api call") and it's the BaseCall class that implements the dispatch method.</p>
+		<p>We start with the method dispatch. (The dispatch parameter has a Page object with it, but since we're building an API and not a website, this is not important. The dispatch method checks oauth authentication, prepares some attributes and then calls the getData () method, which is implemented by AccountController.</p>
+		<p>So we end up at \bmgroup\Cloudwalkers\Controllers\Account::getData (). This method should simply return an array with data and this data will be outputted according to the requested type. <strong>So getData should return a simple php array, not json!</strong></p>
+
+		<p><strong>getData</strong> returns data based on the input. To determine what data is expected, we look at the http path.</p>
+		<pre>$action = $this->getInput (2);</pre>
+		<p>The method getInput returns the n-th parameter in the query path (ignoring the api version numbering, so the above call on /1/accounts/1/users will return 'users'.</p>
+		<p>We then switch on $action and call the internal method with a matching name. In the above example, the Account controller will call getUsers.</p>
+
+		<p><strong>getUsers (bmgroupCloudwalkersModelsAccount $account)</strong> is called in getData () and should return a list of all users that are linked to an account. First we check if the currently connected user has access to this endpoint (only account admins can access this list) and if not, we throw an error. Secondly, we check if this is a HTTP POST request, in which case we create a new user. And if not, we check for the 3rd input parameter. (/1/accounts/users/25 => 25). If this id is provided, we only show the user with id 25. Otherwise, we return a list of all users in the account (by calling getListUsers ())</p>
+		<p><strong>getListUsers</strong> doesn't have much logic. We simply ask the MapperFactory to give us an instance of AccountMapper, and we call getUsers () with the Account as parameter. Additionally, we add a list of possible filters. This way we can filter the data in MySQL. <strong>All mappers should return Models!</strong> In this case this method returns an array of User models.</p>
+		<pre>$records = Tools::getInput ($_GET, 'records', 'int', 10);
+$users = MapperFactory::getAccountMapper ()->getUsers ($account, $this->getFilters (), $records);</pre>
+
+		<p><strong>Tools::getInput ($_GET, 'name', 'type', 'default_value')</strong> is a little helper method that allows us to filter data before using it in our code.</p>
+		<p>Finally, we create the output array by looping trough all User models and calling getData () on each of them. We then return the data and BaseCall::dispatch () makes sure that it is outputted in the format the user expects.</p>
+
+		<h3>That's all, folks!</h3>
+		<p>That's basically an API call. Each controller handles its own business, but I hope this small example can guide you trough a regular API call.</p>
+
+		<h2>Cronjobs</h2>
+		<p>On the Dark Side of the Project, there is a system that fills our database with millions of messages, contacts, notifications, statistics etc. These are all triggered by cronjobs.</p>
+		<p>We currently have 4 cronjobs</p>
+		<ul>
+			<li><strong>daily.php</strong> is called once every day and updates the statistics of all streams</li>
+			<li><strong>five-minutes.php</strong> is called once very 5 minutes and fetches messages from the social networks</li>
+			<li><strong>minute.php</strong> is called every minute and send messages to the social networks</li>
+			<li><strong>hourly.php</strong> is called every hour and does the same as five-minutes, but where five-minutes.php ony fetches new messages, hourly.php also updates old messages.</li>
+		</ul>
+
+		<p>Key in the cronjobs (and soon also in the api) are the Procedures. A Procedure (stored in \bmgroup\Cloudwalkers\Procedure) is a piece of code that can run completely independant from the rest of the framework. (Ofcourse it uses classes from the rest of the project, but it does not require the platform to be in a specific state.)</p>
+		<p>When a procedure is initialized, all required objects are set in the constructor. Then the procedure is run(), does it's thing, and optionally returns the data.</p>
+		<p>The reason why we split up these tasks in Procedures, is because our platform allows Procedures to run in parallel (using <a href="http://gearman.org/">Gearman</a>. The default behaviour, however, for configurations that have no gearman server ip defined, is to run the procedures single threaded in the script. This way you don't have to worry about a complex setup; you can just run the code like normal php.</p>
+
+		<h3>five-minutes.php</h3>
+		<p>As an example, let's look at five-minutes.php. The flow of the other cronjobs is similar to this.</p>
+
+		<p>First, we load boostrap:</p>
+		<pre>use bmgroup\Cloudwalkers\Counter;
+use bmgroup\Cloudwalkers\MapperFactory;
+use bmgroup\Cloudwalkers\Models\Logger;
+use bmgroup\Cloudwalkers\Procedures\Lock;
+use bmgroup\Cloudwalkers\ProcessManager;
+use Neuron\Core\Tools;
+use Neuron\Tracking\Tracker;
+
+/**
+* Cronjob should be run every 5 minutes.
+* Cronjob automatically skips a go if it is still running (or failed)
+*
+*/
+
+require (dirname (dirname (__FILE__)) . '/php/bootstrap.php');
+session_write_close ();</pre>
+
+		<p>In production, we run the cronjobs with -silent parameter. If we don't provide this argument, the output will be shown in terminal.</p>
+		<pre>if (!hasCliArgument ('silent'))
+{
+	Logger::getInstance ()->setOutput (true);
+}</pre>
+
+		<p>We then ask a lock to avoid executing the same cronjob multiple times. The locks are kept in the database, so running on multiple servers should not be a problem.</p>
+		<pre>if (Lock::getInstance ()->lock ('cron5'))
+{</pre>
+
+		<p>The tracker class gives us an interface to talk to NewRelic, so we can set what part of the project is currently running:</p>
+		<pre>	Tracker::getInstance ()->setBackground (true);
+
+	Tracker::getInstance ()->setAppName (TRACKER_APPNAME);
+	Tracker::getInstance ()->startTransaction ();
+	Tracker::getInstance ()->setModule ('cron/five-minutes.php');</pre>
+
+		<p>And in production, we want to use Gearman to run procedures parallel.</p>
+		<pre>	// Use workers!
+	ProcessManager::getInstance ()->setUseWorkers (true);</pre>
+
+		<p>Then, we are at the main part of the cronjob. We load all streams that need to be refreshed and call "prepareMessages" on it.</p>
+
+		<pre>    $streams = MapperFactory::getStreamMapper()->getStreamsByRefreshPriority();
+
+    foreach ($streams as $stream)
+    {
+		$fast = false;
+        $stream->prepareMessages (true);
+    }</pre>
+
+		<p>The method "prepareMessages" first checks some parameters (like if we really should update the messages - due to api restrictions sometimes we should skip a turn) and then create the procedure:</p>
+		<pre>	/**
+	 * @param bool $fast TRUE: only fetch new messages. FALSE: update old messages as well.
+	 */
+	public function processPrepareMessages ($fast = false)
+	{
+		ProcessManager::getInstance ()->updateMessages ($this, $fast);
+	}</pre>
+
+		<p>Finally, back in cron/five-minute.php, we tell the ProcessManager that we want to wait until all tasks are finished:</p>
+		<pre>ProcessManager::getInstance ()->waitForFinish ();</pre>
+		<p>(This method will pause until all gearman jobs are executed.)</p>
+
+	</div>
+
+	<!-- Bootstrap core JavaScript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	</body>
+</html>

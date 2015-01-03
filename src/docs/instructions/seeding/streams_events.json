@@ -1,0 +1,35 @@
+{
+	"internal":
+	{
+		"{{token}}": [ ]
+	},
+
+	"facebook":
+	{
+		"/page/inbox" : [ ],
+		"/page/posts": [ ],
+		"/page/following" : [ ]
+	},
+
+	"twitter" :
+	{
+		"/me" : [  ],
+		"/me/dms" : [  ],
+		"/inbox" : [  ],
+		"/following" : [ {"classname":"Ignore" ,"conditions":[ { "field" : "from.uniqueId", "comparator":"EQUALS", "value": "your twitter profile id" } ] } ]
+	},
+
+	"linkedin" :
+	{
+		"/company/posts" : [  ]
+	},
+
+	"youtube" :
+	{
+		"/me/posts" : [  ]
+	},
+
+	"sendible" : {
+		"any" : [  ]
+	}
+}

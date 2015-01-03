@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Cloudwalkers Team</title>
+
+	<link rel="shortcut icon" href="https://devplatform.cloudwalkers.be/favicon.ico"/>
+
+	<!-- Bootstrap -->
+	<link href="/docs/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/docs/css/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/fontawesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+	<link href="/docs/css/theme.css" rel="stylesheet">
+
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body >
+
+<div class="container">
+
+	<h1>I18N using Polyglot</h1>
+
+	<h2>Nem implementation:</h2>
+	<p>
+		The new translation logic relies on a global reference to the Polyglot plugin, and should be applied inside views or templates.<br>
+		To apply a translation inside a view:
+
+		<code>trans("string");</code>
+	</p>
+
+	<p>
+		Or inside a template through Mustache:<br>
+
+		<code>{{#trans}}"string"{{/trans}}</code>
+	</p>
+
+	<h2>String/translation format</h2>
+	<p>
+		The translation is not to be done through the use of a token, but through the actual English string:<br>
+
+		<code>
+			<strong>Wrong:</strong></br>
+			trans("something_went_wrong");
+			<br><br>
+
+			<strong>Right:</strong></br>
+			trans("Something went wrong!");
+		</code>
+
+		<br>
+		If the current language is English, there will be no translation needed, hence, trans() will return the actual string.
+	</p>
+	
+	<h2>The Locale translation files</h2>
+	<p>
+		Every language besides English will have a translation file, located in /locales/.<br>
+		To add a translation, add the entry to the respective file:
+
+		<code>"Cheese omelette!" : "Omelette du fromage!"</code>
+	</p>
+	
+
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>

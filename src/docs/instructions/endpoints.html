@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Cloudwalkers Team</title>
+		
+		<link rel="shortcut icon" href="https://devplatform.cloudwalkers.be/favicon.ico"/>
+		
+		<!-- Bootstrap -->
+		<link href="../css/bootstrap.min.css" rel="stylesheet">
+		<link href="../css/bootstrap-theme.min.css" rel="stylesheet">
+		<link href="https://cdn.jsdelivr.net/fontawesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+		
+		<link href="/docs/css/theme.css" rel="stylesheet">
+
+		<style>
+			body	{ margin-top: 60px; }
+			
+			#nav	{
+				position:fixed;
+				background: rgba(0,0,0, 0.5);
+				right: 10px;
+				top: 10px;
+				font-size: 11px;
+				z-index: 20;
+			}
+
+			#nav a	{
+				color: white;
+			}
+			
+			em	{ color: #2bbedc; font-weight: bold; }
+			
+			h4	{
+				line-height: 2.2em; color: #999; font-size: 16px; font-weight: normal;
+			}
+		</style>
+	</head>
+	<body>
+
+	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/">Cloudwalkers</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					
+					<li class="active"><a href="#">Endpoints</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Account types <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="#accounts">Accounts</a></li>
+							<li><a href="#reseller">Resellers</a></li>
+							<li><a href="#reseller">Plans</a></li>
+							<li><a href="#license">Licences</a></li>
+							<li><a href="#campaigns">Campaigns</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">User types <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="#me">Me</a></li>
+							<li><a href="#users">Users</a></li>
+							<li><a href="#contacts">Contacts</a></li>
+							<li><a href="#rolegroups">Rolegroups</a></li>
+						</ul>
+					</li>
+					<li><a href="#channels">Channels</a></li>
+					<li><a href="#services">Services</a></li>
+					<li><a href="#streams">Streams</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Message types <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="#messages">Messages</a></li>
+							<li><a href="#notifications">Notifications</a></li>
+							<li><a href="#notes">Notes</a></li>
+						</ul>
+					</li>
+					<li><a href="#statistics">Statistics</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">System <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="#guest">Guest</a></li>
+							<li><a href="#admin">Admin</a></li>
+							<li><a href="#groups">Groups</a></li>
+							<li><a href="#alert">Alerts</a></li>
+							<li><a href="#log">Logs</a></li>
+							<li><a href="#tags">Tags</a></li>
+							<li><a href="#triggers">Triggers</a></li>
+							<li><a href="#ping">Ping</a></li>
+							<li><a href="#filteroptions">Filter Options</a></li>
+							<li><a href="#urlshortener">Urlshortener</a></li>
+						</ul>
+					</li>
+
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+
+
+		<div class="row">
+
+			<h1>v1.1 Endpoints list</h1>
+		
+		</div>		
+		
+		<div class="row" id="guest">
+			<div class="col-md-6">
+			
+				<h3>Guest <small>(no auth2 required)</small></h3>
+				
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/version
+						<span class="label label-success">GET</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+		
+		<div class="row" id="me">
+			<div class="col-md-6">
+			
+				<h3>Me</h3>
+				
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/loginstatus
+						<span class="label label-success">GET</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/me
+						<span class="label label-default">GET</span>
+						<span class="label label-default">PATCH</span>
+					</li>
+				</ul>
+				
+			</div>
+		</div>
+		
+		
+		<div class="row" id="accounts">
+			<div class="col-md-6">
+			
+				<h3>Accounts</h3>
+
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/accounts
+						<span class="label label-success">GET</span>
+						<span class="label label-info">POST</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/accounts/<em>id</em>
+						<span class="label label-success">GET</span>
+						<span class="label label-success">PUT</span>
+						<span class="label label-success">PATCH</span>
+						<span class="label label-success">DELETE</span>
+					</li>
+				</ul>
+			</div>
+
+			<div class="col-md-5 col-md-offset-1">
+
+				<h4>Variations</h4>
+
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/users/<em>id</em>/accounts
+						<span class="label label-success">GET</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/resellers/<em>id</em>/accounts
+						<span class="label label-success">GET</span>
+						<span class="label label-info">POST</span>
+					</li>
+				</ul>
+
+			</div>
+
+		</div>
+
+		<div class="row" id="campaigns">
+			<div class="col-md-6">
+
+				<h3>Campaigns</h3>
+
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/campaigns/<em>id</em>
+						<span class="label label-default">GET</span>
+						<span class="label label-default">PATCH</span>
+						<span class="label label-default">DELETE</span>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="col-md-5 col-md-offset-1">
+
+				<h4>Variations</h4>
+
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/accounts/<em>id</em>/campaigns
+						<span class="label label-default">GET</span>
+						<span class="label label-default">POST</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/accounts/<em>id</em>/campaigns/<em>id</em>
+						<span class="label label-default">GET</span>
+						<span class="label label-default">PATCH</span>
+						<span class="label label-default">DELETE</span>
+					</li>
+				</ul>
+
+			</div>
+		</div>
+
+		<div class="row" id="channels">
+			<div class="col-md-6">
+
+				<h3>Channels</h3>
+
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/channels
+						<span class="label label-success">GET (?ids)</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/channelids
+						<span class="label label-info">GET</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/channels/<em>id</em>
+						<span class="label label-success">GET</span>
+						<span class="label label-success">PATCH</span>
+						<span class="label label-success">DELETE</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/channels/<em>id</em>/channels
+						<span class="label label-success">GET</span>
+                        <span class="label label-success">GET (?ids)</span>
+						<span class="label label-success">POST</span>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="col-md-5 col-md-offset-1">
+
+				<h4>Variations</h4>
+
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/accounts/<em>id</em>/channels
+						<span class="label label-success">GET</span>
+                        <span class="label label-success">GET (?ids)</span>
+						<span class="label label-success">POST</span>
+					</li>
+				</ul>
+
+			</div>
+		</div>
+
+		<div class="row" id="contacts">
+			<div class="col-md-6">
+
+				<h3>Contacts</h3>
+
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/contacts
+						<span class="label label-default">GET (?ids)</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/contacts/<em>id</em>
+						<span class="label label-default">GET</span>
+						<span class="label label-default">PATCH</span>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="col-md-5 col-md-offset-1">
+
+				<h4>Variations</h4>
+
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/accounts/<em>id</em>/contacts
+						<span class="label label-default">GET</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/accounts/<em>id</em>/contactids
+						<span class="label label-default">GET</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/accounts/<em>id</em>/contacts/<em>id</em>
+						<span class="label label-default">GET</span>
+						<span class="label label-default">PATCH</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/accounts/<em>id</em>/contactids/following
+						<span class="label label-default">GET</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/accounts/<em>id</em>/contacts/following
+						<span class="label label-default">GET</span>
+						<span class="label label-default">POST</span>
+					</li>
+				</ul>
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/services/<em>id</em>/profiles
+						<span class="label label-default">GET</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+		
+
+		<div class="row" id="messages">
+			<div class="col-md-6">
+
+				<h3>Messages</h3>
+
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/messages
+						<span class="label label-info">GET (?ids)</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/messages/<em>id</em>
+						<span class="label label-info">GET</span>
+						<span class="label label-info">PATCH</span>
+						<span class="label label-info">DELETE</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/messages/<em>id</em>/actions
+						<span class="label label-info">GET</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/messages/<em>id</em>/actions/<em>token</em>
+						<span class="label label-info">POST</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/messages/<em>id</em>/original
+						<span class="label label-info">GET</span>
+						<span class="label label-info">PATCH</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/messages/<em>id</em>/skip
+						<span class="label label-info">PATCH</span>
+					</li>
+				</ul>
+				
+			</div>
+			
+			<div class="col-md-5 col-md-offset-1">
+
+				<h4>Variations</h4>
+
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/accounts/<em>id</em>/messages
+						<span class="label label-info">GET</span>
+						<span class="label label-info">POST</span>
+					</li>
+				</ul>
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/channels/<em>id</em>/messageids
+						<span class="label label-info">GET</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/channels/<em>id</em>/messages
+						<span class="label label-info">GET</span>
+					</li>
+				</ul>
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/streams/<em>id</em>/messageids
+						<span class="label label-info">GET</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/streams/<em>id</em>/messages
+						<span class="label label-info">GET</span>
+					</li>
+				</ul>
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/contacts/<em>id</em>/messagesids
+						<span class="label label-info">GET</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/contacts/<em>id</em>/messages
+						<span class="label label-info">GET</span>
+					</li>
+				</ul>
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/accounts/<em>id</em>/contacts/<em>id</em>/conversationsids
+						<span class="label label-default">GET</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/accounts/<em>id</em>/contacts/<em>id</em>/conversations
+						<span class="label label-default">GET</span>
+					</li>
+				</ul>
+				
+				
+
+			</div>
+		</div>
+		
+		<div class="row" id="notifications">
+			<div class="col-md-6">
+
+				<h3>Notifications</h3>
+
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/notifications
+						<span class="label label-default">GET (?ids)</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/notifications/<em>id</em>
+						<span class="label label-default">GET</span>
+						<span class="label label-default">PATCH</span>
+						<span class="label label-default">DELETE</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/notifications/<em>id</em>/actions
+						<span class="label label-default">GET</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/notifications/<em>id</em>/actions/<em>token</em>
+						<span class="label label-default">POST</span>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="col-md-5 col-md-offset-1">
+
+				<h4>Variations</h4>
+
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/channels/<em>id</em>/notificationids
+						<span class="label label-default">GET</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/channels/<em>id</em>/notifications
+						<span class="label label-default">GET</span>
+					</li>
+				</ul>
+
+			</div>
+		</div>
+
+		<div class="row" id="notes">
+			<div class="col-md-6">
+
+				<h3>Notes</h3>
+
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/notes
+						<span class="label label-default">GET (?ids)</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/notes/<em>id</em>
+						<span class="label label-default">GET</span>
+						<span class="label label-default">PATCH</span>
+						<span class="label label-default">DELETE</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/notes/<em>id</em>/related
+						<span class="label label-default">GET</span>
+						<span class="label label-default">POST</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/notes/<em>id</em>/relatedids
+						<span class="label label-default">GET</span>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="col-md-5 col-md-offset-1">
+
+				<h4>Variations</h4>
+
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/accounts/<em>id</em>/noteids
+						<span class="label label-default">GET</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/accounts/<em>id</em>/notes
+						<span class="label label-default">GET</span>
+						<span class="label label-default">POST</span>
+					</li>
+				</ul>
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/messages/<em>id</em>/noteids
+						<span class="label label-default">GET</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/messages/<em>id</em>/notes
+						<span class="label label-default">GET</span>
+						<span class="label label-default">POST</span>
+					</li>
+				</ul>
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/contacts/<em>id</em>noteids
+						<span class="label label-default">GET</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/contacts/<em>id</em>notes
+						<span class="label label-default">GET</span>
+						<span class="label label-default">POST</span>
+					</li>
+				</ul>
+
+			</div>
+		</div>
+		
+
+		<div class="row" id="statistics">
+			<div class="col-md-6">
+
+				<h3>Statistics</h3>
+
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/statistics
+						<span class="label label-default">GET (?ids)</span>
+					</li>
+				</ul>
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/statistics/<em>id</em>
+						<span class="label label-default">GET</span>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="col-md-5 col-md-offset-1">
+
+				<h4>Variations</h4>
+
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/accounts/<em>id</em>/statisitcids
+						<span class="label label-default">GET</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/accounts/<em>id</em>/statistics
+						<span class="label label-default">GET</span>
+					</li>
+				</ul>
+
+			</div>
+		</div>
+		
+		<div class="row" id="plans">
+			<div class="col-md-6">
+			
+				<h3>Plans</h3>
+				
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/plans
+						<span class="label label-success">GET</span>
+						<span class="label label-success">POST</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/plans/<em>id</em>
+						<span class="label label-success">GET</span>
+						<span class="label label-success">PATCH</span>
+						<span class="label label-success">DELETE</span>
+					</li>
+				</ul>
+								
+			</div>
+
+		</div>
+		
+		<div class="row" id="rolegroups">
+			<div class="col-md-6">
+			
+				<h3>Rolegroups</h3>
+				
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/rolegroups/<em>id</em>
+						<span class="label label-default">GET</span>
+						<span class="label label-default">PATCH</span>
+						<span class="label label-default">DELETE</span>
+					</li>
+				</ul>
+				
+			</div>
+			
+			<div class="col-md-5 col-md-offset-1">
+
+				<h4>Variations</h4>
+
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/accounts/<em>id</em>/rolegroups
+						<span class="label label-default">GET</span>
+						<span class="label label-default">POST</span>
+					</li>
+				</ul>
+			</div>
+
+		</div>
+		
+		
+
+		<div class="row" id="services">
+			<div class="col-md-6">
+
+				<h3>Services</h3>
+
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/services
+						<span class="label label-success">GET (?ids)</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/services/<em>id</em>
+						<span class="label label-success">GET</span>
+						<span class="label label-success">PATCH</span>
+						<span class="label label-success">DELETE</span>
+					</li>
+				</ul>
+				
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/services/available
+						<span class="label label-success">GET</span>
+					</li>
+				</ul>
+				
+			</div>
+			
+			<div class="col-md-5 col-md-offset-1">
+
+				<h4>Variations</h4>
+				
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/accounts/<em>id</em>/serviceids
+						<span class="label label-success">GET</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/accounts/<em>id</em>/services
+						<span class="label label-success">GET</span>
+                        <span class="label label-success">GET (?ids)</span>
+                    </li>
+					<li class="list-group-item">
+						/1.1/accounts/<em>id</em>/services/<em>token</em>
+						<span class="label label-info">POST</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/accounts/<em>id</em>/services/<em>token</em>/auth
+						<span class="label label-info">GET</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+
+		<div class="row" id="streams">
+			<div class="col-md-6">
+
+				<h3>Streams</h3>
+
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/streams
+						<span class="label label-success">GET (?ids)</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/streams/<em>id</em>
+						<span class="label label-success">GET</span>
+						<span class="label label-success">PATCH</span>
+						<span class="label label-info">DELETE</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/streams/<em>id</em>/actions
+						<span class="label label-success">GET</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/streams/<em>id</em>/besttimetopost
+						<span class="label label-success">GET</span>
+					</li>
+				</ul>
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/streams/<em>id</em>/refresh
+						<span class="label label-info">GET</span>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="col-md-5 col-md-offset-1">
+
+				<h4>Variations</h4>
+				
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/channels/<em>id</em>/streamids
+						<span class="label label-success">GET</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/channels/<em>id</em>/streams
+						<span class="label label-success">GET</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+		<div class="row" id="users">
+			<div class="col-md-6">
+
+				<h3>Users</h3>
+
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/users/<em>id</em>
+						<span class="label label-default">GET</span>
+						<span class="label label-default">PATCH</span>
+						<span class="label label-default">DELETE</span>
+					</li>
+				</ul>
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/users/<em>id</em>/password
+						<span class="label label-default">PATCH</span>
+					</li>
+				</ul>
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/users/<em>id</em>/subscriptions
+						<span class="label label-default">GET</span>
+						<span class="label label-default">POST</span>
+						<span class="label label-default">PATCH</span>
+						<span class="label label-default">DELETE</span>
+					</li>
+				</ul>
+
+			</div>
+			
+			<div class="col-md-5 col-md-offset-1">
+
+				<h4>Variations</h4>
+
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/accounts/<em>id</em>/users
+						<span class="label label-default">GET</span>
+						<span class="label label-default">POST</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/accounts/<em>id</em>/users/<em>id</em>
+						<span class="label label-default">GET</span>
+						<span class="label label-default">PATCH</span>
+						<span class="label label-default">PATCH</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+
+		<div class="row" id="tags">
+			<div class="col-md-6">
+
+				<h3>Tags</h3>
+
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/tags
+						<span class="label label-default">GET (?ids)</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/tags/<em>id</em>
+						<span class="label label-default">GET</span>
+						<span class="label label-default">PATCH</span>
+						<span class="label label-default">DELETE</span>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="col-md-5 col-md-offset-1">
+
+				<h4>Variations</h4>
+				
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/accounts/<em>id</em>/tagids
+						<span class="label label-default">GET</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/accounts/<em>id</em>/tags
+						<span class="label label-default">GET</span>
+						<span class="label label-default">POST</span>
+					</li>
+				</ul>
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/contacts/<em>id</em>tagids
+						<span class="label label-default">GET</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/contacts/<em>id</em>tags
+						<span class="label label-default">GET</span>
+						<span class="label label-default">POST</span>
+					</li>
+				</ul>
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/messages/<em>id</em>/tagids
+						<span class="label label-default">GET</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/messages/<em>id</em>/tags
+						<span class="label label-default">GET</span>
+						<span class="label label-default">POST</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+		
+		
+		
+		<div class="row" id="filteroptions">
+			<div class="col-md-6">
+
+				<h3>Filter options</h3>
+
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/filteroptions
+						<span class="label label-default">GET</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+		<div class="row" id="ping">
+			<div class="col-md-6">
+
+				<h3>Ping</h3>
+
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/ping
+						<span class="label label-default">GET</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="row" id="triggers">
+			<div class="col-md-6">
+
+				<h3>Triggers</h3>
+
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/triggers
+						<span class="label label-default">GET (?ids)</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/triggers/<em>id</em>
+						<span class="label label-default">GET</span>
+						<span class="label label-default">PATCH</span>
+						<span class="label label-default">DELETE</span>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="col-md-5 col-md-offset-1">
+
+				<h4>Variations</h4>
+				
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/accounts/<em>id</em>/triggerids
+						<span class="label label-default">GET</span>
+					</li>
+				</ul>
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/accounts/<em>id</em>/triggers
+						<span class="label label-default">GET</span>
+						<span class="label label-default">POST</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+		
+
+
+		<div class="row" id="urlshortener">
+			<div class="col-md-6">
+
+				<h3>Urlshortener</h3>
+
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/shorturls
+						<span class="label label-default">GET (?search)</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/shorturls/<em>token</em>
+						<span class="label label-default">GET</span>
+						<span class="label label-default">PATCH</span>
+						<span class="label label-default">DELETE</span>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="col-md-5 col-md-offset-1">
+
+				<h4>Variations</h4>
+				
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/accounts/<em>id</em>/shorturls/<em>token</em>
+						<span class="label label-default">GET</span>
+						<span class="label label-default">PATCH</span>
+						<span class="label label-default">DELETE</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/accounts/<em>id</em>/shorturls
+						<span class="label label-default">POST</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+		
+
+		
+		
+		
+		<div class="row" id="alert">
+			<div class="col-md-6">
+
+				<h3>Alerts</h3>
+
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/alerts/<em>id</em>
+						<span class="label label-default">GET</span>
+						<span class="label label-default">PATCH</span>
+						<span class="label label-default">DELETE</span>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="col-md-5 col-md-offset-1">
+
+				<h4>Variations</h4>
+
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/accounts/<em>id</em>/user/<em>id</em>/alerts
+						<span class="label label-default">GET</span>
+						<span class="label label-default">POST</span>
+					</li>
+				</ul>
+
+			</div>
+		</div>
+		
+		<div class="row" id="log">
+			<div class="col-md-6">
+
+				<h3>Log</h3>
+
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/log
+						<span class="label label-default">POST</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+		<br>
+		
+		<div class="row">
+
+			<h1>v1.2 Endpoints list <span class="label label-success">FUTURE</span></h1>
+			
+		</div>	
+		
+		<div class="row" id="license">
+			<div class="col-md-6">
+			
+				<h3>Licenses <small>(eg. for Paypal)</small></h3>
+				
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/licenses/<em>id</em>
+						<span class="label label-default">GET</span>
+						<span class="label label-default">DELETE</span>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="col-md-5 col-md-offset-1">
+
+				<h4>Variations</h4>
+
+				<ul class="list-group">
+					<li class="list-group-item">
+						/1.1/accounts/<em>id</em>/licenses
+						<span class="label label-default">GET</span>
+						<span class="label label-default">POST</span>
+					</li>
+					<li class="list-group-item">
+						/1.1/accounts/<em>id</em>/licenses/<em>id</em>
+						<span class="label label-default">GET</span>
+						<span class="label label-default">DELETE</span>
+					</li>
+				</ul>
+			</div>
+			
+		</div>
+
+
+	</div>
+
+
+	<!--
+	Route::get		('accounts/{id}/services/{token}/auth', 			'ServiceController@store')->where ('token', '[a-z]+');
+	Route::post		('accounts/{id}/services/{token}', 					'ServiceController@authurl')->where ('token', '[a-z]+');
+
+    Route::resource	('accounts', 				'AccountController',	array ('except' => array('create', 'edit')));
+    Route::resource	('accounts.services',		'ServiceController',	array ('except' => array('store', 'create', 'edit')));
+    Route::resource	('accounts.users',		    'UserController',	    array ('except' => array('create', 'edit')));
+	--!>
+			
+
+	</div>
+
+	<!-- Bootstrap core JavaScript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Cloudwalkers Team</title>
+		
+		<link rel="shortcut icon" href="https://devplatform.cloudwalkers.be/favicon.ico"/>
+		
+		<!-- Bootstrap -->
+		<link href="/docs/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/docs/css/bootstrap-theme.min.css" rel="stylesheet">
+		<link href="https://cdn.jsdelivr.net/fontawesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+		
+		
+		<link href="/docs/css/theme.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	<body >
+
+	<div class="container">
+
+<div class="wikiPage"> <div>  <h1 class="page-title header"> <span class="jQ_wikiPageTitle">On MySQL transactions</span>  <div class="txt-sub">  Last updated: <span class="jQ_datetimeSync" rel="1395225371">2 months ago</span> by  <a href="/project/80428/members/profile/2422">Thijs V.</a>  </div>  </h1> </div><div class="tx_tl"> <div class="tx_tl"><p>Because we're using gearman and long running php procedures, it is important to always handle mysql transactions correctly.</p>
+	<p>Because of this, always use try...catch when working with transactions.</p>
+	<p>&nbsp;</p>
+	<pre>$db = Database::getInstance ();<br><br>$db-&gt;start ();<br>try <br>{<br>&nbsp;&nbsp;&nbsp;// Do your business here<br>&nbsp;&nbsp;&nbsp;$query = new Query ("UPDATE something FROM something WHERE something = ?");<br>&nbsp;&nbsp;&nbsp;$query-&gt;bindValue (1, 'something');<br>&nbsp;&nbsp;&nbsp;$query-&gt;execute ();<br><br>&nbsp;&nbsp;&nbsp;// And commit<br>&nbsp;&nbsp;&nbsp;$db-&gt;commit ();<br>}<br>catch (Exception $e)<br>{<br>&nbsp;&nbsp;&nbsp;// First, rollback<br>&nbsp;&nbsp;&nbsp;$db-&gt;rollback ();<br><br>&nbsp;&nbsp;&nbsp;// Now, pass on the error<br>&nbsp;&nbsp;&nbsp;throw $e;<br>}</pre>
+	<p style="text-align: left;">&nbsp;</p></div> </div></div>
+
+	</div>
+
+	<!-- Bootstrap core JavaScript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	</body>
+</html>

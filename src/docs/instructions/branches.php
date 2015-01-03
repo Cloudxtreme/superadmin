@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Cloudwalkers Team</title>
+		
+		<link rel="shortcut icon" href="https://devplatform.cloudwalkers.be/favicon.ico"/>
+		
+		<!-- Bootstrap -->
+		<link href="/docs/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/docs/css/bootstrap-theme.min.css" rel="stylesheet">
+		<link href="https://cdn.jsdelivr.net/fontawesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+		
+		
+		<link href="/docs/css/theme.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	<body >
+
+	<div class="container">
+
+		<h1>Source code</h1>
+
+		<p>Our source code is stored on GitHub.</p>
+
+		<h2>Authentication</h2>
+		<p>It is preferred to use SSH authentication on GitHub.</p>
+		<p>Go to <a href="https://github.com/settings/ssh">https://github.com/settings/ssh</a> and link your private key to your account.</p>
+
+		<p>(More information: <a href="https://help.github.com/articles/generating-ssh-keys">generate ssh keys</a> and <a href="https://help.github.com/categories/56/articles">general ssh troubleshooting</a>.)</p>
+
+		<h2>Branches</h2>
+		<p>There are 3 "main" branches (= a total of 7 branches) that trigger server deployment:</p>
+		<ul>
+			<li>
+				The <strong>master</strong> branch is the version of the code that runs on <a href="https://devapi.cloudwalkers.be/">https://devapi.cloudwalkers.be/</a> and <a href="https://devplatform.cloudwalkers.be/">https://devplatform.cloudwalkers.be/</a>. Every time a commit is made, the commit is pushed to these servers.
+			</li>
+
+			<li>
+				The <strong>staging</strong> branch(es) are the versions that will be used for testing. The goal is to have up to 4 staging branches. These will all run on their own domain name.
+			</li>
+
+			<li>
+				The <strong>stable</strong> branch contains the production version of the code. Pushes to this branch will be uploaded to <a href="https://api.cloudwalkers.be/">https://api.cloudwalkers.be/</a> and <a href="https://platform.cloudwalkers.be/">https://platform.cloudwalkers.be/</a>. Every time a commit is made, the commit is pushed to these servers. <br /><strong>This code is in production! Please do not push to this branch unless a senior developer approved it.</strong>
+			</li>
+		</ul>
+
+		<h1>Server deployment</h1>
+		<p>We are using a service called <a href="https://bmgroup.dploy.io/">dploy.io</a> to push code automatically to our servers.</p>
+<p>Credentials:</p>
+<pre>
+Username: bmgroup
+Email: thijs@bmgroup.be
+Password: --request from thijs--
+</pre>
+
+
+		<h1>Deploy to environment</h1>
+		<p><i>Note: if you don't know how branches work, read the <a href="http://git-scm.com/documentation">git manual</a> first. You don't have to be a git master, but you HAVE TO understand how branching works.</i></p>
+		<p>Traditionally, the most recent version of the project is stored in the master branch. This branch is deployed to the <a href="https://devplatform.cloudwalkers.be">Development Server</a> automatically, so the master branch should always be kept in a working state.</p>
+		<p>Additionally, for big features, the use of feature branches is encouraged. These branches are not deployed to any server, but they are available to all developers for peer review. Once a feature is finished (and tested), it can be merged into the master branch.</p>
+
+		<p>The stable branch should, at any point, only contain code that is ready for release. All commits on this branch will be instantly pushed to the production environment. Please always ask permission from one of the senior developers before you do a push on the stable branch.</p>
+		<p>The staging branch always contains the code that needs to be tested. For Engine, there is one staging branch. For platform, there is a 4-week release cycle.</p>
+
+		<!--
+		<h2>Quick help: push platform master to production</h2>
+		<ul>
+			<li>
+				Make sure your working copy is in the branch you like to push. (In this case, the master branch.)
+				<p><code>git checkout -b master<br>git pull origin master</code></p>
+			</li>
+
+			<li>
+				Run <samp>node builder/build.js</samp>. (If you don't have node installed, install it.)
+				<p><code>node builder/build.js</code></p>
+			</li>
+
+			<li>
+				Push these changes onto the branch you are currently working on. (Master branch.)
+				<p><code>git commit<br>git push origin master</code></p>
+			</li>
+
+			<li>
+				Finally, push your changes to the stable branch (<samp>git push origin stable</samp>)
+				<p><code>git push origin stable</code></p>
+			</li>
+
+			<li>
+				<strong>In case this works, you can stop here! Otherwise, we'll have to do the merge manually.</strong>
+			</li>
+
+			<li>
+				Switch to stable branch
+				<p><code>git checkout -b stable<br>git pull origin stable</code></p>
+			</li>
+
+			<li>
+				Merge the branches
+				<p><code>git merge master</code></p>
+			</li>
+
+			<li>
+				Commit the merge
+				<p><code>git commit</code></p>
+			</li>
+
+			<li>
+				And push...
+				<p><code>git push origin stable</code></p>
+			</li>
+
+			<li>
+				And switch back to the master branch
+				<p><code>git checkout -b master<br>git pull origin master</code></p>
+			</li>
+		</ul>
+		-->
+
+		<h2>Engine: staging</h2>
+		<p>The engine / workers only have one staging environment. The api and workers MUST be designed so that it is always backwards compatible. Deprecated methods can only be removed once all parties involved (frontend, mobile & reseller) have confirmed the method is no longer used and after a logging period of at least 4 weeks confirms that the method is not in use anymore.</p>
+		<p>The release cycle for engine is not fixed. Updates will be released on concensus.</p>
+
+		<h2>How to hotfix (platform)</h2>
+		<p><strong>Read <a href="http://git-scm.com/book/en/Git-Branching-Basic-Branching-and-Merging">this chapter</a> about basic git branching!</strong></p>
+		<p>Hotfixes are always created in the branche they should fix.</p>
+		<pre><?php include 'gitcommands/hotfix.sh'; ?></pre>
+		<p>When done, run the pullupstream.sh script (see below: pulling hotfixes) to pull your hotfix to all appropiate branches.</p>
+
+		<!--
+		<h2>How to hotfix (platform)</h2>
+		<p><strong>Read <a href="http://git-scm.com/book/en/Git-Branching-Basic-Branching-and-Merging">this chapter</a> about basic git branching!</strong></p>
+		
+		<p>Ideally, we would follow belows guidelines:</p>
+		<ul>
+			<li>Switch to a custom branch (for example "hotfix"):<br><samp>git checkout -b  hotfix</samp></li>
+			<li>Make sure that your branch is up to date (with stable or with staging):<br><samp>git merge stable</samp></li>
+			<li>Make the changes you need to make</li>
+			<li>Make sure that all your changes are committed.<br><samp>git commit</samp></li>
+			<li>For platform: build the project by running the build script:<br><samp>node builder/build.js</samp></li>
+			<li>For platform: commit the changes that the script made (you'll have a new version number now)<br><samp>git commit</samp></li>
+			<li>Switch to the stable branch:<br><samp>git checkout -b stable</samp></li>
+			<li>Merge the branch you were working on before (master) with the stable branch:<br><samp>git merge hotfix</samp></li>
+			<li>Commit the merge<br><samp>git commit</samp></li>
+			<li>Finally, make sure that your hotfix is also merged into master (and staging environments, as required):<br><samp>git checkout -b master<br>git merge hotfix<br>git commit</samp></li>
+		</ul>
+		<p>Your hotfix will now be deployed to stable automatically.</p>
+		
+		<p><strong>However</strong>, since nobody ain't got time for that, and because you guys will do it anyway:</p>
+		<p>You <strong>can</strong> (but discouraged) hotfix on a branch itself (stable, rc0, rc1, rc2, rc3), as long as you make sure you pull the changes back into all older branches as described in "pull upstream changes".</p>
+		
+		-->
+
+		<h2>Platform: staging</h2>
+		
+		<h3>Prerequisites</h3>
+		<p>Your remote repository must be named origin. This is the default, so I don't foresee any trouble here.</p>
+		<p><strong>Please note that these scripts only work if everything is in perfect state. In case we do something wrong, we will have to manually fix it and someone will have to read the git manual. Because I know you haven't.</strong></p>
+		
+		<h3>Staging</h3>
+
+		<h3>Building the platform</h3>
+		<p>On staging and production, the minified version of the javascript files are used. Practically this means that only code in the /build directory is pushed to the staging and production server.</p>
+		<p>To "compile" the code in the build folder, run <samp>node builder/build.js</samp>. This will make sure that the files in /build are up to date. After this, don't forget to commit all files that were created in the process.</p>		
+		
+		<h3>Debugging staged versions</h3>
+		<p>When a bug is found in one of the staging versions, it must be fixed in that staging branch. Just switch your working copy to the version branch, edit your code and push. The code will be published to the correct staging device.</p>
+		<p>When you're done with debugging the version, make sure to push all commits onto all newer staging branches (so with a lower "staging id") AND the master branch. This way everyone is working on the must up to date data.</p>
+
+		<h3>Pulling hotfixes</h3>
+		<p>Sometimes it will happen that hotfixes are made to one of the release candidates, or even to stable.</p>
+		<p>In those cases it is important that these changes are pulled into all older repositories.</p>
+		<p><strong>A newer RC and master should never be upstream from an older RC or stable. When you hotfix, always run below script to make sure your hotfix is available everywhere.</strong></p>
+
+		<pre><?php include 'gitcommands/pullupstream.sh'; ?></pre>
+
+		<h3>Cycling trough the rc's</h3>
+		<p>The cycle of the rc's looks as follows:</p>
+		<p><img src="staging.png" /></p>
+		<p>Note that you should first pull all hotfixes as described above.</p>
+		<pre><?php include 'gitcommands/pushupstream.sh'; ?></pre>
+
+		<p>There are various "staging" branches, labeled rc0, rc1, rc2 and rc3. These branches allow for a planned release cycle of 4 weeks.</p>
+
+	</div>
+
+	<!-- Bootstrap core JavaScript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	</body>
+</html>
