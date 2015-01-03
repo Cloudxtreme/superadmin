@@ -2,7 +2,7 @@ define (
 	['mustache', 'Views/Pageview'],
 	function (Mustache, Pageview)
 	{
-		var Dashboard = Pageview.extend(
+		var DispatchLogs = Pageview.extend(
 		{
 			title : "Scheduling Performance",
 				
@@ -12,6 +12,9 @@ define (
 				this.$el.html (Mustache.render (Templates.pageview, { 'title' : this.title }));
 				this.$container = this.$el.find("#container").eq(0);
 	
+				
+				
+				
 				// Add recent accounts widget
 				//var recent = new PlansGrid({editable: true, limit: 20, title: false});
 				

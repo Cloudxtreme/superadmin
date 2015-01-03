@@ -103,7 +103,7 @@ define(
 			
 			performance_logs : function ()
 			{	
-				Cloudwalkers.RootView.setView (new DipatchLogsView());
+				Cloudwalkers.RootView.setView (new DispatchLogsView ());
 			},
 			
 			performance_gearman : function ()
