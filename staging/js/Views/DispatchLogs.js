@@ -11,8 +11,10 @@ define (
 				// Pageview
 				this.$el.html (Mustache.render (Templates.pageview, { 'title' : this.title }));
 				this.$container = this.$el.find("#container").eq(0);
-	
 				
+				// Loading logs
+				
+				// Scheduling status running
 				
 				
 				// Add recent accounts widget
@@ -24,6 +26,6 @@ define (
 			}
 		});
 		
-		return Dashboard;
+		return DispatchLogs;
 	}
 );

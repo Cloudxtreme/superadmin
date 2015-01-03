@@ -20,7 +20,7 @@ body.dashboard	{ padding-top: 50px; }
 */
 .dashboard .navbar-fixed-top	{ border: 0; }
 .navbar-fixed-top img.cid	{
-	height: 90%; margin-top: -2px;
+	height: 90%; margin-top: -2px; display: inline;
 }
 
 .navbar-fixed-top .profile-avatar	{
