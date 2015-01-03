@@ -10,7 +10,7 @@ require.config({
 		'bootstrap': 'lib/bootstrap/dist/js/bootstrap',
 		'mustache': 'lib/mustache/mustache',
 		'backgrid': 'lib/backgrid/lib/backgrid',
-		'pageable': 'lib/backbone-pageable/lib/backbone-pageable',
+		/*'pageable': 'lib/backbone-pageable/lib/backbone-pageable',*/
 		'backbone.paginator': 'lib/backbone.paginator/lib/backbone.paginator',
 		'paginator': 'lib/backgrid-paginator/backgrid-paginator',
 		'backgrid-object-cell': 'lib/backgrid-object-cell/backgrid-object-cell'
@@ -32,7 +32,7 @@ require.config({
 			exports: 'Backgrid'
 		},
 		'paginator': {
-			deps: ['backgrid', 'pageable'],
+			deps: ['backgrid'/*, 'pageable'*/],
 			exports: 'Paginator'
 		},
 		'backgrid-object-cell': {
