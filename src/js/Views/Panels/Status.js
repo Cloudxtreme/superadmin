@@ -3,14 +3,17 @@ define (
 	function (Panel, Mustache)
 	{
 		var Status = Panel.extend({
-		
-			render: function (bk, data)
+			
+			title: null,
+			
+			render: function ()
 			{	
 				
 				// Template data
-				var params = data? data : {
+				var params = this.params? this.params:
+				{
 					title: this.title,
-					description: this.descrition
+					description: this.description
 				};
 				
 				// Get template
@@ -18,6 +21,12 @@ define (
 				this.$container = this.$el.find(".panel-body").eq(0);
 				
 				return this;
+			},
+			
+			updatecontent : function (params)
+			{
+				this.params = params;
+				this.render ();
 			}
 		});
 		
