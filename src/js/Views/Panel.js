@@ -15,12 +15,18 @@ define (
 				if(options) $.extend(this, options);
 			},
 		
-			render: function ()
+			render: function (options)
 			{	
+				if(options) $.extend(this, options);
+				
 				// Template data
 				var params = {
-					title: this.title
+					title: this.title,
+					body: this.body,
+					hasvaluelist: typeof this.valuelist !== 'undefined',
+					valuelist: this.valuelist
 				};
+				
 				
 				// Get template
 				this.$el.html (Mustache.render (Templates.panel, params));

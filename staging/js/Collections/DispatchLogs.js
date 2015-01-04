@@ -11,7 +11,7 @@ define (
 			url : function(a)
 			{	
 				// API 1.1 /dispatchlogs
-				var url =  Cloudwalkers.config.lapiurl + this.typestring;
+				var url =  Cloudwalkers.config.lapiurl + 'logs/digest';
 			
 				return this.parameters? url + "?" + $.param (this.parameters): url;
 			},

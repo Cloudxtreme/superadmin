@@ -28,6 +28,7 @@ define (
 				this.params = params;
 				this.render ();
 			}
+			
 		});
 		
 		return Status;
