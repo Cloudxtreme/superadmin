@@ -5,6 +5,11 @@
 	</div>
 	{{/title}}
 	<div class="panel-body">
-		{{{body}}}
+		
+		{{#label}}
+			<span class="label label-{{labelstyle}}{{^labelstyle}}default{{/labelstyle}} pull-right">{{label}}</span>
+		{{/label}}
+		
+		{{description}}
 	</div>
 </div>

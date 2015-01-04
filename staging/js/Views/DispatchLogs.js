@@ -1,10 +1,21 @@
 define (
-	['mustache', 'Views/Pageview'],
-	function (Mustache, Pageview)
+	['mustache', 'Views/Pageview', 'Views/Panels/Status', 'Collections/DispatchLogs'],
+	function (Mustache, Pageview, StatusPanel, Collection)
 	{
 		var DispatchLogs = Pageview.extend(
 		{
 			title : "Scheduling Performance",
+			
+			initialize : function (options)
+			{
+				if (options) $.extend(this, options);
+				
+				// Logs collection
+				this.collection = new Collection ();
+				
+				// Listen to model
+				this.listenTo(this.collection, 'seed', this.fill);
+			},
 				
 			render : function ()
 			{
@@ -12,18 +23,21 @@ define (
 				this.$el.html (Mustache.render (Templates.pageview, { 'title' : this.title }));
 				this.$container = this.$el.find("#container").eq(0);
 				
-				// Loading logs
+				// Add loading panel
+				this.status = new StatusPanel({description: "Loading Schedules..."});
 				
-				// Scheduling status running
+				this.appendWidget(this.status, 12);
 				
-				
-				// Add recent accounts widget
-				//var recent = new PlansGrid({editable: true, limit: 20, title: false});
-				
-				//this.appendWidget(recent, 12);
+				this.collection.fetch ();
 				
 				return this;
+			},
+			
+			fill : function ()
+			{
+				this.status.render (null, {description: "Schedules status", label: "Running", labelstyle: "success"});
 			}
+			
 		});
 		
 		return DispatchLogs;
