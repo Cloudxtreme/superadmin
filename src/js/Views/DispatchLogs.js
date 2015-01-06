@@ -53,6 +53,10 @@ define (
 					
 					return null;
 				
+				for (var n in list)
+					
+					list[n].description += "<br><small><i>" + list[n].text + "</i></small>";
+				
 				// Add list
 				this.list.render ({valuelist: list});
 				
