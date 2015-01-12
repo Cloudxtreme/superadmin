@@ -8,10 +8,15 @@ define (
 			
 			model: DispatchLog,
 			
+			initialize : function (options)
+			{
+				if(options) $.extend(this, options);
+			},
+			
 			url : function(a)
 			{	
 				// API 1.1 /dispatchlogs
-				var url =  Cloudwalkers.config.lapiurl + 'logs/digest';
+				var url =  (this.dev? Cloudwalkers.config.devlapiurl: Cloudwalkers.config.lapiurl) + 'logs/digest';
 			
 				return this.parameters? url + "?" + $.param (this.parameters): url;
 			},

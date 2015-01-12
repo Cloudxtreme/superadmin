@@ -16,6 +16,8 @@ define(
 				'performance/servers' : 'performance_servers',
 				'performance/logs' : 'performance_logs',
 				'performance/gearman' : 'performance_gearman',
+				'performance/logs-dev' : 'performance_logs_dev',
+				'performance/gearman-dev' : 'performance_gearman_dev',
 		
 				'logout' : 'logout',
 				'*path' : 'dashboard'
@@ -107,6 +109,16 @@ define(
 			},
 			
 			performance_gearman : function ()
+			{	
+				window.location = "http://api.cloudwalkers.be/gearman/index.php?action=queue";
+			},
+			
+			performance_logs_dev : function ()
+			{	
+				Cloudwalkers.RootView.setView (new DispatchLogsView ({dev: true}));
+			},
+			
+			performance_gearman_dev : function ()
 			{	
 				window.location = "http://devapi.cloudwalkers.be/gearman/index.php?action=queue";
 			},

@@ -11,7 +11,7 @@ define (
 				if (options) $.extend(this, options);
 				
 				// Logs collection
-				this.collection = new Collection ();
+				this.collection = new Collection ({dev: this.dev});
 				
 				// Listen to model
 				this.listenTo(this.collection, 'sync', this.fill);

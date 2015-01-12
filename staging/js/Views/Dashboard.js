@@ -13,9 +13,9 @@ define (
 				this.$container = this.$el.find("#container").eq(0);
 	
 				// Add recent accounts widget
-				var recent = new AccountsGrid({editable: false, limit: 10, title: 'Recent Accounts'});
+				// var recent = new AccountsGrid({editable: false, limit: 10, title: 'Recent Accounts'});
 				
-				this.appendWidget(recent, 9);
+				// this.appendWidget(recent, 9);
 				
 				// Add status widget
 				var status = new Status3dParty();
