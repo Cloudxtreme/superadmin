@@ -1,6 +1,6 @@
 define(
-	['backbone', 'Session', 'Views/Dashboard', 'Views/Accounts', 'Views/Plans', 'Views/Little', 'Views/DispatchLogs'],
-	function (Backbone, Session, DashboardView, AccountsView, PlansView, LittleView, DispatchLogsView)
+	['backbone', 'Session', 'Views/Dashboard', 'Views/Accounts', 'Views/Plans', 'Views/Little', 'Views/DispatchLogs', 'Views/DispatchCron'],
+	function (Backbone, Session, DashboardView, AccountsView, PlansView, LittleView, DispatchLogsView, DispatchCronView)
 	{
 		var Router = Backbone.Router.extend (
 		{
@@ -15,9 +15,8 @@ define(
 				'performance' : 'performance',
 				'performance/servers' : 'performance_servers',
 				'performance/logs' : 'performance_logs',
-				'performance/gearman' : 'performance_gearman',
 				'performance/logs-dev' : 'performance_logs_dev',
-				'performance/gearman-dev' : 'performance_gearman_dev',
+				'performance/cron' : 'performance_cron',
 		
 				'logout' : 'logout',
 				'*path' : 'dashboard'
@@ -108,19 +107,14 @@ define(
 				Cloudwalkers.RootView.setView (new DispatchLogsView ());
 			},
 			
-			performance_gearman : function ()
-			{	
-				window.location = "http://api.cloudwalkers.be/gearman/index.php?action=queue";
-			},
-			
 			performance_logs_dev : function ()
 			{	
 				Cloudwalkers.RootView.setView (new DispatchLogsView ({dev: true}));
 			},
 			
-			performance_gearman_dev : function ()
+			performance_cron : function ()
 			{	
-				window.location = "http://devapi.cloudwalkers.be/gearman/index.php?action=queue";
+				Cloudwalkers.RootView.setView (new DispatchCronView ());
 			},
 			
 			logout : function ()
