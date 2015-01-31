@@ -15,6 +15,9 @@ define (
 			
 			url : function(a)
 			{	
+				
+				this.parameters = {bearer: Session.authenticationtoken}; 
+				
 				// API 1.1 /dispatchlogs
 				var url =  (this.dev? Cloudwalkers.config.devlapiurl: Cloudwalkers.config.lapiurl) + 'logs/digest';
 			
